@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>53131514713-53u5omjsmhsquuausb2mpg2c0kub850d.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.53131514713-53u5omjsmhsquuausb2mpg2c0kub850d</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD34_AZdZTiB8Zyo9QSMkC2FBg-0tQIlfE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>53131514713</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.weatherAssistant</string>
+	<key>PROJECT_ID</key>
+	<string>weatherapp-journey</string>
+	<key>STORAGE_BUCKET</key>
+	<string>weatherapp-journey.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:53131514713:ios:750246a5f4f5b43c23f248</string>
+</dict>
+</plist>
