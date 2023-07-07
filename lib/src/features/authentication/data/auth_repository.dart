@@ -12,7 +12,7 @@ class AuthRepository {
 
   AppUser? get currentUser {
     final user = FirebaseAuth.instance.currentUser;
-    return user == null ? null : AppUser(uid: user.uid);
+    return user == null ? null : AppUser(uid: user.uid, firebaseAppUser: user);
   }
 
   Future<AppUser?> signInWithEmailAndPassword(

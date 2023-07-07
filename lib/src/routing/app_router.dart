@@ -5,6 +5,7 @@ import 'package:weather_assistant/src/features/authentication/data/auth_reposito
 import 'package:weather_assistant/src/features/authentication/presentation/app_initialization_screen.dart';
 import 'package:weather_assistant/src/features/authentication/presentation/sign_in_screen.dart';
 import 'package:weather_assistant/src/features/authentication/presentation/sign_up_screen.dart';
+import 'package:weather_assistant/src/features/locations/presentation/location_screen.dart';
 import 'package:weather_assistant/src/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:weather_assistant/src/features/weather/presentation/weather_screen.dart';
 import 'package:weather_assistant/src/routing/not_found_screen.dart';
@@ -18,6 +19,7 @@ enum AppRoute {
   signIn,
   signUp,
   weather,
+  locations,
 }
 
 GoRouter goRouter(ProviderRef<GoRouter> ref) {
@@ -65,6 +67,16 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
         path: '/weather',
         name: AppRoute.weather.name,
         builder: (context, state) => const WeatherScreen(),
+      ),
+      GoRoute(
+        path: '/locations',
+        name: AppRoute.locations.name,
+        pageBuilder: (context, state) {
+          return const MaterialPage(
+            fullscreenDialog: true,
+            child: LocationScreen(),
+          );
+        },
       ),
     ],
     errorBuilder: (context, state) => const NotFoundScreen(),

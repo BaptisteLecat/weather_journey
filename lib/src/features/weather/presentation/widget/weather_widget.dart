@@ -17,8 +17,12 @@ class WeatherWidget extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              Image.asset(
-                'assets/illustrations/temp_background$index.png',
+              // Image.asset(
+              //   'assets/illustrations/temp_background$index.png',
+              //   fit: BoxFit.fitHeight,
+              // ),
+              Image.network(
+                'https://cdn.discordapp.com/attachments/1119307426445938769/1126876067722960916/baptistelecat_Prompt_The_sky_above_Nantes_is_kissed_by_the_gold_142f8d73-12c7-44c9-a52d-8728a0ff7642.png',
                 fit: BoxFit.fitHeight,
               ),
               Padding(
