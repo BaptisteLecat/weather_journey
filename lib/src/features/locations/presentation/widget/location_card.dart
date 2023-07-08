@@ -1,13 +1,23 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:weather_assistant/src/features/locations/domain/location.dart';
 
 class LocationCard extends StatelessWidget {
+  final Location location;
   const LocationCard({
     super.key,
+    required this.location,
   });
 
   @override
   Widget build(BuildContext context) {
+    String cityText = location.city!.split(", ").first;
+    if (location.city!.split(", ").length >= 6) {
+      cityText = location.city!.split(", ").reversed.toList()[5];
+    } else if (cityText.length < 3) {
+      cityText = location.city!.split(", ").take(2).join(" ");
+    }
+
     return Container(
       height: 120,
       decoration: BoxDecoration(
@@ -43,14 +53,18 @@ class LocationCard extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("NANTES",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold)),
-                          Text("France",
+                          Text(
+                            cityText,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(location.city!.split(", ").last,
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall!

@@ -4,74 +4,159 @@ import 'package:weather_assistant/src/common_widgets/async_value_widget.dart';
 import 'package:weather_assistant/src/constants/app_sizes.dart';
 import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
 import 'package:weather_assistant/src/features/locations/data/firestore/location_firestore_repository.dart';
+import 'package:weather_assistant/src/features/locations/data/http/nominatim_place_repository.dart';
 import 'package:weather_assistant/src/features/locations/domain/location.dart';
+import 'package:weather_assistant/src/features/locations/domain/place.dart';
 import 'package:weather_assistant/src/features/locations/presentation/widget/location_card.dart';
 import 'package:weather_assistant/src/features/locations/presentation/widget/location_header.dart';
+import 'package:weather_assistant/src/features/locations/presentation/widget/place_search_item.dart';
 
-class LocationScreen extends StatelessWidget {
+class LocationScreen extends StatefulWidget {
   const LocationScreen({super.key});
+
+  @override
+  State<LocationScreen> createState() => _LocationScreenState();
+}
+
+class _LocationScreenState extends State<LocationScreen> {
+  final ValueNotifier<bool> _isEditing = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
+  final TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _isEditing.addListener(() {
+      _isSearching.value = !_isEditing.value;
+      if (!_isEditing.value) {
+        searchController.clear();
+      }
+      setState(() {});
+    });
+
+    _isSearching.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _isEditing.dispose();
+    searchController.dispose();
+    _isSearching.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(
     BuildContext context,
   ) {
     return Scaffold(
-      body: ListView(
+      body: Padding(
         padding: const EdgeInsets.only(
           top: 74,
           left: Sizes.p24,
           right: Sizes.p24,
         ),
-        children: [
-          const LocationHeader(),
-          const SizedBox(height: Sizes.p24),
-          Text(
-            "Added Locations",
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
-          const SizedBox(height: Sizes.p16),
-          Consumer(
-            builder: (context, ref, child) {
-              final authRepository = ref.watch(authRepositoryProvider);
-              final products = ref.watch(locationsListFutureProvider(
-                  authRepository.currentUser!.uid!));
-              return AsyncValueWidget<List<Location>>(
-                value: products,
-                data: (products) => ListView.builder(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: products.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(vertical: Sizes.p8),
-                      child: LocationCard(),
+        child: Column(
+          children: [
+            LocationHeader(
+              isWriting: _isEditing,
+              isSearching: _isSearching,
+              searchController: searchController,
+            ),
+            const SizedBox(height: Sizes.p16),
+            Visibility(
+                visible: _isEditing.value,
+                child: Expanded(
+                  child: Consumer(builder: (context, ref, child) {
+                    if (!_isSearching.value) {
+                      return const SizedBox();
+                    }
+                    print(searchController.text);
+                    final places = ref
+                        .watch(placesListFutureProvider(searchController.text));
+
+                    return AsyncValueWidget<List<Place>>(
+                      value: places,
+                      data: (places) => ListView.builder(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: places.length,
+                        itemBuilder: (context, index) {
+                          return PlaceSearchItem(
+                            isEditing: _isEditing,
+                            place: places[index],
+                          );
+                        },
+                      ),
                     );
-                  },
+                  }),
+                )),
+            Visibility(
+              visible: !_isEditing.value,
+              child: Expanded(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    Text(
+                      "Added Locations",
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    const SizedBox(height: Sizes.p16),
+                    Consumer(
+                      builder: (context, ref, child) {
+                        final authRepository =
+                            ref.watch(authRepositoryProvider);
+                        final locations = ref.watch(locationsListFutureProvider(
+                            authRepository.currentUser!.uid!));
+                        return AsyncValueWidget<List<Location>>(
+                          value: locations,
+                          data: (locations) => ListView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: locations.length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                margin: const EdgeInsets.symmetric(
+                                    vertical: Sizes.p8),
+                                child: LocationCard(
+                                  location: locations[index],
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: Sizes.p24),
+                    Text(
+                      "Recommended",
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    const SizedBox(height: Sizes.p16),
+                    ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin:
+                              const EdgeInsets.symmetric(vertical: Sizes.p8),
+                          //child: LocationCard(),
+                        );
+                      },
+                    ),
+                    const SizedBox(width: 20),
+                  ],
                 ),
-              );
-            },
-          ),
-          const SizedBox(height: Sizes.p24),
-          Text(
-            "Recommended",
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
-          const SizedBox(height: Sizes.p16),
-          ListView.builder(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: const EdgeInsets.symmetric(vertical: Sizes.p8),
-                child: LocationCard(),
-              );
-            },
-          ),
-          const SizedBox(width: 20),
-        ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

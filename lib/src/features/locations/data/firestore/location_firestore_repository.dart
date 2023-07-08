@@ -112,6 +112,13 @@ class LocationFirestoreRepository {
     required String docId,
     required Location entity,
   }) async {
+    final id = firestore
+        .collection(ressource)
+        .doc(docId)
+        .collection(subRessource)
+        .doc()
+        .id;
+    entity = entity.copyWith(id: id);
     final reference = firestore
         .collection(ressource)
         .doc(docId)
