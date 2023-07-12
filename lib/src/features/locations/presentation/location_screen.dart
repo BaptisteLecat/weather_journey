@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:weather_assistant/src/common_widgets/async_value_widget.dart';
 import 'package:weather_assistant/src/constants/app_sizes.dart';
 import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
@@ -52,9 +53,44 @@ class _LocationScreenState extends State<LocationScreen> {
     BuildContext context,
   ) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.elliptical(Sizes.p20, Sizes.p24),
+          ),
+        ),
+        leading: Container(
+          margin: const EdgeInsets.only(left: Sizes.p16),
+          child: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              context.pop();
+            },
+          ),
+        ),
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: Sizes.p16),
+            child: IconButton(
+              icon: const Icon(
+                Icons.settings,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                context.go('/');
+              },
+            ),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.only(
-          top: 74,
+          top: Sizes.p24,
           left: Sizes.p24,
           right: Sizes.p24,
         ),

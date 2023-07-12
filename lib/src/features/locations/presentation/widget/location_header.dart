@@ -30,74 +30,76 @@ class _LocationHeaderState extends State<LocationHeader> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        GestureDetector(
-          onTap: () => context.pop(),
-          child: Container(
-              height: 48,
-              width: 48,
+    return SizedBox(
+      height: 54,
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              height: 54,
               decoration: BoxDecoration(
                 color: Colors.grey.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Center(
-                child: Icon(
-                  Icons.arrow_back,
-                  color: Colors.black.withOpacity(0.7),
-                ),
-              )),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Container(
-            height: 48,
-            decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.3),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.search,
-                    color: Colors.black.withOpacity(0.7),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: TextFormField(
-                      controller: widget.searchController,
-                      onChanged: (value) {
-                        if (value.isNotEmpty) {
-                          widget.isWriting.value = true;
-                        } else {
-                          widget.isWriting.value = false;
-                        }
-                      },
-                      keyboardType: TextInputType.text,
-                      onFieldSubmitted: (value) {
-                        if (value.isNotEmpty) {
-                          widget.isSearching.value = true;
-                        } else {
-                          widget.isSearching.value = false;
-                        }
-                      },
-                      textAlignVertical: TextAlignVertical.center,
-                      decoration: InputDecoration(
-                        hintText: "Search",
-                        contentPadding: EdgeInsets.zero,
-                        isCollapsed: true,
-                        border: InputBorder.none,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.search,
+                      color: Colors.black.withOpacity(0.7),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: TextFormField(
+                        controller: widget.searchController,
+                        onChanged: (value) {
+                          if (value.isNotEmpty) {
+                            widget.isWriting.value = true;
+                          } else {
+                            widget.isWriting.value = false;
+                          }
+                        },
+                        keyboardType: TextInputType.text,
+                        onFieldSubmitted: (value) {
+                          if (value.isNotEmpty) {
+                            widget.isSearching.value = true;
+                          } else {
+                            widget.isSearching.value = false;
+                          }
+                        },
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(
+                          hintText: "Search",
+                          contentPadding: EdgeInsets.zero,
+                          isCollapsed: true,
+                          border: InputBorder.none,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
+          const SizedBox(width: 8),
+          GestureDetector(
+            onTap: () {},
+            child: Container(
+              height: 54,
+              width: 54,
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Icon(
+                Icons.location_on,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
