@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:weather_assistant/src/features/weather/domain/generated_image/generated_image.dart';
 
 part 'generation.g.dart';
 part 'generation.freezed.dart';
@@ -11,6 +12,7 @@ class Generation with _$Generation {
       {String? id,
       required int progress,
       required String prompt,
+      GeneratedImage? generatedImage,
       String? locationId}) = _Generation;
 
   factory Generation.fromJson(Map<String, Object?> json) =>

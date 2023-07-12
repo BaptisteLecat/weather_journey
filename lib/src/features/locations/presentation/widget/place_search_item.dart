@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weather_assistant/src/constants/app_sizes.dart';
 import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
 import 'package:weather_assistant/src/features/locations/data/firestore/location_firestore_repository.dart';
-import 'package:weather_assistant/src/features/locations/domain/location.dart';
-import 'package:weather_assistant/src/features/locations/domain/place.dart';
+import 'package:weather_assistant/src/features/locations/domain/location/location.dart';
+import 'package:weather_assistant/src/features/locations/domain/place/place.dart';
 
 class PlaceSearchItem extends ConsumerWidget {
   const PlaceSearchItem({

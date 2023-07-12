@@ -5,8 +5,8 @@ import 'package:weather_assistant/src/constants/app_sizes.dart';
 import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
 import 'package:weather_assistant/src/features/locations/data/firestore/location_firestore_repository.dart';
 import 'package:weather_assistant/src/features/locations/data/http/nominatim_place_repository.dart';
-import 'package:weather_assistant/src/features/locations/domain/location.dart';
-import 'package:weather_assistant/src/features/locations/domain/place.dart';
+import 'package:weather_assistant/src/features/locations/domain/location/location.dart';
+import 'package:weather_assistant/src/features/locations/domain/place/place.dart';
 import 'package:weather_assistant/src/features/locations/presentation/widget/location_card.dart';
 import 'package:weather_assistant/src/features/locations/presentation/widget/location_header.dart';
 import 'package:weather_assistant/src/features/locations/presentation/widget/place_search_item.dart';
@@ -73,7 +73,6 @@ class _LocationScreenState extends State<LocationScreen> {
                     if (!_isSearching.value) {
                       return const SizedBox();
                     }
-                    print(searchController.text);
                     final places = ref
                         .watch(placesListFutureProvider(searchController.text));
 

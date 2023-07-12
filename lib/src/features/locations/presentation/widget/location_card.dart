@@ -1,6 +1,13 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:weather_assistant/src/features/locations/domain/location.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:weather_assistant/src/common_widgets/async_value_widget.dart';
+import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
+import 'package:weather_assistant/src/features/locations/data/firestore/location_firestore_repository.dart';
+import 'package:weather_assistant/src/features/locations/domain/location/location.dart';
+import 'package:weather_assistant/src/features/locations/domain/parameters/useruid_location_parameter.dart';
+import 'package:weather_assistant/src/features/weather/data/firestore/generation_firestore_repository.dart';
+import 'package:weather_assistant/src/features/weather/domain/generation/generation.dart';
 
 class LocationCard extends StatelessWidget {
   final Location location;
@@ -26,21 +33,46 @@ class LocationCard extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Row(
-              children: [
-                Expanded(
-                  child: ImageFiltered(
-                    imageFilter: ImageFilter.blur(sigmaX: 2.5, sigmaY: 2.5),
-                    child: Image.network(
-                      'https://cdn.discordapp.com/attachments/1119307426445938769/1126876067722960916/baptistelecat_Prompt_The_sky_above_Nantes_is_kissed_by_the_gold_142f8d73-12c7-44c9-a52d-8728a0ff7642.png',
-                      fit: BoxFit.fitWidth,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          Consumer(
+            builder: (context, ref, child) {
+              final authRepository = ref.watch(authRepositoryProvider);
+              final lastGenerationStreamProvider = ref.watch(
+                  lastGenerationForLocationStreamProvider(
+                      UseruidLocationParameter(
+                          uid: authRepository.currentUser!.uid!,
+                          location: location)));
+              return AsyncValueWidget<Generation?>(
+                  value: lastGenerationStreamProvider,
+                  data: (lastGeneration) => lastGeneration == null
+                      ? Center(
+                          child: Text(
+                            "Il n'y a pas encore de génération pour cette ville",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: ImageFiltered(
+                                  imageFilter: ImageFilter.blur(
+                                      sigmaX: 2.5, sigmaY: 2.5),
+                                  child: Image.network(
+                                    lastGeneration.generatedImage!.uri,
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ));
+            },
           ),
           Padding(
               padding: const EdgeInsets.all(20),

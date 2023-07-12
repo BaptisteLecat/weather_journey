@@ -2,9 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:weather_assistant/src/common_widgets/glass_morphism.dart';
+import 'package:weather_assistant/src/common_widgets/async_value_widget.dart';
 import 'package:weather_assistant/src/constants/app_sizes.dart';
 import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
+import 'package:weather_assistant/src/features/locations/data/firestore/location_firestore_repository.dart';
+import 'package:weather_assistant/src/features/locations/domain/location/location.dart';
 import 'package:weather_assistant/src/features/weather/data/firestore/generation_firestore_repository.dart';
 import 'package:weather_assistant/src/features/weather/data/generation_repository.dart';
 import 'package:weather_assistant/src/features/weather/presentation/widget/weather_widget.dart';
@@ -23,7 +25,6 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
       PageController(initialPage: widget.index);
 
   late int _currentPage = widget.index;
-
   @override
   void initState() {
     super.initState();
@@ -53,39 +54,26 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
     final authRepository = ref.watch(authRepositoryProvider);
     final generationFirestoreRepository =
         ref.watch(generationFirestoreRepositoryProvider);
+    final locations = ref
+        .watch(locationsListFutureProvider(authRepository.currentUser!.uid!));
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final idToken =
-              await authRepository.currentUser!.firebaseAppUser!.getIdToken();
-          final generation = await generationRepository
-              .getGeneration("Bearer $idToken", "api_key")
-              .catchError((Object e) {
-            final res = (e as DioError).error;
-            debugPrint(e.toString());
-          });
-          generationFirestoreRepository
-              .fetchOneWithStream(
-                  docId: authRepository.currentUser!.uid!,
-                  subDocId: generation.id!)
-              .listen((event) {
-            print(event.progress.toString());
-          });
-          print(generation);
-        },
-      ),
       body: Stack(
         children: [
-          PageView(
-            controller: _pageController,
-            children: [
-              WeatherWidget(
-                index: 0,
-              ),
-              WeatherWidget(
-                index: 1,
-              ),
-            ],
+          Consumer(
+            builder: (context, ref, child) {
+              return AsyncValueWidget<List<Location>>(
+                value: locations,
+                data: (locations) => PageView(
+                  controller: _pageController,
+                  children: locations.map((e) {
+                    return WeatherWidget(
+                      index: locations.indexOf(e),
+                      location: e,
+                    );
+                  }).toList(),
+                ),
+              );
+            },
           ),
           Padding(
             padding: const EdgeInsets.only(
@@ -110,32 +98,23 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
                         )),
                   ]),
                 ),
-                Container(
+                SizedBox(
                     height: 10,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          height: 10,
-                          width: 10,
-                          decoration: BoxDecoration(
-                            color: _currentPage == 0
-                                ? Colors.white
-                                : Colors.white.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(5),
+                        for (int i = 0; i < locations.asData!.value.length; i++)
+                          Container(
+                            height: 10,
+                            width: 10,
+                            margin: const EdgeInsets.symmetric(horizontal: 3),
+                            decoration: BoxDecoration(
+                              color: _currentPage == i
+                                  ? Colors.white
+                                  : Colors.white.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 8),
-                        Container(
-                          height: 10,
-                          width: 10,
-                          decoration: BoxDecoration(
-                            color: _currentPage == 1
-                                ? Colors.white
-                                : Colors.white.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
                       ],
                     )),
               ],

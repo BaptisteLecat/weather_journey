@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather_assistant/src/features/weather/domain/generation.dart';
+import 'package:weather_assistant/src/features/weather/domain/generation/generation.dart';
 
 class GenerationFirestoreRepository {
   static String ressource = 'users';
@@ -58,6 +58,23 @@ class GenerationFirestoreRepository {
   }
 
   Stream<List<Generation>> fetchAllForOneOrderByCreatedAtWithStream({
+    required String docId,
+  }) {
+    final reference = firestore
+        .collection(ressource)
+        .doc(docId)
+        .collection(subRessource)
+        .orderBy('createdAt', descending: true)
+        .withConverter<Generation>(
+          fromFirestore: (snapshot, _) => Generation.fromJson(snapshot.data()!),
+          toFirestore: (Generation, _) => Generation.toJson(),
+        );
+    return reference.snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) => doc.data()).toList();
+    });
+  }
+
+  Stream<List<Generation>> fetchAllForOneByLocationOrderByCreatedAtWithStream({
     required String docId,
   }) {
     final reference = firestore
@@ -179,4 +196,11 @@ class GenerationFirestoreRepository {
 final generationFirestoreRepositoryProvider =
     Provider<GenerationFirestoreRepository>((ref) {
   return GenerationFirestoreRepository();
+});
+
+final generationListStreamProvider =
+    StreamProvider.autoDispose.family<List<Generation>, String>((ref, docId) {
+  final generationRepository = ref.watch(generationFirestoreRepositoryProvider);
+  return generationRepository.fetchAllForOneOrderByCreatedAtWithStream(
+      docId: docId);
 });

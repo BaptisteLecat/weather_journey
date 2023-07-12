@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather_assistant/src/features/locations/domain/location.dart';
-import 'package:weather_assistant/src/features/weather/domain/generation.dart';
+import 'package:weather_assistant/src/features/locations/domain/location/location.dart';
+import 'package:weather_assistant/src/features/locations/domain/parameters/useruid_location_parameter.dart';
+import 'package:weather_assistant/src/features/weather/domain/generation/generation.dart';
 
 class LocationFirestoreRepository {
   static String ressource = 'users';
@@ -182,6 +183,30 @@ class LocationFirestoreRepository {
         );
     return reference;
   }
+
+  Stream<Generation?> fetchLastGenerationForLocationWithStream({
+    required String docId,
+    required String subDocId,
+  }) {
+    final reference = firestore
+        .collection(ressource)
+        .doc(docId)
+        .collection(subRessource)
+        .doc(subDocId)
+        .collection('generations')
+        .orderBy('createdAt', descending: true)
+        .limit(1)
+        .withConverter<Generation?>(
+          fromFirestore: (snapshot, _) => Generation.fromJson(snapshot.data()!),
+          toFirestore: (Generation, _) => Generation!.toJson(),
+        );
+    return reference.snapshots().map((snapshot) {
+      if (snapshot.docs.isEmpty) {
+        return null;
+      }
+      return snapshot.docs.map((doc) => doc.data()).first;
+    });
+  }
 }
 
 final locationFirestoreRepositoryProvider =
@@ -193,4 +218,14 @@ final locationsListFutureProvider =
     FutureProvider.autoDispose.family<List<Location>, String>((ref, docId) {
   final locationRepository = ref.watch(locationFirestoreRepositoryProvider);
   return locationRepository.fetchAllForOne(docId: docId);
+});
+
+final lastGenerationForLocationStreamProvider = StreamProvider.autoDispose
+    .family<Generation?, UseruidLocationParameter>(
+        (ref, userUidLocationParameter) {
+  final locationRepository = ref.watch(locationFirestoreRepositoryProvider);
+  return locationRepository.fetchLastGenerationForLocationWithStream(
+    docId: userUidLocationParameter.uid,
+    subDocId: userUidLocationParameter.location.id!,
+  );
 });

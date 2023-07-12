@@ -21,9 +21,10 @@ class _GenerationRepository implements GenerationRepository {
   String? baseUrl;
 
   @override
-  Future<Generation> getGeneration(
+  Future<Generation> createGeneration(
     String token,
     String apiKey,
+    String locationId,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -35,13 +36,13 @@ class _GenerationRepository implements GenerationRepository {
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<Generation>(Options(
-      method: 'GET',
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/generations',
+              '/locations/${locationId}/generations',
               queryParameters: queryParameters,
               data: _data,
             )

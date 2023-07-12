@@ -23,10 +23,8 @@ class _LocationHeaderState extends State<LocationHeader> {
   @override
   void dispose() {
     widget.isWriting.value = false;
-    widget.isWriting.dispose();
 
     widget.isSearching.value = false;
-    widget.isSearching.dispose();
     super.dispose();
   }
 
