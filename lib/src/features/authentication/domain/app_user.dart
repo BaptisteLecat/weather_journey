@@ -7,7 +7,7 @@ part 'app_user.g.dart';
 class AppUser with _$AppUser {
   const AppUser._();
   const factory AppUser({
-    String? uid,
+    String? id,
     String? lastname,
     String? firstname,
     String? email,
@@ -15,6 +15,7 @@ class AppUser with _$AppUser {
     bool? created,
     String? token,
     @JsonKey(ignore: true) firebase.User? firebaseAppUser,
+    List<String>? styles,
   }) = _AppUser;
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>

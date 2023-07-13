@@ -21,10 +21,10 @@ class WeatherWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authRepository = ref.watch(authRepositoryProvider);
+    final userStream = ref.watch(appUserStreamProvider);
     final lastGeneration = ref.watch(lastGenerationForLocationStreamProvider(
         UseruidLocationParameter(
-            uid: authRepository.currentUser!.uid!, location: location)));
+            uid: userStream.value!.id!, location: location)));
     String cityText = location.city!.split(", ").first;
     if (location.city!.split(", ").length >= 6) {
       cityText = location.city!.split(", ").reversed.toList()[5];
@@ -65,8 +65,7 @@ class WeatherWidget extends ConsumerWidget {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        var token = await authRepository
-                            .currentUser!.firebaseAppUser!
+                        var token = await userStream.value!.firebaseAppUser!
                             .getIdToken();
                         ref.read(generationRepositoryProvider).createGeneration(
                             "Bearer $token", "api_key", location.id!);

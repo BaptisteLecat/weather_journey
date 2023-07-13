@@ -35,12 +35,11 @@ class LocationCard extends StatelessWidget {
         children: [
           Consumer(
             builder: (context, ref, child) {
-              final authRepository = ref.watch(authRepositoryProvider);
+              final userStream = ref.watch(appUserStreamProvider);
               final lastGenerationStreamProvider = ref.watch(
                   lastGenerationForLocationStreamProvider(
                       UseruidLocationParameter(
-                          uid: authRepository.currentUser!.uid!,
-                          location: location)));
+                          uid: userStream.value!.id!, location: location)));
               return AsyncValueWidget<Generation?>(
                   value: lastGenerationStreamProvider,
                   data: (lastGeneration) => lastGeneration == null

@@ -20,7 +20,7 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AppUser {
-  String? get uid => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   String? get lastname => throw _privateConstructorUsedError;
   String? get firstname => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
@@ -29,6 +29,7 @@ mixin _$AppUser {
   String? get token => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   firebase.User? get firebaseAppUser => throw _privateConstructorUsedError;
+  List<String>? get styles => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,14 +42,15 @@ abstract class $AppUserCopyWith<$Res> {
       _$AppUserCopyWithImpl<$Res, AppUser>;
   @useResult
   $Res call(
-      {String? uid,
+      {String? id,
       String? lastname,
       String? firstname,
       String? email,
       String? avatar,
       bool? created,
       String? token,
-      @JsonKey(ignore: true) firebase.User? firebaseAppUser});
+      @JsonKey(ignore: true) firebase.User? firebaseAppUser,
+      List<String>? styles});
 }
 
 /// @nodoc
@@ -64,7 +66,7 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uid = freezed,
+    Object? id = freezed,
     Object? lastname = freezed,
     Object? firstname = freezed,
     Object? email = freezed,
@@ -72,11 +74,12 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? created = freezed,
     Object? token = freezed,
     Object? firebaseAppUser = freezed,
+    Object? styles = freezed,
   }) {
     return _then(_value.copyWith(
-      uid: freezed == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String?,
       lastname: freezed == lastname
           ? _value.lastname
@@ -106,6 +109,10 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.firebaseAppUser
           : firebaseAppUser // ignore: cast_nullable_to_non_nullable
               as firebase.User?,
+      styles: freezed == styles
+          ? _value.styles
+          : styles // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -118,14 +125,15 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? uid,
+      {String? id,
       String? lastname,
       String? firstname,
       String? email,
       String? avatar,
       bool? created,
       String? token,
-      @JsonKey(ignore: true) firebase.User? firebaseAppUser});
+      @JsonKey(ignore: true) firebase.User? firebaseAppUser,
+      List<String>? styles});
 }
 
 /// @nodoc
@@ -138,7 +146,7 @@ class __$$_AppUserCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uid = freezed,
+    Object? id = freezed,
     Object? lastname = freezed,
     Object? firstname = freezed,
     Object? email = freezed,
@@ -146,11 +154,12 @@ class __$$_AppUserCopyWithImpl<$Res>
     Object? created = freezed,
     Object? token = freezed,
     Object? firebaseAppUser = freezed,
+    Object? styles = freezed,
   }) {
     return _then(_$_AppUser(
-      uid: freezed == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String?,
       lastname: freezed == lastname
           ? _value.lastname
@@ -180,6 +189,10 @@ class __$$_AppUserCopyWithImpl<$Res>
           ? _value.firebaseAppUser
           : firebaseAppUser // ignore: cast_nullable_to_non_nullable
               as firebase.User?,
+      styles: freezed == styles
+          ? _value._styles
+          : styles // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -188,21 +201,23 @@ class __$$_AppUserCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AppUser extends _AppUser {
   const _$_AppUser(
-      {this.uid,
+      {this.id,
       this.lastname,
       this.firstname,
       this.email,
       this.avatar,
       this.created,
       this.token,
-      @JsonKey(ignore: true) this.firebaseAppUser})
-      : super._();
+      @JsonKey(ignore: true) this.firebaseAppUser,
+      final List<String>? styles})
+      : _styles = styles,
+        super._();
 
   factory _$_AppUser.fromJson(Map<String, dynamic> json) =>
       _$$_AppUserFromJson(json);
 
   @override
-  final String? uid;
+  final String? id;
   @override
   final String? lastname;
   @override
@@ -218,10 +233,19 @@ class _$_AppUser extends _AppUser {
   @override
   @JsonKey(ignore: true)
   final firebase.User? firebaseAppUser;
+  final List<String>? _styles;
+  @override
+  List<String>? get styles {
+    final value = _styles;
+    if (value == null) return null;
+    if (_styles is EqualUnmodifiableListView) return _styles;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'AppUser(uid: $uid, lastname: $lastname, firstname: $firstname, email: $email, avatar: $avatar, created: $created, token: $token, firebaseAppUser: $firebaseAppUser)';
+    return 'AppUser(id: $id, lastname: $lastname, firstname: $firstname, email: $email, avatar: $avatar, created: $created, token: $token, firebaseAppUser: $firebaseAppUser, styles: $styles)';
   }
 
   @override
@@ -229,7 +253,7 @@ class _$_AppUser extends _AppUser {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AppUser &&
-            (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.lastname, lastname) ||
                 other.lastname == lastname) &&
             (identical(other.firstname, firstname) ||
@@ -239,13 +263,23 @@ class _$_AppUser extends _AppUser {
             (identical(other.created, created) || other.created == created) &&
             (identical(other.token, token) || other.token == token) &&
             (identical(other.firebaseAppUser, firebaseAppUser) ||
-                other.firebaseAppUser == firebaseAppUser));
+                other.firebaseAppUser == firebaseAppUser) &&
+            const DeepCollectionEquality().equals(other._styles, _styles));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, uid, lastname, firstname, email,
-      avatar, created, token, firebaseAppUser);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      lastname,
+      firstname,
+      email,
+      avatar,
+      created,
+      token,
+      firebaseAppUser,
+      const DeepCollectionEquality().hash(_styles));
 
   @JsonKey(ignore: true)
   @override
@@ -263,21 +297,21 @@ class _$_AppUser extends _AppUser {
 
 abstract class _AppUser extends AppUser {
   const factory _AppUser(
-          {final String? uid,
-          final String? lastname,
-          final String? firstname,
-          final String? email,
-          final String? avatar,
-          final bool? created,
-          final String? token,
-          @JsonKey(ignore: true) final firebase.User? firebaseAppUser}) =
-      _$_AppUser;
+      {final String? id,
+      final String? lastname,
+      final String? firstname,
+      final String? email,
+      final String? avatar,
+      final bool? created,
+      final String? token,
+      @JsonKey(ignore: true) final firebase.User? firebaseAppUser,
+      final List<String>? styles}) = _$_AppUser;
   const _AppUser._() : super._();
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$_AppUser.fromJson;
 
   @override
-  String? get uid;
+  String? get id;
   @override
   String? get lastname;
   @override
@@ -293,6 +327,8 @@ abstract class _AppUser extends AppUser {
   @override
   @JsonKey(ignore: true)
   firebase.User? get firebaseAppUser;
+  @override
+  List<String>? get styles;
   @override
   @JsonKey(ignore: true)
   _$$_AppUserCopyWith<_$_AppUser> get copyWith =>

@@ -11,6 +11,7 @@ import 'package:weather_assistant/src/features/locations/domain/place/place.dart
 import 'package:weather_assistant/src/features/locations/presentation/widget/location_card.dart';
 import 'package:weather_assistant/src/features/locations/presentation/widget/location_header.dart';
 import 'package:weather_assistant/src/features/locations/presentation/widget/place_search_item.dart';
+import 'package:weather_assistant/src/routing/app_router.dart';
 
 class LocationScreen extends StatefulWidget {
   const LocationScreen({super.key});
@@ -53,139 +54,171 @@ class _LocationScreenState extends State<LocationScreen> {
     BuildContext context,
   ) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.elliptical(Sizes.p20, Sizes.p24),
-          ),
-        ),
-        leading: Container(
-          margin: const EdgeInsets.only(left: Sizes.p16),
-          child: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              context.pop();
-            },
-          ),
-        ),
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: Sizes.p16),
-            child: IconButton(
-              icon: const Icon(
-                Icons.settings,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                context.go('/');
-              },
-            ),
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(
-          top: Sizes.p24,
-          left: Sizes.p24,
-          right: Sizes.p24,
-        ),
+      body: SafeArea(
         child: Column(
           children: [
-            LocationHeader(
-              isWriting: _isEditing,
-              isSearching: _isSearching,
-              searchController: searchController,
-            ),
-            const SizedBox(height: Sizes.p16),
-            Visibility(
-                visible: _isEditing.value,
-                child: Expanded(
-                  child: Consumer(builder: (context, ref, child) {
-                    if (!_isSearching.value) {
-                      return const SizedBox();
-                    }
-                    final places = ref
-                        .watch(placesListFutureProvider(searchController.text));
-
-                    return AsyncValueWidget<List<Place>>(
-                      value: places,
-                      data: (places) => ListView.builder(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: places.length,
-                        itemBuilder: (context, index) {
-                          return PlaceSearchItem(
-                            isEditing: _isEditing,
-                            place: places[index],
-                          );
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Sizes.p24),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Locations",
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                          )),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          context.pushNamed(AppRoute.settings.name);
                         },
-                      ),
-                    );
-                  }),
-                )),
-            Visibility(
-              visible: !_isEditing.value,
-              child: Expanded(
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    Text(
-                      "Added Locations",
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    const SizedBox(height: Sizes.p16),
-                    Consumer(
-                      builder: (context, ref, child) {
-                        final authRepository =
-                            ref.watch(authRepositoryProvider);
-                        final locations = ref.watch(locationsListFutureProvider(
-                            authRepository.currentUser!.uid!));
-                        return AsyncValueWidget<List<Location>>(
-                          value: locations,
-                          data: (locations) => ListView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: locations.length,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                margin: const EdgeInsets.symmetric(
-                                    vertical: Sizes.p8),
-                                child: LocationCard(
-                                  location: locations[index],
-                                ),
-                              );
-                            },
+                        child: Container(
+                          height: 38,
+                          width: 38,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: Sizes.p24),
-                    Text(
-                      "Recommended",
-                      style: Theme.of(context).textTheme.titleSmall,
+                          child: const Center(
+                            child: Icon(
+                              Icons.settings,
+                              color: Colors.black,
+                              size: 22,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: Sizes.p16),
+                      GestureDetector(
+                        onTap: () {
+                          context.pop();
+                        },
+                        child: Container(
+                          height: 38,
+                          width: 38,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              Icons.close,
+                              color: Colors.black,
+                              size: 22,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  top: Sizes.p24,
+                  left: Sizes.p24,
+                  right: Sizes.p24,
+                ),
+                child: Column(
+                  children: [
+                    LocationHeader(
+                      isWriting: _isEditing,
+                      isSearching: _isSearching,
+                      searchController: searchController,
                     ),
                     const SizedBox(height: Sizes.p16),
-                    ListView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin:
-                              const EdgeInsets.symmetric(vertical: Sizes.p8),
-                          //child: LocationCard(),
-                        );
-                      },
+                    Visibility(
+                        visible: _isEditing.value,
+                        child: Expanded(
+                          child: Consumer(builder: (context, ref, child) {
+                            if (!_isSearching.value) {
+                              return const SizedBox();
+                            }
+                            final places = ref.watch(placesListFutureProvider(
+                                searchController.text));
+
+                            return AsyncValueWidget<List<Place>>(
+                              value: places,
+                              data: (places) => ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: places.length,
+                                itemBuilder: (context, index) {
+                                  return PlaceSearchItem(
+                                    isEditing: _isEditing,
+                                    place: places[index],
+                                  );
+                                },
+                              ),
+                            );
+                          }),
+                        )),
+                    Visibility(
+                      visible: !_isEditing.value,
+                      child: Expanded(
+                        child: ListView(
+                          padding: EdgeInsets.zero,
+                          children: [
+                            Text(
+                              "Added Locations",
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
+                            const SizedBox(height: Sizes.p16),
+                            Consumer(
+                              builder: (context, ref, child) {
+                                final userStream =
+                                    ref.watch(appUserStreamProvider);
+                                final locations = ref.watch(
+                                    locationsListFutureProvider(
+                                        userStream.value!.id!));
+                                return AsyncValueWidget<List<Location>>(
+                                  value: locations,
+                                  data: (locations) => ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: locations.length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: Sizes.p8),
+                                        child: LocationCard(
+                                          location: locations[index],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                            const SizedBox(height: Sizes.p24),
+                            Text(
+                              "Recommended",
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
+                            const SizedBox(height: Sizes.p16),
+                            ListView.builder(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: 10,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      vertical: Sizes.p8),
+                                  //child: LocationCard(),
+                                );
+                              },
+                            ),
+                            const SizedBox(width: 20),
+                          ],
+                        ),
+                      ),
                     ),
-                    const SizedBox(width: 20),
                   ],
                 ),
               ),

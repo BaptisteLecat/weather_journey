@@ -6,6 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:weather_assistant/firebase_options.dart';
 import 'package:weather_assistant/src/app.dart';
+import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
+import 'package:weather_assistant/src/features/authentication/data/firestore/user_firestore_repository.dart';
 import 'package:weather_assistant/src/localization/string_hardcoded.dart';
 
 Future<void> main() async {
@@ -19,8 +21,10 @@ Future<void> main() async {
   // * https://docs.flutter.dev/testing/errors
   //registerErrorHandlers();
   // * Entry point of the app
+  final container = ProviderContainer();
+
   runApp(
-    const ProviderScope(child: MyApp()),
+    UncontrolledProviderScope(container: container, child: const MyApp()),
   );
 }
 

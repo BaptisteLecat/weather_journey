@@ -51,11 +51,12 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
   @override
   Widget build(BuildContext context) {
     final generationRepository = ref.watch(generationRepositoryProvider);
-    final authRepository = ref.watch(authRepositoryProvider);
+    final userStream = ref.watch(appUserStreamProvider);
     final generationFirestoreRepository =
         ref.watch(generationFirestoreRepositoryProvider);
-    final locations = ref
-        .watch(locationsListFutureProvider(authRepository.currentUser!.uid!));
+    print(userStream.value!.toJson());
+    final locations =
+        ref.watch(locationsListFutureProvider(userStream.value!.id!));
     return Scaffold(
       body: Stack(
         children: [
@@ -98,25 +99,46 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
                         )),
                   ]),
                 ),
-                SizedBox(
-                    height: 10,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        for (int i = 0; i < locations.asData!.value.length; i++)
-                          Container(
-                            height: 10,
-                            width: 10,
-                            margin: const EdgeInsets.symmetric(horizontal: 3),
-                            decoration: BoxDecoration(
-                              color: _currentPage == i
-                                  ? Colors.white
-                                  : Colors.white.withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(5),
+                (locations.asData != null)
+                    ? SizedBox(
+                        height: 10,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            for (int i = 0;
+                                i < locations.asData!.value.length;
+                                i++)
+                              Container(
+                                height: 10,
+                                width: 10,
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 3),
+                                decoration: BoxDecoration(
+                                  color: _currentPage == i
+                                      ? Colors.white
+                                      : Colors.white.withOpacity(0.5),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                              ),
+                          ],
+                        ))
+                    : SizedBox(
+                        height: 10,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 10,
+                              width: 10,
+                              margin: const EdgeInsets.symmetric(horizontal: 3),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.5),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
                             ),
-                          ),
-                      ],
-                    )),
+                          ],
+                        ),
+                      ),
               ],
             ),
           )

@@ -7,6 +7,7 @@ import 'package:weather_assistant/src/features/authentication/presentation/sign_
 import 'package:weather_assistant/src/features/authentication/presentation/sign_up_screen.dart';
 import 'package:weather_assistant/src/features/locations/presentation/location_screen.dart';
 import 'package:weather_assistant/src/features/onboarding/presentation/onboarding_screen.dart';
+import 'package:weather_assistant/src/features/settings/presentation/setting_screen.dart';
 import 'package:weather_assistant/src/features/weather/presentation/weather_screen.dart';
 import 'package:weather_assistant/src/routing/not_found_screen.dart';
 
@@ -20,16 +21,17 @@ enum AppRoute {
   signUp,
   weather,
   locations,
+  settings,
 }
 
 GoRouter goRouter(ProviderRef<GoRouter> ref) {
-  final authRepository = ref.watch(authRepositoryProvider);
+  final userStream = ref.watch(appUserStreamProvider);
   return GoRouter(
     initialLocation: '/weather',
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
     redirect: (context, state) {
-      final isLoggedIn = authRepository.currentUser != null;
+      final isLoggedIn = userStream.value != null;
       if (isLoggedIn) {
         if (state.location == '/signIn') {
           return '/';
@@ -67,6 +69,16 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
         path: '/weather',
         name: AppRoute.weather.name,
         builder: (context, state) => const WeatherScreen(),
+      ),
+      GoRoute(
+        path: '/settings',
+        name: AppRoute.settings.name,
+        pageBuilder: (context, state) {
+          return const MaterialPage(
+            fullscreenDialog: true,
+            child: SettingScreen(),
+          );
+        },
       ),
       GoRoute(
         path: '/locations',

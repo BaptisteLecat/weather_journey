@@ -22,11 +22,11 @@ class PlaceSearchItem extends ConsumerWidget {
       onTap: () async {
         final locationRepository =
             ref.watch(locationFirestoreRepositoryProvider);
-        final authRepository = ref.watch(authRepositoryProvider);
+        final userStream = ref.watch(appUserStreamProvider);
         final Location location = Location(
             latitude: place.lat, longitude: place.lon, city: place.displayName);
         await locationRepository.insert(
-            docId: authRepository.currentUser!.uid!, entity: location);
+            docId: userStream.value!.id!, entity: location);
         _isEditing.value = false;
       },
       child: Container(

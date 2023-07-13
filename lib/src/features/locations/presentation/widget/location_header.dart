@@ -38,17 +38,14 @@ class _LocationHeaderState extends State<LocationHeader> {
             child: Container(
               height: 54,
               decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.3),
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 14),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.search,
-                      color: Colors.black.withOpacity(0.7),
-                    ),
+                    Icon(Icons.search_rounded, color: Colors.black, size: 28),
                     const SizedBox(width: 8),
                     Expanded(
                       child: TextFormField(
@@ -82,19 +79,19 @@ class _LocationHeaderState extends State<LocationHeader> {
               ),
             ),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 16),
           GestureDetector(
             onTap: () {},
             child: Container(
               height: 54,
               width: 54,
               decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.3),
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.location_on,
-                color: Colors.black,
+                color: Theme.of(context).primaryColor,
               ),
             ),
           ),
