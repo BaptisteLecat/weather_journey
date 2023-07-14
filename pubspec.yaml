@@ -22,6 +22,7 @@ dependencies:
   dio: ^5.2.1+1
   retrofit: ^4.0.1
   cloud_firestore: ^4.8.2
+  weather: ^3.1.0
 
 dev_dependencies:
   flutter_test:

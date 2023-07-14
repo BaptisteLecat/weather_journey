@@ -8,6 +8,7 @@ import 'package:weather_assistant/src/features/locations/data/firestore/location
 import 'package:weather_assistant/src/features/locations/domain/location/location.dart';
 import 'package:weather_assistant/src/features/locations/domain/parameters/useruid_location_parameter.dart';
 import 'package:weather_assistant/src/features/weather/data/generation_repository.dart';
+import 'package:weather_assistant/src/features/weather/data/services/weather_service.dart';
 import 'package:weather_assistant/src/features/weather/domain/generation/generation.dart';
 
 class WeatherWidget extends ConsumerWidget {
@@ -33,6 +34,8 @@ class WeatherWidget extends ConsumerWidget {
     }
     return Consumer(
       builder: (context, ref, child) {
+        final weatherForLocation =
+            ref.watch(weatherByLocationProvider(location));
         return AsyncValueWidget<Generation?>(
           value: lastGeneration,
           data: (generation) => generation == null
@@ -123,7 +126,14 @@ class WeatherWidget extends ConsumerWidget {
                                                   color: Colors.white,
                                                 ),
                                           ),
-                                          Text("32°",
+                                          Text(
+                                              weatherForLocation
+                                                          .value
+                                                          ?.temperature
+                                                          ?.celsius !=
+                                                      null
+                                                  ? "${weatherForLocation.value!.temperature!.celsius!.round()}°"
+                                                  : "",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headlineLarge!
