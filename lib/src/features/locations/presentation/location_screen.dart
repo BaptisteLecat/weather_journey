@@ -172,7 +172,7 @@ class _LocationScreenState extends State<LocationScreen> {
                                 final userStream =
                                     ref.watch(appUserStreamProvider);
                                 final locations = ref.watch(
-                                    locationsListFutureProvider(
+                                    locationsListStreamProvider(
                                         userStream.value!.id!));
                                 return AsyncValueWidget<List<Location>>(
                                   value: locations,

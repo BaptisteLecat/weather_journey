@@ -16,6 +16,9 @@ _$_AppUser _$$_AppUserFromJson(Map<String, dynamic> json) => _$_AppUser(
       token: json['token'] as String?,
       styles:
           (json['styles'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      frequencies: (json['frequencies'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$$_AppUserToJson(_$_AppUser instance) =>
@@ -28,4 +31,5 @@ Map<String, dynamic> _$$_AppUserToJson(_$_AppUser instance) =>
       'created': instance.created,
       'token': instance.token,
       'styles': instance.styles,
+      'frequencies': instance.frequencies,
     };

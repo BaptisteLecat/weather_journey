@@ -30,6 +30,7 @@ mixin _$AppUser {
   @JsonKey(ignore: true)
   firebase.User? get firebaseAppUser => throw _privateConstructorUsedError;
   List<String>? get styles => throw _privateConstructorUsedError;
+  List<String>? get frequencies => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -50,7 +51,8 @@ abstract class $AppUserCopyWith<$Res> {
       bool? created,
       String? token,
       @JsonKey(ignore: true) firebase.User? firebaseAppUser,
-      List<String>? styles});
+      List<String>? styles,
+      List<String>? frequencies});
 }
 
 /// @nodoc
@@ -75,6 +77,7 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? token = freezed,
     Object? firebaseAppUser = freezed,
     Object? styles = freezed,
+    Object? frequencies = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -113,6 +116,10 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.styles
           : styles // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      frequencies: freezed == frequencies
+          ? _value.frequencies
+          : frequencies // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -133,7 +140,8 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       bool? created,
       String? token,
       @JsonKey(ignore: true) firebase.User? firebaseAppUser,
-      List<String>? styles});
+      List<String>? styles,
+      List<String>? frequencies});
 }
 
 /// @nodoc
@@ -155,6 +163,7 @@ class __$$_AppUserCopyWithImpl<$Res>
     Object? token = freezed,
     Object? firebaseAppUser = freezed,
     Object? styles = freezed,
+    Object? frequencies = freezed,
   }) {
     return _then(_$_AppUser(
       id: freezed == id
@@ -193,6 +202,10 @@ class __$$_AppUserCopyWithImpl<$Res>
           ? _value._styles
           : styles // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      frequencies: freezed == frequencies
+          ? _value._frequencies
+          : frequencies // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -209,8 +222,10 @@ class _$_AppUser extends _AppUser {
       this.created,
       this.token,
       @JsonKey(ignore: true) this.firebaseAppUser,
-      final List<String>? styles})
+      final List<String>? styles,
+      final List<String>? frequencies})
       : _styles = styles,
+        _frequencies = frequencies,
         super._();
 
   factory _$_AppUser.fromJson(Map<String, dynamic> json) =>
@@ -243,9 +258,19 @@ class _$_AppUser extends _AppUser {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<String>? _frequencies;
+  @override
+  List<String>? get frequencies {
+    final value = _frequencies;
+    if (value == null) return null;
+    if (_frequencies is EqualUnmodifiableListView) return _frequencies;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'AppUser(id: $id, lastname: $lastname, firstname: $firstname, email: $email, avatar: $avatar, created: $created, token: $token, firebaseAppUser: $firebaseAppUser, styles: $styles)';
+    return 'AppUser(id: $id, lastname: $lastname, firstname: $firstname, email: $email, avatar: $avatar, created: $created, token: $token, firebaseAppUser: $firebaseAppUser, styles: $styles, frequencies: $frequencies)';
   }
 
   @override
@@ -264,7 +289,9 @@ class _$_AppUser extends _AppUser {
             (identical(other.token, token) || other.token == token) &&
             (identical(other.firebaseAppUser, firebaseAppUser) ||
                 other.firebaseAppUser == firebaseAppUser) &&
-            const DeepCollectionEquality().equals(other._styles, _styles));
+            const DeepCollectionEquality().equals(other._styles, _styles) &&
+            const DeepCollectionEquality()
+                .equals(other._frequencies, _frequencies));
   }
 
   @JsonKey(ignore: true)
@@ -279,7 +306,8 @@ class _$_AppUser extends _AppUser {
       created,
       token,
       firebaseAppUser,
-      const DeepCollectionEquality().hash(_styles));
+      const DeepCollectionEquality().hash(_styles),
+      const DeepCollectionEquality().hash(_frequencies));
 
   @JsonKey(ignore: true)
   @override
@@ -305,7 +333,8 @@ abstract class _AppUser extends AppUser {
       final bool? created,
       final String? token,
       @JsonKey(ignore: true) final firebase.User? firebaseAppUser,
-      final List<String>? styles}) = _$_AppUser;
+      final List<String>? styles,
+      final List<String>? frequencies}) = _$_AppUser;
   const _AppUser._() : super._();
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$_AppUser.fromJson;
@@ -329,6 +358,8 @@ abstract class _AppUser extends AppUser {
   firebase.User? get firebaseAppUser;
   @override
   List<String>? get styles;
+  @override
+  List<String>? get frequencies;
   @override
   @JsonKey(ignore: true)
   _$$_AppUserCopyWith<_$_AppUser> get copyWith =>

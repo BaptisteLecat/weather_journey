@@ -24,21 +24,25 @@ class _GenerationRepository implements GenerationRepository {
   Future<Generation> createGeneration(
     String token,
     String apiKey,
+    String contentType,
     String locationId,
+    GenerationDto generation,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{
       r'Authorization': token,
       r'api-key': apiKey,
+      r'Content-Type': contentType,
     };
     _headers.removeWhere((k, v) => v == null);
-    final Map<String, dynamic>? _data = null;
+    final _data = generation;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<Generation>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
+      contentType: contentType,
     )
             .compose(
               _dio.options,

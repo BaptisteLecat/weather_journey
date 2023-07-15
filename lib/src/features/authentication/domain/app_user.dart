@@ -16,6 +16,7 @@ class AppUser with _$AppUser {
     String? token,
     @JsonKey(ignore: true) firebase.User? firebaseAppUser,
     List<String>? styles,
+    List<String>? frequencies,
   }) = _AppUser;
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>

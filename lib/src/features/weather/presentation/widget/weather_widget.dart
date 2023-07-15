@@ -7,6 +7,7 @@ import 'package:weather_assistant/src/features/authentication/data/auth_reposito
 import 'package:weather_assistant/src/features/locations/data/firestore/location_firestore_repository.dart';
 import 'package:weather_assistant/src/features/locations/domain/location/location.dart';
 import 'package:weather_assistant/src/features/locations/domain/parameters/useruid_location_parameter.dart';
+import 'package:weather_assistant/src/features/weather/data/dto/generation_dto.dart';
 import 'package:weather_assistant/src/features/weather/data/generation_repository.dart';
 import 'package:weather_assistant/src/features/weather/data/services/weather_service.dart';
 import 'package:weather_assistant/src/features/weather/domain/generation/generation.dart';
@@ -70,8 +71,19 @@ class WeatherWidget extends ConsumerWidget {
                       onTap: () async {
                         var token = await userStream.value!.firebaseAppUser!
                             .getIdToken();
+
+                        var generationDto = GenerationDto(
+                            // has to be like that : "late night (23pm)"
+                            time: DateTime.now().hour.toString() +
+                                "h" +
+                                DateTime.now().minute.toString(),
+                            weather: weatherForLocation.value?.toString());
                         ref.read(generationRepositoryProvider).createGeneration(
-                            "Bearer $token", "api_key", location.id!);
+                            "Bearer $token",
+                            "api_key",
+                            "application/json",
+                            location.id!,
+                            generationDto);
                       },
                       child: Container(
                         height: 40,
@@ -83,160 +95,184 @@ class WeatherWidget extends ConsumerWidget {
                         child: Center(
                           child: Text(
                             "Make one",
-                            style: Theme.of(context).textTheme.bodyMedium,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  color: Colors.white,
+                                ),
                           ),
                         ),
                       ),
                     )
                   ],
                 )
-              : Column(
-                  children: [
-                    Expanded(
-                      child: Stack(
-                        fit: StackFit.expand,
+              : (generation.progress != 100)
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.network(
-                            generation.generatedImage!.uri,
-                            fit: BoxFit.fitHeight,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: Sizes.p24,
-                                right: Sizes.p24,
-                                bottom: Sizes.p48),
-                            child: Column(
-                              children: [
-                                Expanded(
-                                    child: Container(
-                                  child: Row(
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            cityText,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headlineSmall!
-                                                .copyWith(
-                                                  color: Colors.white,
-                                                ),
-                                          ),
-                                          Text(
-                                              weatherForLocation
-                                                          .value
-                                                          ?.temperature
-                                                          ?.celsius !=
-                                                      null
-                                                  ? "${weatherForLocation.value!.temperature!.celsius!.round()}°"
-                                                  : "",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headlineLarge!
-                                                  .copyWith(
-                                                    color: Colors.white,
-                                                    fontSize: 128,
-                                                  )),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                )),
-                                const Spacer(),
-                                GlassMorphism(
-                                  child: Center(
-                                      child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "64%",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge!
-                                                .copyWith(
-                                                  color: Colors.white,
-                                                ),
-                                          ),
-                                          Text("Humidity",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleSmall!
-                                                  .copyWith(
-                                                    color: Colors.white,
-                                                  )),
-                                        ],
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "5km/h",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge!
-                                                .copyWith(
-                                                  color: Colors.white,
-                                                ),
-                                          ),
-                                          Text("Wind",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleSmall!
-                                                  .copyWith(
-                                                    color: Colors.white,
-                                                  )),
-                                        ],
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "Low",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge!
-                                                .copyWith(
-                                                  color: Colors.white,
-                                                ),
-                                          ),
-                                          Text("UV Index",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleSmall!
-                                                  .copyWith(
-                                                    color: Colors.white,
-                                                  )),
-                                        ],
-                                      ),
-                                    ],
-                                  )),
-                                  height: 80,
-                                  borderRadius:
-                                      BorderRadius.circular(Sizes.p16),
-                                  border: Border.all(
-                                    color: Colors.white,
-                                    width: 2,
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
+                          CircularProgressIndicator(),
+                          Text(
+                              "Generating your landscape : ${generation.progress}%"),
                         ],
                       ),
+                    )
+                  : Column(
+                      children: [
+                        Expanded(
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              Image.network(
+                                generation.generatedImage!.uri,
+                                fit: BoxFit.fitHeight,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: Sizes.p24,
+                                    right: Sizes.p24,
+                                    bottom: Sizes.p48),
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                        child: Container(
+                                      child: Row(
+                                        children: [
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                cityText,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headlineSmall!
+                                                    .copyWith(
+                                                      color: Colors.white,
+                                                    ),
+                                              ),
+                                              Text(
+                                                  weatherForLocation
+                                                              .value
+                                                              ?.temperature
+                                                              ?.celsius !=
+                                                          null
+                                                      ? "${weatherForLocation.value!.temperature!.celsius!.round()}°"
+                                                      : "",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineLarge!
+                                                      .copyWith(
+                                                        color: Colors.white,
+                                                        fontSize: 128,
+                                                      )),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    )),
+                                    const Spacer(),
+                                    GlassMorphism(
+                                      child: Center(
+                                          child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                weatherForLocation
+                                                            .value?.humidity !=
+                                                        null
+                                                    ? "${weatherForLocation.value!.humidity!.round()}%"
+                                                    : "",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleLarge!
+                                                    .copyWith(
+                                                      color: Colors.white,
+                                                    ),
+                                              ),
+                                              Text("Humidity",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                        color: Colors.white,
+                                                      )),
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                weatherForLocation
+                                                            .value?.windSpeed !=
+                                                        null
+                                                    ? "${weatherForLocation.value!.windSpeed!.round()}km/h"
+                                                    : "",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleLarge!
+                                                    .copyWith(
+                                                      color: Colors.white,
+                                                    ),
+                                              ),
+                                              Text("Wind",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                        color: Colors.white,
+                                                      )),
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "Low",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleLarge!
+                                                    .copyWith(
+                                                      color: Colors.white,
+                                                    ),
+                                              ),
+                                              Text("UV Index",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                        color: Colors.white,
+                                                      )),
+                                            ],
+                                          ),
+                                        ],
+                                      )),
+                                      height: 80,
+                                      borderRadius:
+                                          BorderRadius.circular(Sizes.p16),
+                                      border: Border.all(
+                                        color: Colors.white,
+                                        width: 2,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
         );
       },
     );

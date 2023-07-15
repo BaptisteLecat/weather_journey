@@ -45,17 +45,7 @@ class LocationCard extends StatelessWidget {
               data: (lastGeneration) => Stack(
                     children: [
                       lastGeneration == null
-                          ? Center(
-                              child: Text(
-                                "Il n'y a pas encore de génération pour cette ville",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium!
-                                    .copyWith(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                              ),
-                            )
+                          ? Container()
                           : ClipRRect(
                               borderRadius: BorderRadius.circular(12),
                               child: Row(

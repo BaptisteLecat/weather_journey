@@ -50,13 +50,9 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final generationRepository = ref.watch(generationRepositoryProvider);
     final userStream = ref.watch(appUserStreamProvider);
-    final generationFirestoreRepository =
-        ref.watch(generationFirestoreRepositoryProvider);
-    print(userStream.value!.toJson());
     final locations =
-        ref.watch(locationsListFutureProvider(userStream.value!.id!));
+        ref.watch(locationsListStreamProvider(userStream.value!.id!));
     return Scaffold(
       body: Stack(
         children: [
@@ -64,15 +60,20 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
             builder: (context, ref, child) {
               return AsyncValueWidget<List<Location>>(
                 value: locations,
-                data: (locations) => PageView(
-                  controller: _pageController,
-                  children: locations.map((e) {
-                    return WeatherWidget(
-                      index: locations.indexOf(e),
-                      location: e,
-                    );
-                  }).toList(),
-                ),
+                data: (locations) => locations.length == 0
+                    ? Center(
+                        child: Text(
+                            "You don't have any locations, add one to start watching the weather"),
+                      )
+                    : PageView(
+                        controller: _pageController,
+                        children: locations.map((e) {
+                          return WeatherWidget(
+                            index: locations.indexOf(e),
+                            location: e,
+                          );
+                        }).toList(),
+                      ),
               );
             },
           ),
