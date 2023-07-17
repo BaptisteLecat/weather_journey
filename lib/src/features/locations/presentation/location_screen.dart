@@ -170,7 +170,7 @@ class _LocationScreenState extends State<LocationScreen> {
                             Consumer(
                               builder: (context, ref, child) {
                                 final userStream =
-                                    ref.watch(appUserStreamProvider);
+                                    ref.read(appUserStreamProvider);
                                 final locations = ref.watch(
                                     locationsListStreamProvider(
                                         userStream.value!.id!));

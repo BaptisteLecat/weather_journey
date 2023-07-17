@@ -36,7 +36,7 @@ class LocationCard extends StatelessWidget {
         builder: (context, ref, child) {
           final weatherForLocation =
               ref.watch(weatherByLocationProvider(location));
-          final userStream = ref.watch(appUserStreamProvider);
+          final userStream = ref.read(appUserStreamProvider);
           final lastGenerationStreamProvider = ref.watch(
               lastGenerationForLocationStreamProvider(UseruidLocationParameter(
                   uid: userStream.value!.id!, location: location)));

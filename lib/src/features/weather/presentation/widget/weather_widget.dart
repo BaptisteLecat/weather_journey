@@ -23,7 +23,7 @@ class WeatherWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userStream = ref.watch(appUserStreamProvider);
+    final userStream = ref.read(appUserStreamProvider);
     final lastGeneration = ref.watch(lastGenerationForLocationStreamProvider(
         UseruidLocationParameter(
             uid: userStream.value!.id!, location: location)));

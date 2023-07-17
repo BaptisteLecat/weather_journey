@@ -50,7 +50,7 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userStream = ref.watch(appUserStreamProvider);
+    final userStream = ref.read(appUserStreamProvider);
     final locations =
         ref.watch(locationsListStreamProvider(userStream.value!.id!));
     return Scaffold(

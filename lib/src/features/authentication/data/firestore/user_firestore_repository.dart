@@ -39,6 +39,22 @@ class AppUserFirestoreRepository {
       return snapshot.data()!;
     });
   }
+
+  Future<void> updateStyle({
+    required String docId,
+    required List<String> stylesId,
+  }) async {
+    final reference = firestore.collection(ressource).doc(docId);
+    await reference.update({'styles': stylesId});
+  }
+
+  Future<void> updateFrequency({
+    required String docId,
+    required List<String> frequenciesId,
+  }) async {
+    final reference = firestore.collection(ressource).doc(docId);
+    await reference.update({'frequencies': frequenciesId});
+  }
 }
 
 final userFirestoreRepositoryProvider =

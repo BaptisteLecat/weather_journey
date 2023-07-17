@@ -25,13 +25,14 @@ enum AppRoute {
 }
 
 GoRouter goRouter(ProviderRef<GoRouter> ref) {
-  final userStream = ref.watch(appUserStreamProvider);
+  final userStream = ref.watch(
+      appUserStreamProvider.select((value) => value.value?.firebaseAppUser));
   return GoRouter(
     initialLocation: '/weather',
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
     redirect: (context, state) {
-      final isLoggedIn = userStream.value != null;
+      final isLoggedIn = userStream != null;
       if (isLoggedIn) {
         if (state.location == '/signIn') {
           return '/';
