@@ -4,12 +4,11 @@ import 'package:dio/dio.dart';
 import 'package:weather_assistant/src/features/weather/data/dto/generation_dto.dart';
 import 'package:weather_assistant/src/features/weather/domain/generation/generation.dart';
 
-part 'generation_repository.g.dart';
+part 'location_repository.g.dart';
 
 @RestApi(baseUrl: "https://weather-generation-api-iqazqscksq-ew.a.run.app/v1")
-abstract class GenerationRepository {
-  factory GenerationRepository(Dio dio, {String baseUrl}) =
-      _GenerationRepository;
+abstract class LocationRepository {
+  factory LocationRepository(Dio dio, {String baseUrl}) = _LocationRepository;
 
   @POST("/locations/{locationId}/generations")
   Future<Generation> createGeneration(
@@ -21,6 +20,6 @@ abstract class GenerationRepository {
   );
 }
 
-final generationRepositoryProvider = Provider<GenerationRepository>((ref) {
-  return GenerationRepository(Dio());
+final locationRepositoryProvider = Provider<LocationRepository>((ref) {
+  return LocationRepository(Dio());
 });

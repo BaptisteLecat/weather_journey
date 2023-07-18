@@ -7,10 +7,11 @@ import 'package:weather_assistant/src/features/authentication/data/auth_reposito
 import 'package:weather_assistant/src/features/locations/data/firestore/location_firestore_repository.dart';
 import 'package:weather_assistant/src/features/locations/domain/location/location.dart';
 import 'package:weather_assistant/src/features/locations/domain/parameters/useruid_location_parameter.dart';
-import 'package:weather_assistant/src/features/weather/data/dto/generation_dto.dart';
-import 'package:weather_assistant/src/features/weather/data/generation_repository.dart';
+import 'package:weather_assistant/src/features/locations/presentation/controller/location_controller.dart';
 import 'package:weather_assistant/src/features/weather/data/services/weather_service.dart';
 import 'package:weather_assistant/src/features/weather/domain/generation/generation.dart';
+import 'package:weather_pack/weather_pack.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 class WeatherWidget extends ConsumerWidget {
   final int index;
@@ -23,6 +24,7 @@ class WeatherWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var timeForLocation = tz.TZDateTime.now(tz.local);
     final userStream = ref.read(appUserStreamProvider);
     final lastGeneration = ref.watch(lastGenerationForLocationStreamProvider(
         UseruidLocationParameter(
@@ -37,6 +39,12 @@ class WeatherWidget extends ConsumerWidget {
       builder: (context, ref, child) {
         final weatherForLocation =
             ref.watch(weatherByLocationProvider(location));
+        if (weatherForLocation.value != null &&
+            weatherForLocation.value!.timezone != null) {
+          String timezoneString = weatherForLocation.value!.timezone!;
+          var timezone = tz.getLocation(timezoneString);
+          timeForLocation = tz.TZDateTime.now(timezone);
+        }
         return AsyncValueWidget<Generation?>(
           value: lastGeneration,
           data: (generation) => generation == null
@@ -68,22 +76,11 @@ class WeatherWidget extends ConsumerWidget {
                       height: Sizes.p16,
                     ),
                     GestureDetector(
-                      onTap: () async {
-                        var token = await userStream.value!.firebaseAppUser!
-                            .getIdToken();
-
-                        var generationDto = GenerationDto(
-                            // has to be like that : "late night (23pm)"
-                            time: DateTime.now().hour.toString() +
-                                "h" +
-                                DateTime.now().minute.toString(),
-                            weather: weatherForLocation.value?.toString());
-                        ref.read(generationRepositoryProvider).createGeneration(
-                            "Bearer $token",
-                            "api_key",
-                            "application/json",
-                            location.id!,
-                            generationDto);
+                      onTap: () {
+                        ref.read(locationControllerProvider.notifier).generate(
+                              locationId: location.id!,
+                              weather: weatherForLocation.value!,
+                            );
                       },
                       child: Container(
                         height: 40,
@@ -104,7 +101,7 @@ class WeatherWidget extends ConsumerWidget {
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 )
               : (generation.progress != 100)
@@ -146,6 +143,17 @@ class WeatherWidget extends ConsumerWidget {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
+                                                "${timeForLocation.hour}:${timeForLocation.minute}",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleLarge!
+                                                    .copyWith(
+                                                        color: Colors.white),
+                                              ),
+                                              const SizedBox(
+                                                height: Sizes.p4,
+                                              ),
+                                              Text(
                                                 cityText,
                                                 style: Theme.of(context)
                                                     .textTheme
@@ -155,12 +163,10 @@ class WeatherWidget extends ConsumerWidget {
                                                     ),
                                               ),
                                               Text(
-                                                  weatherForLocation
-                                                              .value
-                                                              ?.temperature
-                                                              ?.celsius !=
+                                                  weatherForLocation.value
+                                                              ?.current?.temp !=
                                                           null
-                                                      ? "${weatherForLocation.value!.temperature!.celsius!.round()}°"
+                                                      ? "${Temp.celsius.valueToString(weatherForLocation.value!.current!.temp!)}°"
                                                       : "",
                                                   style: Theme.of(context)
                                                       .textTheme
@@ -187,9 +193,11 @@ class WeatherWidget extends ConsumerWidget {
                                             children: [
                                               Text(
                                                 weatherForLocation
-                                                            .value?.humidity !=
+                                                            .value
+                                                            ?.current
+                                                            ?.humidity !=
                                                         null
-                                                    ? "${weatherForLocation.value!.humidity!.round()}%"
+                                                    ? "${weatherForLocation.value!.current!.humidity!.round()}%"
                                                     : "",
                                                 style: Theme.of(context)
                                                     .textTheme
@@ -213,9 +221,11 @@ class WeatherWidget extends ConsumerWidget {
                                             children: [
                                               Text(
                                                 weatherForLocation
-                                                            .value?.windSpeed !=
+                                                            .value
+                                                            ?.current
+                                                            ?.windSpeed !=
                                                         null
-                                                    ? "${weatherForLocation.value!.windSpeed!.round()}km/h"
+                                                    ? "${weatherForLocation.value!.current!.windSpeed!.round()}km/h"
                                                     : "",
                                                 style: Theme.of(context)
                                                     .textTheme
@@ -238,7 +248,11 @@ class WeatherWidget extends ConsumerWidget {
                                                 MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                "Low",
+                                                weatherForLocation.value
+                                                            ?.current?.uvi !=
+                                                        null
+                                                    ? "${weatherForLocation.value!.current!.uvi!.round()} UV"
+                                                    : "",
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleLarge!

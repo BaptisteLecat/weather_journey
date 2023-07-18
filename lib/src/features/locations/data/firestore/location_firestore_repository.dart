@@ -207,6 +207,18 @@ class LocationFirestoreRepository {
       return snapshot.docs.map((doc) => doc.data()).first;
     });
   }
+
+  Future<void> deleteLocation({
+    required String docId,
+    required String subDocId,
+  }) async {
+    await firestore
+        .collection(ressource)
+        .doc(docId)
+        .collection(subRessource)
+        .doc(subDocId)
+        .delete();
+  }
 }
 
 final locationFirestoreRepositoryProvider =

@@ -1,20 +1,21 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather/weather.dart';
+import 'package:weather_pack/weather_pack.dart' as wp;
 import 'package:weather_assistant/src/features/locations/domain/location/location.dart';
 
 class WeatherService {
-  final WeatherFactory _weatherFactory;
+  final wp.WeatherService _weatherFactory;
 
-  WeatherService({required String apiKey})
-      : _weatherFactory = WeatherFactory(apiKey);
+  WeatherService({required String apiKey, String language = "fr"})
+      : _weatherFactory =
+            wp.WeatherService(apiKey, language: wp.WeatherLanguage.french);
 
-  Future<Weather> getWeather({
+  Future<wp.WeatherOneCall> getWeatherOneCall({
     required double latitude,
     required double longitude,
   }) async {
-    return await _weatherFactory.currentWeatherByLocation(
-      latitude,
-      longitude,
+    return await _weatherFactory.oneCallWeatherByLocation(
+      latitude: latitude,
+      longitude: longitude,
     );
   }
 }
@@ -24,9 +25,9 @@ final weatherServiceProvider = Provider<WeatherService>((ref) {
 });
 
 final weatherByLocationProvider =
-    FutureProvider.family<Weather, Location>((ref, location) async {
+    FutureProvider.family<wp.WeatherOneCall, Location>((ref, location) async {
   final service = ref.watch(weatherServiceProvider);
-  return await service.getWeather(
+  return await service.getWeatherOneCall(
     latitude: location.latitude,
     longitude: location.longitude,
   );

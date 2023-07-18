@@ -17,30 +17,6 @@ class SettingFrequenciesWidget extends ConsumerWidget {
     final userStateStream = ref.watch(appUserStreamProvider);
     final user = userStateStream.value;
     final frequencies = ref.watch(frequenciesListFutureProvider);
-    ref.listen<AsyncValue>(
-      settingControllerProvider,
-      (_, state) {
-        if (state is AsyncError) {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: const Text("Error"),
-                  content: Text(state.error.toString()),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        context.pop();
-                      },
-                      child: const Text("OK"),
-                    )
-                  ],
-                );
-              });
-        }
-      },
-    );
-    final state = ref.watch(settingControllerProvider);
     return AsyncValueWidget(
         value: frequencies,
         data: (frequencies) => ListView.builder(

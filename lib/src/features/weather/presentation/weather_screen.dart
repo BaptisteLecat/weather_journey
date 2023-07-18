@@ -8,7 +8,7 @@ import 'package:weather_assistant/src/features/authentication/data/auth_reposito
 import 'package:weather_assistant/src/features/locations/data/firestore/location_firestore_repository.dart';
 import 'package:weather_assistant/src/features/locations/domain/location/location.dart';
 import 'package:weather_assistant/src/features/weather/data/firestore/generation_firestore_repository.dart';
-import 'package:weather_assistant/src/features/weather/data/generation_repository.dart';
+import 'package:weather_assistant/src/features/locations/data/http/location_repository.dart';
 import 'package:weather_assistant/src/features/weather/presentation/widget/weather_widget.dart';
 import 'package:weather_assistant/src/routing/app_router.dart';
 

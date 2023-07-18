@@ -9,12 +9,14 @@ import 'package:weather_assistant/src/app.dart';
 import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
 import 'package:weather_assistant/src/features/authentication/data/firestore/user_firestore_repository.dart';
 import 'package:weather_assistant/src/localization/string_hardcoded.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  tz.initializeTimeZones();
   // turn off the # in the URLs on the web
   usePathUrlStrategy();
   // * Register error handlers. For more info, see:
