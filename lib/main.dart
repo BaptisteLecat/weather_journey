@@ -8,6 +8,7 @@ import 'package:weather_assistant/firebase_options.dart';
 import 'package:weather_assistant/src/app.dart';
 import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
 import 'package:weather_assistant/src/features/authentication/data/firestore/user_firestore_repository.dart';
+import 'package:weather_assistant/src/features/authentication/domain/services/apple_sign_in_available_service.dart';
 import 'package:weather_assistant/src/localization/string_hardcoded.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
@@ -24,6 +25,8 @@ Future<void> main() async {
   //registerErrorHandlers();
   // * Entry point of the app
   final container = ProviderContainer();
+  // * Register services
+  container.read(appleSignInAvailableServiceProvider);
 
   runApp(
     UncontrolledProviderScope(container: container, child: const MyApp()),
