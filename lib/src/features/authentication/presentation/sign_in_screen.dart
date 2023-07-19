@@ -6,7 +6,6 @@ import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 import 'package:weather_assistant/src/constants/app_sizes.dart';
 import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
 import 'package:weather_assistant/src/features/authentication/domain/services/apple_sign_in_available_service.dart';
-import 'package:weather_assistant/src/features/authentication/domain/services/auth_service.dart';
 import 'package:weather_assistant/src/routing/app_router.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
@@ -23,7 +22,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   Future<void> _signInWithApple(BuildContext context) async {
     try {
-      final authService = ref.read(authServiceProvider);
+      final authService = ref.read(authRepositoryProvider);
       final user = await authService
           .signInWithApple(scopes: [Scope.email, Scope.fullName]);
       print('uid: ${user.uid}');
