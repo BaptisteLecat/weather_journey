@@ -34,11 +34,23 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
     redirect: (context, state) {
       final isLoggedIn = userStream != null;
       if (isLoggedIn) {
-        if (state.location == '/signIn') {
-          return '/';
+        bool isNewUser = false;
+        if (userStream.metadata.creationTime != null &&
+            userStream.metadata.lastSignInTime != null) {
+          if ((userStream.metadata.creationTime!.microsecondsSinceEpoch -
+                  userStream.metadata.lastSignInTime!.microsecondsSinceEpoch) <
+              1000) {
+            isNewUser = true;
+          }
+        }
+        if (isNewUser) {
+          final bool? hasSeenOnboarding =
+              ref.read(appUserStreamProvider).value?.hasSeenOnboarding;
+          if (hasSeenOnboarding == null || !hasSeenOnboarding) {
+            return '/onboarding';
+          }
         }
       } else {
-        print(state.location);
         if (state.location != '/signUp' && state.location != '/signIn') {
           return '/signIn';
         }

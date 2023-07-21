@@ -14,6 +14,7 @@ class AppUser with _$AppUser {
     String? avatar,
     bool? created,
     String? token,
+    bool? hasSeenOnboarding,
     @JsonKey(ignore: true) firebase.User? firebaseAppUser,
     List<String>? styles,
     List<String>? frequencies,

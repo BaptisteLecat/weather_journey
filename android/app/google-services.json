@@ -7,45 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:53131514713:android:aec92bb5e99666e023f248",
+        "mobilesdk_app_id": "1:53131514713:android:f6d00a3c23cae5b823f248",
         "android_client_info": {
-          "package_name": "com.blecat.weatherjourney"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "53131514713-6i44pcvaglffu4i3mlfbqorhfo0q72u8.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDXBkAWKP4b0bndw9igKC8vRhzOoqFw0z8"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "53131514713-6i44pcvaglffu4i3mlfbqorhfo0q72u8.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "53131514713-53u5omjsmhsquuausb2mpg2c0kub850d.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.weatherAssistant"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:53131514713:android:86b62beebfaff8c023f248",
-        "android_client_info": {
-          "package_name": "com.example.weather_assistant"
+          "package_name": "com.baptistelecat.weatherjourney"
         }
       },
       "oauth_client": [

@@ -27,6 +27,7 @@ mixin _$AppUser {
   String? get avatar => throw _privateConstructorUsedError;
   bool? get created => throw _privateConstructorUsedError;
   String? get token => throw _privateConstructorUsedError;
+  bool? get hasSeenOnboarding => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   firebase.User? get firebaseAppUser => throw _privateConstructorUsedError;
   List<String>? get styles => throw _privateConstructorUsedError;
@@ -50,6 +51,7 @@ abstract class $AppUserCopyWith<$Res> {
       String? avatar,
       bool? created,
       String? token,
+      bool? hasSeenOnboarding,
       @JsonKey(ignore: true) firebase.User? firebaseAppUser,
       List<String>? styles,
       List<String>? frequencies});
@@ -75,6 +77,7 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? avatar = freezed,
     Object? created = freezed,
     Object? token = freezed,
+    Object? hasSeenOnboarding = freezed,
     Object? firebaseAppUser = freezed,
     Object? styles = freezed,
     Object? frequencies = freezed,
@@ -108,6 +111,10 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
+      hasSeenOnboarding: freezed == hasSeenOnboarding
+          ? _value.hasSeenOnboarding
+          : hasSeenOnboarding // ignore: cast_nullable_to_non_nullable
+              as bool?,
       firebaseAppUser: freezed == firebaseAppUser
           ? _value.firebaseAppUser
           : firebaseAppUser // ignore: cast_nullable_to_non_nullable
@@ -139,6 +146,7 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       String? avatar,
       bool? created,
       String? token,
+      bool? hasSeenOnboarding,
       @JsonKey(ignore: true) firebase.User? firebaseAppUser,
       List<String>? styles,
       List<String>? frequencies});
@@ -161,6 +169,7 @@ class __$$_AppUserCopyWithImpl<$Res>
     Object? avatar = freezed,
     Object? created = freezed,
     Object? token = freezed,
+    Object? hasSeenOnboarding = freezed,
     Object? firebaseAppUser = freezed,
     Object? styles = freezed,
     Object? frequencies = freezed,
@@ -194,6 +203,10 @@ class __$$_AppUserCopyWithImpl<$Res>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
+      hasSeenOnboarding: freezed == hasSeenOnboarding
+          ? _value.hasSeenOnboarding
+          : hasSeenOnboarding // ignore: cast_nullable_to_non_nullable
+              as bool?,
       firebaseAppUser: freezed == firebaseAppUser
           ? _value.firebaseAppUser
           : firebaseAppUser // ignore: cast_nullable_to_non_nullable
@@ -221,6 +234,7 @@ class _$_AppUser extends _AppUser {
       this.avatar,
       this.created,
       this.token,
+      this.hasSeenOnboarding,
       @JsonKey(ignore: true) this.firebaseAppUser,
       final List<String>? styles,
       final List<String>? frequencies})
@@ -246,6 +260,8 @@ class _$_AppUser extends _AppUser {
   @override
   final String? token;
   @override
+  final bool? hasSeenOnboarding;
+  @override
   @JsonKey(ignore: true)
   final firebase.User? firebaseAppUser;
   final List<String>? _styles;
@@ -270,7 +286,7 @@ class _$_AppUser extends _AppUser {
 
   @override
   String toString() {
-    return 'AppUser(id: $id, lastname: $lastname, firstname: $firstname, email: $email, avatar: $avatar, created: $created, token: $token, firebaseAppUser: $firebaseAppUser, styles: $styles, frequencies: $frequencies)';
+    return 'AppUser(id: $id, lastname: $lastname, firstname: $firstname, email: $email, avatar: $avatar, created: $created, token: $token, hasSeenOnboarding: $hasSeenOnboarding, firebaseAppUser: $firebaseAppUser, styles: $styles, frequencies: $frequencies)';
   }
 
   @override
@@ -287,6 +303,8 @@ class _$_AppUser extends _AppUser {
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
             (identical(other.created, created) || other.created == created) &&
             (identical(other.token, token) || other.token == token) &&
+            (identical(other.hasSeenOnboarding, hasSeenOnboarding) ||
+                other.hasSeenOnboarding == hasSeenOnboarding) &&
             (identical(other.firebaseAppUser, firebaseAppUser) ||
                 other.firebaseAppUser == firebaseAppUser) &&
             const DeepCollectionEquality().equals(other._styles, _styles) &&
@@ -305,6 +323,7 @@ class _$_AppUser extends _AppUser {
       avatar,
       created,
       token,
+      hasSeenOnboarding,
       firebaseAppUser,
       const DeepCollectionEquality().hash(_styles),
       const DeepCollectionEquality().hash(_frequencies));
@@ -332,6 +351,7 @@ abstract class _AppUser extends AppUser {
       final String? avatar,
       final bool? created,
       final String? token,
+      final bool? hasSeenOnboarding,
       @JsonKey(ignore: true) final firebase.User? firebaseAppUser,
       final List<String>? styles,
       final List<String>? frequencies}) = _$_AppUser;
@@ -353,6 +373,8 @@ abstract class _AppUser extends AppUser {
   bool? get created;
   @override
   String? get token;
+  @override
+  bool? get hasSeenOnboarding;
   @override
   @JsonKey(ignore: true)
   firebase.User? get firebaseAppUser;

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart' as apple_sign_in;
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 import 'package:weather_assistant/src/constants/app_sizes.dart';
 import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
+import 'package:weather_assistant/src/features/authentication/data/firestore/user_firestore_repository.dart';
 import 'package:weather_assistant/src/features/authentication/domain/services/apple_sign_in_available_service.dart';
+import 'package:weather_assistant/src/features/authentication/presentation/widget/secondary_button.dart';
 import 'package:weather_assistant/src/routing/app_router.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
@@ -19,18 +22,6 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  Future<void> _signInWithApple(BuildContext context) async {
-    try {
-      final authService = ref.read(authRepositoryProvider);
-      final user = await authService
-          .signInWithApple(scopes: [Scope.email, Scope.fullName]);
-      print('uid: ${user.uid}');
-    } catch (e) {
-      // TODO: Show alert here
-      print(e);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,13 +63,45 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   .value
                   ?.isAvailable ??
               false)
-            apple_sign_in.AppleSignInButton(
-              style: apple_sign_in.ButtonStyle.black,
-              type: apple_sign_in.ButtonType.signIn,
-              onPressed: () async {
-                await _signInWithApple(context);
-              },
-            ),
+            SecondaryButton(
+                isSubmitable: true,
+                content: Stack(children: [
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: SizedBox(
+                            height: 28,
+                            width: 28,
+                            child: Image.asset("assets/icons/apple.png")),
+                      )),
+                  Center(
+                      child: Text("Connexion avec Apple",
+                          style: Theme.of(context).textTheme.headline6)),
+                ]),
+                onSubmit: () {
+                  authRepository
+                      .signInWithApple(scopes: [Scope.email, Scope.fullName]);
+                }),
+          SecondaryButton(
+              isSubmitable: true,
+              content: Stack(children: [
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: SizedBox(
+                          height: 28,
+                          width: 28,
+                          child: Image.asset("assets/icons/google.png")),
+                    )),
+                Center(
+                    child: Text("Connexion avec Google",
+                        style: Theme.of(context).textTheme.headline6)),
+              ]),
+              onSubmit: () {
+                authRepository.signInWithGoogle();
+              }),
           const SizedBox(height: Sizes.p24),
           GestureDetector(
               onTap: () => context.goNamed(AppRoute.signUp.name),

@@ -5,8 +5,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 import 'package:weather_assistant/src/features/authentication/data/firestore/user_firestore_repository.dart';
 import 'package:weather_assistant/src/features/authentication/domain/app_user.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {
+  static GoogleSignIn googleSignIn = GoogleSignIn();
   Future<AppUser?> signInWithEmailAndPassword(
       {required String email, required String password}) async {
     try {
@@ -78,6 +80,44 @@ class AuthRepository {
       default:
         throw UnimplementedError();
     }
+  }
+
+  Future<User?> signInWithGoogle() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
+
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      try {
+        final UserCredential userCredential =
+            await auth.signInWithCredential(credential);
+
+        user = userCredential.user;
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'account-exists-with-different-credential') {
+          // handle the error here
+          rethrow;
+        } else if (e.code == 'invalid-credential') {
+          // handle the error here
+          rethrow;
+        }
+      } catch (e) {
+        // handle the error here
+        throw Exception(e);
+      }
+    }
+
+    return user;
   }
 
   Future<void> signOut() async {

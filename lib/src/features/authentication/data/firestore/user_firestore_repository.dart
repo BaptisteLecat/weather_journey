@@ -55,6 +55,13 @@ class AppUserFirestoreRepository {
     final reference = firestore.collection(ressource).doc(docId);
     await reference.update({'frequencies': frequenciesId});
   }
+
+  Future<void> updateHasSeenOnboarding({
+    required String docId,
+  }) async {
+    final reference = firestore.collection(ressource).doc(docId);
+    await reference.update({'hasSeenOnboarding': true});
+  }
 }
 
 final userFirestoreRepositoryProvider =

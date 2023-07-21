@@ -27,6 +27,7 @@ Future<void> main() async {
   final container = ProviderContainer();
   // * Register services
   container.read(appleSignInAvailableServiceProvider);
+  //container.read(authRepositoryProvider).signOut();
 
   runApp(
     UncontrolledProviderScope(container: container, child: const MyApp()),
