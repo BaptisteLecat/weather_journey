@@ -79,25 +79,32 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
           ),
           Padding(
             padding: const EdgeInsets.only(
-                bottom: Sizes.p24,
-                top: Sizes.p48,
-                left: Sizes.p24,
-                right: Sizes.p24),
+                bottom: Sizes.p24, top: 64, left: Sizes.p24, right: Sizes.p24),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
                   child:
                       Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    IconButton(
-                        onPressed: () {
-                          context.pushNamed(AppRoute.locations.name);
-                        },
-                        icon: Icon(
+                    GestureDetector(
+                      onTap: () {
+                        context.pushNamed(AppRoute.locations.name);
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Center(
+                            child: Icon(
                           Icons.menu_rounded,
-                          size: 44,
+                          size: 32,
                           color: Colors.black,
                         )),
+                      ),
+                    )
                   ]),
                 ),
                 (locations.asData != null)
