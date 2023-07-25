@@ -11,32 +11,22 @@ class AuthRepository {
   static GoogleSignIn googleSignIn = GoogleSignIn();
   Future<AppUser?> signInWithEmailAndPassword(
       {required String email, required String password}) async {
-    try {
-      final userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-      return AppUser(
-        id: userCredential.user!.uid,
-        email: userCredential.user!.email,
-      );
-    } on FirebaseAuthException catch (e) {
-      print(e.message);
-      return null;
-    }
+    final userCredential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password);
+    return AppUser(
+      id: userCredential.user!.uid,
+      email: userCredential.user!.email,
+    );
   }
 
   Future<AppUser?> signUpWithEmailAndPassword(
       {required String email, required String password}) async {
-    try {
-      final userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
-      return AppUser(
-        id: userCredential.user!.uid,
-        email: userCredential.user!.email,
-      );
-    } on FirebaseAuthException catch (e) {
-      print(e.message);
-      return null;
-    }
+    final userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: password);
+    return AppUser(
+      id: userCredential.user!.uid,
+      email: userCredential.user!.email,
+    );
   }
 
   Future<User> signInWithApple({List<Scope> scopes = const []}) async {

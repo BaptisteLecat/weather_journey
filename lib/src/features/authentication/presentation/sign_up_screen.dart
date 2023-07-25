@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:weather_assistant/src/constants/app_sizes.dart';
-import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
+import 'package:weather_assistant/src/features/authentication/presentation/controller/auth_controller.dart';
 import 'package:weather_assistant/src/routing/app_router.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
@@ -19,8 +19,21 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authRepository = ref.watch(authRepositoryProvider);
+    ref.listen<AsyncValue>(
+      authControllerProvider,
+      (_, state) => state.maybeWhen(
+        error: (error, _) => ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(error.toString()),
+          ),
+        ),
+        orElse: () {},
+      ),
+    );
+    final state = ref.watch(authControllerProvider);
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Padding(
             padding: const EdgeInsets.symmetric(
                 horizontal: Sizes.p24, vertical: Sizes.p48),
@@ -80,9 +93,16 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                               GestureDetector(
                                 onTap: () async {
                                   if (_formKey.currentState!.validate()) {
-                                    authRepository.signUpWithEmailAndPassword(
-                                        email: _emailController.text,
-                                        password: _passwordController.text);
+                                    FocusScopeNode currentFocus =
+                                        FocusScope.of(context);
+                                    if (!currentFocus.hasPrimaryFocus) {
+                                      currentFocus.unfocus();
+                                    }
+                                    ref
+                                        .read(authControllerProvider.notifier)
+                                        .signUpWithEmail(
+                                            email: _emailController.text,
+                                            password: _passwordController.text);
                                   }
                                 },
                                 child: Container(
@@ -94,12 +114,14 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                         borderRadius:
                                             BorderRadius.circular(14)),
                                     child: Center(
-                                        child: Text("Create account",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge!
-                                                .copyWith(
-                                                    color: Colors.white)))),
+                                        child: (!state.isLoading)
+                                            ? Text("Create account",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleLarge!
+                                                    .copyWith(
+                                                        color: Colors.white))
+                                            : const CircularProgressIndicator())),
                               ),
                             ])),
                   ),

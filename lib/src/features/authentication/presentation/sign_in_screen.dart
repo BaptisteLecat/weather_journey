@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 import 'package:weather_assistant/src/constants/app_sizes.dart';
-import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
 import 'package:weather_assistant/src/features/authentication/domain/services/apple_sign_in_available_service.dart';
+import 'package:weather_assistant/src/features/authentication/presentation/controller/auth_controller.dart';
 import 'package:weather_assistant/src/features/authentication/presentation/widget/secondary_button.dart';
 import 'package:weather_assistant/src/routing/app_router.dart';
 
@@ -22,8 +22,21 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authRepository = ref.watch(authRepositoryProvider);
+    ref.listen<AsyncValue>(
+      authControllerProvider,
+      (_, state) => state.maybeWhen(
+        error: (error, _) => ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(error.toString()),
+          ),
+        ),
+        orElse: () {},
+      ),
+    );
+    final state = ref.watch(authControllerProvider);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.symmetric(
             horizontal: Sizes.p24, vertical: Sizes.p48),
@@ -92,9 +105,16 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                           GestureDetector(
                             onTap: () async {
                               if (_formKey.currentState!.validate()) {
-                                authRepository.signInWithEmailAndPassword(
-                                    email: _emailController.text,
-                                    password: _passwordController.text);
+                                FocusScopeNode currentFocus =
+                                    FocusScope.of(context);
+                                if (!currentFocus.hasPrimaryFocus) {
+                                  currentFocus.unfocus();
+                                }
+                                ref
+                                    .read(authControllerProvider.notifier)
+                                    .signInWithEmail(
+                                        email: _emailController.text,
+                                        password: _passwordController.text);
                               }
                             },
                             child: Container(
@@ -105,11 +125,13 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                                     color: Theme.of(context).primaryColor,
                                     borderRadius: BorderRadius.circular(14)),
                                 child: Center(
-                                    child: Text("Login",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge!
-                                            .copyWith(color: Colors.white)))),
+                                    child: (!state.isLoading)
+                                        ? Text("Login",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge!
+                                                .copyWith(color: Colors.white))
+                                        : const CircularProgressIndicator())),
                           ),
                         ])),
               ),
@@ -151,8 +173,10 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                                           .headline6)),
                             ]),
                             onSubmit: () {
-                              authRepository.signInWithApple(
-                                  scopes: [Scope.email, Scope.fullName]);
+                              ref
+                                  .read(authControllerProvider.notifier)
+                                  .signInWithApple(
+                                      scopes: [Scope.email, Scope.fullName]);
                             }),
                       SecondaryButton(
                           isSubmitable: true,
@@ -174,7 +198,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                                         Theme.of(context).textTheme.headline6)),
                           ]),
                           onSubmit: () {
-                            authRepository.signInWithGoogle();
+                            ref
+                                .read(authControllerProvider.notifier)
+                                .signInWithGoogle();
                           }),
                     ],
                   )),
