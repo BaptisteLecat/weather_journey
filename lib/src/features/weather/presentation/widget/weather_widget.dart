@@ -10,6 +10,7 @@ import 'package:weather_assistant/src/features/locations/domain/parameters/useru
 import 'package:weather_assistant/src/features/locations/presentation/controller/location_controller.dart';
 import 'package:weather_assistant/src/features/weather/data/services/weather_service.dart';
 import 'package:weather_assistant/src/features/weather/domain/generation/generation.dart';
+import 'package:weather_assistant/src/features/weather/presentation/widget/empty_weather.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:timezone/timezone.dart' as tz;
 
@@ -48,62 +49,7 @@ class WeatherWidget extends ConsumerWidget {
         return AsyncValueWidget<Generation?>(
           value: lastGeneration,
           data: (generation) => generation == null
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 240,
-                      width: 240,
-                      child: Image.asset(
-                        "assets/illustrations/no_generation.png",
-                      ),
-                    ),
-                    const SizedBox(
-                      height: Sizes.p16,
-                    ),
-                    Text(
-                      "No landscape yet",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(
-                      height: Sizes.p8,
-                    ),
-                    Text(
-                      "The sky is waiting for you...",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    const SizedBox(
-                      height: Sizes.p16,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        ref.read(locationControllerProvider.notifier).generate(
-                              locationId: location.id!,
-                              weather: weatherForLocation.value!,
-                            );
-                      },
-                      child: Container(
-                        height: 40,
-                        width: 120,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Make one",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  color: Colors.white,
-                                ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
+              ? EmptyWeather()
               : (generation.progress != 100)
                   ? Center(
                       child: Column(

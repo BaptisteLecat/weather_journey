@@ -7,6 +7,7 @@ import 'package:weather_assistant/src/constants/app_sizes.dart';
 import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
 import 'package:weather_assistant/src/features/locations/data/firestore/location_firestore_repository.dart';
 import 'package:weather_assistant/src/features/locations/domain/location/location.dart';
+import 'package:weather_assistant/src/features/locations/presentation/widget/empty_location.dart';
 import 'package:weather_assistant/src/features/weather/data/firestore/generation_firestore_repository.dart';
 import 'package:weather_assistant/src/features/locations/data/http/location_repository.dart';
 import 'package:weather_assistant/src/features/weather/presentation/widget/weather_widget.dart';
@@ -61,10 +62,7 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
               return AsyncValueWidget<List<Location>>(
                 value: locations,
                 data: (locations) => locations.length == 0
-                    ? Center(
-                        child: Text(
-                            "You don't have any locations, add one to start watching the weather"),
-                      )
+                    ? const EmptyLocation()
                     : PageView(
                         controller: _pageController,
                         children: locations.map((e) {

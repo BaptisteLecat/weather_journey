@@ -44,3 +44,4 @@ flutter:
   assets:
   - assets/illustrations/
   - assets/icons/
+  - assets/icons/weather/
