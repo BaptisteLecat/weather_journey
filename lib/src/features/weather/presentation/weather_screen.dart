@@ -96,7 +96,7 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
                         icon: Icon(
                           Icons.menu_rounded,
                           size: 44,
-                          color: Colors.white,
+                          color: Colors.black,
                         )),
                   ]),
                 ),

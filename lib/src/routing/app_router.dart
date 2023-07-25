@@ -47,7 +47,7 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
           final bool? hasSeenOnboarding =
               ref.read(appUserStreamProvider).value?.hasSeenOnboarding;
           if (hasSeenOnboarding == null || !hasSeenOnboarding) {
-            return '/onboarding';
+            if (!state.location.contains('onboarding')) return '/onboarding';
           }
         }
       } else {
@@ -61,7 +61,11 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
       GoRoute(
         path: '/onboarding',
         name: AppRoute.onboarding.name,
-        builder: (context, state) => const OnboardingScreen(),
+        pageBuilder: (context, state) {
+          return MaterialPage(
+            child: OnboardingScreen(),
+          );
+        },
       ),
       GoRoute(
         path: '/appInitialization',
