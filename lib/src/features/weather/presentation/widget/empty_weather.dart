@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:weather_assistant/src/features/locations/presentation/controller/location_controller.dart';
+import 'package:weather_pack/weather_pack.dart';
 
-class EmptyWeather extends StatelessWidget {
-  const EmptyWeather({super.key});
+class EmptyWeather extends ConsumerWidget {
+  final WeatherOneCall weatherForLocation;
+  final String locationId;
+  const EmptyWeather(
+      {super.key, required this.weatherForLocation, required this.locationId});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 24,
@@ -36,7 +42,12 @@ class EmptyWeather extends StatelessWidget {
           ),
           const Spacer(),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              ref.read(locationControllerProvider.notifier).generate(
+                    locationId: locationId,
+                    weather: weatherForLocation,
+                  );
+            },
             child: Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 24, vertical: 12),

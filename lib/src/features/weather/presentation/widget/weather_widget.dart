@@ -49,7 +49,10 @@ class WeatherWidget extends ConsumerWidget {
         return AsyncValueWidget<Generation?>(
           value: lastGeneration,
           data: (generation) => generation == null
-              ? EmptyWeather()
+              ? EmptyWeather(
+                  weatherForLocation: weatherForLocation.value!,
+                  locationId: location.id!,
+                )
               : (generation.progress != 100)
                   ? Center(
                       child: Column(
