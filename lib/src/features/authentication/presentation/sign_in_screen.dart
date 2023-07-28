@@ -25,12 +25,16 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     ref.listen<AsyncValue>(
       authControllerProvider,
       (_, state) => state.maybeWhen(
-        error: (error, _) => ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(error.toString()),
-          ),
-        ),
+        error: (error, _) {
+          print(error);
+          print(_);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(error.toString()),
+            ),
+          );
+        },
         orElse: () {},
       ),
     );
