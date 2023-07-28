@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weather_assistant/src/common_widgets/async_value_widget.dart';
+import 'package:weather_assistant/src/common_widgets/error_message_widget.dart';
 import 'package:weather_assistant/src/common_widgets/glass_morphism.dart';
 import 'package:weather_assistant/src/constants/app_sizes.dart';
 import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
@@ -8,9 +9,11 @@ import 'package:weather_assistant/src/features/locations/data/firestore/location
 import 'package:weather_assistant/src/features/locations/domain/location/location.dart';
 import 'package:weather_assistant/src/features/locations/domain/parameters/useruid_location_parameter.dart';
 import 'package:weather_assistant/src/features/locations/presentation/controller/location_controller.dart';
+import 'package:weather_assistant/src/features/settings/presentation/controller/setting_controller.dart';
 import 'package:weather_assistant/src/features/weather/data/services/weather_service.dart';
 import 'package:weather_assistant/src/features/weather/domain/generation/generation.dart';
 import 'package:weather_assistant/src/features/weather/presentation/widget/empty_weather.dart';
+import 'package:weather_assistant/src/features/weather/presentation/widget/generation_loading.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:timezone/timezone.dart' as tz;
 
@@ -36,6 +39,11 @@ class WeatherWidget extends ConsumerWidget {
     } else if (cityText.length < 3) {
       cityText = location.city!.split(", ").take(2).join(" ");
     }
+
+    final state = ref.watch(locationControllerProvider);
+    if (state.isLoading) {
+      return const GenerationLoading();
+    }
     return Consumer(
       builder: (context, ref, child) {
         final weatherForLocation =
@@ -46,23 +54,19 @@ class WeatherWidget extends ConsumerWidget {
           var timezone = tz.getLocation(timezoneString);
           timeForLocation = tz.TZDateTime.now(timezone);
         }
-        return AsyncValueWidget<Generation?>(
-          value: lastGeneration,
+
+        return lastGeneration.when(
+          error: (e, st) =>
+              Center(child: ErrorMessageWidget(e.toString(), st.toString())),
+          loading: () => const GenerationLoading(),
           data: (generation) => generation == null
               ? EmptyWeather(
                   weatherForLocation: weatherForLocation.value!,
                   locationId: location.id!,
                 )
               : (generation.progress != 100)
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CircularProgressIndicator(),
-                          Text(
-                              "Generating your landscape : ${generation.progress}%"),
-                        ],
-                      ),
+                  ? GenerationLoading(
+                      generation: generation,
                     )
                   : Column(
                       children: [
