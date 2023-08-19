@@ -3,7 +3,7 @@ name: IOS TestFlight Deployment
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   ios:
@@ -37,4 +37,3 @@ jobs:
         fastlane beta
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.GIT_BASIC_AUTHORIZATION }}
