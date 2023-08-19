@@ -46,4 +46,4 @@ app.*.map.json
 lib/firebase_options.dart
 
 ios/AuthKey*.p8
-ios/gc_keys.json
+ios/gc*.json
