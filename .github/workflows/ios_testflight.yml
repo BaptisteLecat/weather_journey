@@ -1,0 +1,40 @@
+name: IOS TestFlight Deployment
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  ios:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: stable
+        cache: true
+
+    - name: Setup Fastlane
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.6
+        rubygems: latest
+
+    - name: Install Setup AppStore files
+      run: |
+        echo $AUTHKEY_FILE > ./ios/AuthKey_PNJ6T5P4M5.p8
+        echo $GCKEY_FILE > ./ios/gc_keys.json
+
+
+    - name: Build and Deploy
+      run: |
+        flutter pub get
+        cd ios
+        fastlane beta
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.GIT_BASIC_AUTHORIZATION }}
