@@ -26,7 +26,9 @@ jobs:
 
     - name: Install Setup AppStore files
       run: |
+        cd ios
         bundle install
+        cd ..
         echo $AUTHKEY_FILE > ./ios/AuthKey_PNJ6T5P4M5.p8
         echo $GCKEY_FILE > ./ios/gc_keys.json
 
