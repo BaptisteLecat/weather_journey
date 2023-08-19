@@ -1,0 +1,13 @@
+{
+    "type": "service_account",
+    "project_id": "weatherapp-journey",
+    "private_key_id": "83dcdd4001a6a9464a3cbc27d85604776f1ec96e",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCeeuNBAIZrfFO/\nucmPRhT23EnbwusogyATdckK0BrwEN9U+dMspdwYV7xcnAfdzMw73gdwjuZUG6WZ\n6uKCtyPob/5vL4K9pIgQ0sujdXBTFn/mOXbWuj1p2UB/SSjPYwDOYhgZ5f2jHKp+\nWBKqoxYb2syx/rA486yjUemwYLQ5FqcxJM8r//qKn3WpR+Oxiro9RgKjkh9P7jbA\nBXYTp/minAulun0V31Wr983bpz1ndyCIGsqV4NwzF2YYEZ8ABO6EmR7T1eXZWiuZ\nzKjiNeyenP7L9yOCZkENtp24FILMfF9VG+iBermOlwO0TDfpWdkI91MGX4KUSYgk\nouFuUkTzAgMBAAECggEAAYWxqB6uq9qiXU2WC4vDSMm95d/97UIxLS6s8y8jixnG\nY2UQ67VeI1e4ZfVTuAQvFAYicSjWOomXch6I9XN341QsD/pXWaX6bprvvM60eP/W\n06nKo+5fB6TAE1jrDO7pA5J6o8kLQiVU1+jVqRDu9e6Il88X9zwT9O+k/H45TPEQ\nZHeF2Eqj0LsZHD+QrRgrHswd+juu/+8EAFaEcZVMZwWee5pmn8pQ2mx7vFX51Z8f\nv+fZjRK8fYQjEFfkAfxjFBU4tsh0CZoh9EcWhvYhuybMIlGYSmnxkc9Z8Kyk2JBi\n0nB0bxAN58CcoIg6OD+FfJ7AhOvV+S/Aju2lonvz8QKBgQDJ95EJ2eR9M9205Fyu\ncRsDWJrgzOrleeQS4VaysGplKn4djEzCS81bvJyr+LvOlbmlgNdfgLlHR/0iktLO\noL1Iqy/8xlJ1s9D1Hu/DF+hF6NTuUwO78CdVBOnNQMWLqOIxKOdIM08RljbOPyCH\nRyykdaTWIvG9UWsYt40CnPpBgwKBgQDI4PUKu9kombCItgD+5Weybwsyxro+qyEk\nviQtSOlnmuDtZiIzFiRr6LZdiZGxRUB7ODoVGlMR3gmOw0gGTnIecJIWDdoh1vqm\nwgNoT9SWiATy8Qd9hyucoVWOxy9wpkDCRbacBzYKDohQpWujbTYOfnwddA9DHfkt\nEK/5MrTD0QKBgQCSzEn0ohaM1m0YdT/UX0umI/n22ZsGjpEzE+yjVs0OmVMvgPGt\n69DpE+/Ao7tGTdexLzPcK8D/yZh5T8TAAV9zeVIY5cG74aZI9GKLKE5gufpC+73k\nFYtRJZAW6zRq7aby2ms5NGoNO2S8hm/LQ/Vz2DqmlqGk3I/+WDO7KYRQpwKBgETb\noAPC6qiZLkNeqC638njeyabpKjSLMrxGlV4UjTWfiJS4GucKIwf+aGzd2Fw80eKr\nHnXXZTxNsVcHp6vJviKjEeCPdQN+jsMU5FggbU4AaDni1193M0LopsxfiOqDgtVV\nUkhfzG1cF+wVGDWYHRyQzPjHrOej4aNKAhhZAk/RAoGAd6FD+pCpXQ4tFCLig+6A\nfQJDcZ+CQ/4G4tTDIfxCzC7PJSL/mrLBGSmKxSXvjoJzjom6hHCnRlORr/wsCT2k\nndVb1+4mt9fTkd/++V/lRySG6yCP6L7jPB5aOhcyE3W8CO/5jdBFE5yR6RfXE9SG\n0Epz7xHjrHHGmsYpAy61yxQ=\n-----END PRIVATE KEY-----\n",
+    "client_email": "fastlane-ios@weatherapp-journey.iam.gserviceaccount.com",
+    "client_id": "107556384827389384404",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/fastlane-ios%40weatherapp-journey.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+}

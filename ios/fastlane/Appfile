@@ -1,0 +1,8 @@
+app_identifier("com.baptistelecat.weatherjourney") # The bundle identifier of your app
+apple_id("baptiste.lecat44@gmail.com") # Your Apple Developer Portal username
+
+itc_team_id("125095923") # App Store Connect Team ID
+team_id("26T6NMZ666") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
