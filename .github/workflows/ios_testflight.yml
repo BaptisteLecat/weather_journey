@@ -37,6 +37,9 @@ jobs:
       run: |
         flutter pub get
         cd ios
+        ls -al
+        cat AuthKey_PNJ6T5P4M5.p8
+        cat gc_keys.json
         fastlane beta
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
