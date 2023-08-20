@@ -29,8 +29,12 @@ jobs:
         cd ios
         bundle install
         cd ..
-        echo ${{ secrets.AUTHKEY_FILE }} > ./ios/AuthKey_PNJ6T5P4M5.p8
-        echo ${{ secrets.GCKEY_FILE }} > ./ios/gc_keys.json
+        echo $AUTHKEY_FILE >> ./ios/AuthKey_PNJ6T5P4M5.p8
+        echo $GCKEY_FILE >> ./ios/gc_keys.json
+      shell: bash
+      env:
+        AUTHKEY_FILE: ${{ secrets.AUTHKEY_FILE }}
+        GCKEY_FILE: ${{ secrets.GCKEY_FILE }}
 
 
     - name: Build and Deploy
