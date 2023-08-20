@@ -31,21 +31,18 @@ jobs:
         cd ..
         echo "$GCKEY_FILE" > ./ios/gc_keys.json
         echo "test" > ./ios/coucou.txt
+        echo "APP_STORE_CONNECT_API_KEY="$APP_STORE_CONNECT_API"" > ./ios/.env
       shell: bash
       env:
-        
         GCKEY_FILE: ${{ secrets.GCKEY_FILE }}
+        APP_STORE_CONNECT_API: ${{ secrets.AUTHKEY_FILE }}
 
 
     - name: Build and Deploy
       run: |
         flutter pub get
         cd ios
-        ls -al
-        du -sh gc_keys.json
-        du -sh coucou.txt
-        cat coucou.txt
         fastlane beta
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        APP_STORE_CONNECT_API_KEY: ${{ secrets.AUTHKEY_FILE }}
+        APP_STORE_CONNECT_API: ${{ secrets.AUTHKEY_FILE }}
