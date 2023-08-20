@@ -29,9 +29,9 @@ jobs:
         cd ios
         bundle install
         cd ..
-        echo $AUTHKEY_FILE >> ./ios/AuthKey_PNJ6T5P4M5.p8
-        echo $GCKEY_FILE >> ./ios/gc_keys.json
-        echo "coucou" >> ./ios/coucou.txt
+        echo "$AUTHKEY_FILE" > ./ios/AuthKey_PNJ6T5P4M5.p8
+        echo "$GCKEY_FILE" > ./ios/gc_keys.json
+        echo "test" > ./ios/coucou.txt
       shell: bash
       env:
         AUTHKEY_FILE: ${{ secrets.AUTHKEY_FILE }}
@@ -46,6 +46,7 @@ jobs:
         du -sh AuthKey_PNJ6T5P4M5.p8
         du -sh gc_keys.json
         du -sh coucou.txt
+        cat coucou.txt
         fastlane beta
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
