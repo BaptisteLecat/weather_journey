@@ -28,6 +28,7 @@ dependencies:
   the_apple_sign_in: ^1.1.1
   google_sign_in: ^6.1.4
   flutter_svg: ^2.0.7
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -37,6 +38,12 @@ dev_dependencies:
   json_serializable: ^6.7.0
   freezed: ^2.3.5
   retrofit_generator: ^7.0.7
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
 
 flutter:
   uses-material-design: true

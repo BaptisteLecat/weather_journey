@@ -20,9 +20,9 @@ platform :ios do
   lane :beta do
     
     app_store_connect_api_key(
-      key_id: "6Q5XDZTMC3",
+      key_id: "6L423769S5",
       issuer_id: "2174b29f-1a4b-40d9-8f5a-7c4ed51a8189",
-      key_content: ENV["APP_STORE_CONNECT_API_KEY"],
+      key_filepath: "./AuthKey_6L423769S5.p8",
       duration: 500, # optional (maximum 1200)
       in_house: false # optional but may be required if using match/sigh
     )

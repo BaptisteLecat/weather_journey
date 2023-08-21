@@ -70,10 +70,24 @@ class _LocationHeaderState extends State<LocationHeader> {
                           hintText: "Search",
                           contentPadding: EdgeInsets.zero,
                           isCollapsed: true,
-                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          focusColor: Colors.transparent,
+                          fillColor: Colors.transparent,
                         ),
                       ),
                     ),
+                    if (widget.isWriting.value)
+                      GestureDetector(
+                        onTap: () {
+                          widget.searchController.clear();
+                          widget.isWriting.value = false;
+                        },
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.black,
+                          size: 28,
+                        ),
+                      ),
                   ],
                 ),
               ),

@@ -134,7 +134,31 @@ class _LocationScreenState extends State<LocationScreen> {
                         child: Expanded(
                           child: Consumer(builder: (context, ref, child) {
                             if (!_isSearching.value) {
-                              return const SizedBox();
+                              return Column(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      _isSearching.value = true;
+                                    },
+                                    child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: Sizes.p16,
+                                          vertical: Sizes.p8,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context).primaryColor,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Text("Valider la recherche",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium!
+                                                .copyWith(
+                                                    color: Colors.white))),
+                                  ),
+                                ],
+                              );
                             }
                             final places = ref.watch(placesListFutureProvider(
                                 searchController.text));
@@ -196,7 +220,7 @@ class _LocationScreenState extends State<LocationScreen> {
                               },
                             ),
                             const SizedBox(height: Sizes.p24),
-                            Text(
+                            /*Text(
                               "Recommended",
                               style: Theme.of(context).textTheme.titleSmall,
                             ),
@@ -213,7 +237,7 @@ class _LocationScreenState extends State<LocationScreen> {
                                   //child: LocationCard(),
                                 );
                               },
-                            ),
+                            ),*/
                             const SizedBox(width: 20),
                           ],
                         ),
