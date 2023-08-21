@@ -30,8 +30,7 @@ jobs:
         bundle install
         cd ..
         echo "$GCKEY_FILE" > ./ios/gc_keys.json
-        echo "test" > ./ios/coucou.txt
-        echo "APP_STORE_CONNECT_API_KEY="$APP_STORE_CONNECT_API"" > ./ios/.env
+        echo "$APP_STORE_CONNECT_API" > ./ios/AuthKey_6L423769S5.p8
       shell: bash
       env:
         GCKEY_FILE: ${{ secrets.GCKEY_FILE }}
@@ -43,6 +42,3 @@ jobs:
         flutter pub get
         cd ios
         fastlane beta
-      env:
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        APP_STORE_CONNECT_API: ${{ secrets.AUTHKEY_FILE }}
