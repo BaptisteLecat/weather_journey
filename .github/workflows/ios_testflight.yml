@@ -34,7 +34,7 @@ jobs:
       shell: bash
       env:
         GCKEY_FILE: ${{ secrets.GCKEY_FILE }}
-        APP_STORE_CONNECT: ${{ secrets.AUTHKEY_FILE }}
+        #APP_STORE_CONNECT: ${{ secrets.AUTHKEY_FILE }}
 
 
     - name: Build and Deploy
@@ -42,4 +42,5 @@ jobs:
         flutter pub get
         cd ios
         fastlane beta
-        
+      env:
+        APP_STORE_CONNECT_KEY: ${{ secrets.AUTHKEY_FILE }}
