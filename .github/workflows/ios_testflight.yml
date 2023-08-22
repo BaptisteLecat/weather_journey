@@ -7,7 +7,7 @@ on:
 
 jobs:
   ios:
-    runs-on: macos-latest
+    runs-on: macos-12
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
@@ -30,9 +30,11 @@ jobs:
         bundle install
         cd ..
         echo "$GCKEY_FILE" > ./ios/gc_keys.json
+        echo "$APP_STORE_CONNECT" > ./ios/.env
       shell: bash
       env:
         GCKEY_FILE: ${{ secrets.GCKEY_FILE }}
+        APP_STORE_CONNECT: ${{ secrets.AUTHKEY_FILE }}
 
 
     - name: Build and Deploy
@@ -40,5 +42,4 @@ jobs:
         flutter pub get
         cd ios
         fastlane beta
-      env:
-        APP_STORE_CONNECT_KEY: ${{ secrets.AUTHKEY_FILE }}
+        
