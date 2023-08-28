@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weather_assistant/src/features/authentication/domain/app_user.dart';
+import 'package:weather_assistant/src/features/settings/domain/frequency/frequency.dart';
+import 'package:weather_assistant/src/features/settings/domain/style/style.dart';
 
 class AppUserFirestoreRepository {
   static String ressource = 'users';
@@ -42,18 +44,22 @@ class AppUserFirestoreRepository {
 
   Future<void> updateStyle({
     required String docId,
-    required List<String> stylesId,
+    required List<Style> styles,
   }) async {
     final reference = firestore.collection(ressource).doc(docId);
-    await reference.update({'styles': stylesId});
+    await reference.update({
+      'styles': styles.map((e) => e.toJson()).toList(),
+    });
   }
 
   Future<void> updateFrequency({
     required String docId,
-    required List<String> frequenciesId,
+    required List<Frequency> frequencies,
   }) async {
     final reference = firestore.collection(ressource).doc(docId);
-    await reference.update({'frequencies': frequenciesId});
+    await reference.update({
+      'frequencies': frequencies.map((e) => e.toJson()).toList(),
+    });
   }
 
   Future<void> updateHasSeenOnboarding({

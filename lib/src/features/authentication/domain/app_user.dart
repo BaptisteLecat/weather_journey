@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:weather_assistant/src/features/settings/domain/frequency/frequency.dart';
+import 'package:weather_assistant/src/features/settings/domain/style/style.dart';
 part 'app_user.freezed.dart';
 part 'app_user.g.dart';
 
@@ -16,8 +18,8 @@ class AppUser with _$AppUser {
     String? token,
     bool? hasSeenOnboarding,
     @JsonKey(ignore: true) firebase.User? firebaseAppUser,
-    List<String>? styles,
-    List<String>? frequencies,
+    List<Style>? styles,
+    List<Frequency>? frequencies,
   }) = _AppUser;
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>

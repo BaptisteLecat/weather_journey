@@ -15,10 +15,11 @@ _$_AppUser _$$_AppUserFromJson(Map<String, dynamic> json) => _$_AppUser(
       created: json['created'] as bool?,
       token: json['token'] as String?,
       hasSeenOnboarding: json['hasSeenOnboarding'] as bool?,
-      styles:
-          (json['styles'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      styles: (json['styles'] as List<dynamic>?)
+          ?.map((e) => Style.fromJson(e as Map<String, dynamic>))
+          .toList(),
       frequencies: (json['frequencies'] as List<dynamic>?)
-          ?.map((e) => e as String)
+          ?.map((e) => Frequency.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

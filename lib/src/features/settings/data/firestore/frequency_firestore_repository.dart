@@ -67,7 +67,7 @@ class FrequencyFirestoreRepository {
   }
 }
 
-final frequencieFirestoreRepositoryProvider =
+final frequencyFirestoreRepositoryProvider =
     Provider<FrequencyFirestoreRepository>((ref) {
   return FrequencyFirestoreRepository();
 });
@@ -76,6 +76,6 @@ final frequenciesListFutureProvider =
     FutureProvider.autoDispose<List<Frequency>>((
   ref,
 ) {
-  final frequencieRepository = ref.watch(frequencieFirestoreRepositoryProvider);
+  final frequencieRepository = ref.watch(frequencyFirestoreRepositoryProvider);
   return frequencieRepository.fetchAll();
 });

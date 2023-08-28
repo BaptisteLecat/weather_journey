@@ -57,6 +57,7 @@ class SettingFrequenciesWidget extends ConsumerWidget {
                         Visibility(
                           visible: (user?.frequencies != null) &&
                               (user!.frequencies!
+                                  .map((e) => e.id)
                                   .contains(frequencies[index].id)),
                           child: Container(
                             width: Sizes.p24,

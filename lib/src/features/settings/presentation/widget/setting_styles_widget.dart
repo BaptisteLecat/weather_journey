@@ -56,7 +56,9 @@ class SettingStylesWidget extends ConsumerWidget {
                         const SizedBox(width: Sizes.p16),
                         Visibility(
                           visible: (user?.styles != null) &&
-                              (user!.styles!.contains(styles[index].id)),
+                              (user!.styles!
+                                  .map((e) => e.id)
+                                  .contains(styles[index].id)),
                           child: Container(
                             width: Sizes.p24,
                             height: Sizes.p24,

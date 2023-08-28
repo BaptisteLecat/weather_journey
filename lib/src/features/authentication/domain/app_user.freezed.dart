@@ -30,8 +30,8 @@ mixin _$AppUser {
   bool? get hasSeenOnboarding => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   firebase.User? get firebaseAppUser => throw _privateConstructorUsedError;
-  List<String>? get styles => throw _privateConstructorUsedError;
-  List<String>? get frequencies => throw _privateConstructorUsedError;
+  List<Style>? get styles => throw _privateConstructorUsedError;
+  List<Frequency>? get frequencies => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,8 +53,8 @@ abstract class $AppUserCopyWith<$Res> {
       String? token,
       bool? hasSeenOnboarding,
       @JsonKey(ignore: true) firebase.User? firebaseAppUser,
-      List<String>? styles,
-      List<String>? frequencies});
+      List<Style>? styles,
+      List<Frequency>? frequencies});
 }
 
 /// @nodoc
@@ -122,11 +122,11 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
       styles: freezed == styles
           ? _value.styles
           : styles // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<Style>?,
       frequencies: freezed == frequencies
           ? _value.frequencies
           : frequencies // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<Frequency>?,
     ) as $Val);
   }
 }
@@ -148,8 +148,8 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       String? token,
       bool? hasSeenOnboarding,
       @JsonKey(ignore: true) firebase.User? firebaseAppUser,
-      List<String>? styles,
-      List<String>? frequencies});
+      List<Style>? styles,
+      List<Frequency>? frequencies});
 }
 
 /// @nodoc
@@ -214,11 +214,11 @@ class __$$_AppUserCopyWithImpl<$Res>
       styles: freezed == styles
           ? _value._styles
           : styles // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<Style>?,
       frequencies: freezed == frequencies
           ? _value._frequencies
           : frequencies // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<Frequency>?,
     ));
   }
 }
@@ -236,8 +236,8 @@ class _$_AppUser extends _AppUser {
       this.token,
       this.hasSeenOnboarding,
       @JsonKey(ignore: true) this.firebaseAppUser,
-      final List<String>? styles,
-      final List<String>? frequencies})
+      final List<Style>? styles,
+      final List<Frequency>? frequencies})
       : _styles = styles,
         _frequencies = frequencies,
         super._();
@@ -264,9 +264,9 @@ class _$_AppUser extends _AppUser {
   @override
   @JsonKey(ignore: true)
   final firebase.User? firebaseAppUser;
-  final List<String>? _styles;
+  final List<Style>? _styles;
   @override
-  List<String>? get styles {
+  List<Style>? get styles {
     final value = _styles;
     if (value == null) return null;
     if (_styles is EqualUnmodifiableListView) return _styles;
@@ -274,9 +274,9 @@ class _$_AppUser extends _AppUser {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<String>? _frequencies;
+  final List<Frequency>? _frequencies;
   @override
-  List<String>? get frequencies {
+  List<Frequency>? get frequencies {
     final value = _frequencies;
     if (value == null) return null;
     if (_frequencies is EqualUnmodifiableListView) return _frequencies;
@@ -353,8 +353,8 @@ abstract class _AppUser extends AppUser {
       final String? token,
       final bool? hasSeenOnboarding,
       @JsonKey(ignore: true) final firebase.User? firebaseAppUser,
-      final List<String>? styles,
-      final List<String>? frequencies}) = _$_AppUser;
+      final List<Style>? styles,
+      final List<Frequency>? frequencies}) = _$_AppUser;
   const _AppUser._() : super._();
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$_AppUser.fromJson;
@@ -379,9 +379,9 @@ abstract class _AppUser extends AppUser {
   @JsonKey(ignore: true)
   firebase.User? get firebaseAppUser;
   @override
-  List<String>? get styles;
+  List<Style>? get styles;
   @override
-  List<String>? get frequencies;
+  List<Frequency>? get frequencies;
   @override
   @JsonKey(ignore: true)
   _$$_AppUserCopyWith<_$_AppUser> get copyWith =>
