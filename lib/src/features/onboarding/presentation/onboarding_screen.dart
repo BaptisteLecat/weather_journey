@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
-import 'package:weather_assistant/src/features/authentication/data/firestore/user_firestore_repository.dart';
-import 'package:weather_assistant/src/features/onboarding/presentation/widget/onboarding_text.dart';
-import 'package:weather_assistant/src/features/onboarding/presentation/widget/progress_indicator.dart';
-import 'package:weather_assistant/src/routing/app_router.dart';
+import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
+import 'package:weatherjourney/src/features/authentication/data/firestore/user_firestore_repository.dart';
+import 'package:weatherjourney/src/features/onboarding/presentation/widget/onboarding_text.dart';
+import 'package:weatherjourney/src/features/onboarding/presentation/widget/progress_indicator.dart';
+import 'package:weatherjourney/src/routing/app_router.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   final int index;

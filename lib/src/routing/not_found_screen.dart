@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_assistant/src/localization/string_hardcoded.dart';
+import 'package:weatherjourney/src/localization/string_hardcoded.dart';
 
 /// Simple not found screen used for 404 errors (page not found on web)
 class NotFoundScreen extends StatelessWidget {

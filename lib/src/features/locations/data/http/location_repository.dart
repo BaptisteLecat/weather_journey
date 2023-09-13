@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
-import 'package:weather_assistant/src/features/weather/data/dto/generation_dto.dart';
-import 'package:weather_assistant/src/features/weather/domain/generation/generation.dart';
+import 'package:weatherjourney/src/features/weather/data/dto/generation_dto.dart';
+import 'package:weatherjourney/src/features/weather/domain/generation/generation.dart';
 
 part 'location_repository.g.dart';
 

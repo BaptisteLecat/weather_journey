@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_assistant/src/constants/app_sizes.dart';
+import 'package:weatherjourney/src/constants/app_sizes.dart';
 
 class SettingBoxWidget extends StatelessWidget {
   final Widget title;

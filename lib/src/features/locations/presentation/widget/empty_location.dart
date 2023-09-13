@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:weather_assistant/src/routing/app_router.dart';
+import 'package:weatherjourney/src/routing/app_router.dart';
 
 class EmptyLocation extends StatelessWidget {
   const EmptyLocation({super.key});

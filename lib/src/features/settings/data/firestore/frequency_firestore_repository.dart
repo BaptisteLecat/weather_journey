@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather_assistant/src/features/settings/domain/frequency/frequency.dart';
+import 'package:weatherjourney/src/features/settings/domain/frequency/frequency.dart';
 
 class FrequencyFirestoreRepository {
   static String ressource = 'frequencies';

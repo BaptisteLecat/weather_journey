@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather_assistant/src/features/weather/domain/generation/generation.dart';
+import 'package:weatherjourney/src/features/weather/domain/generation/generation.dart';
 
 enum GenerationStage {
   scanning,

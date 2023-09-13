@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
-import 'package:weather_assistant/src/features/authentication/presentation/app_initialization_screen.dart';
-import 'package:weather_assistant/src/features/authentication/presentation/sign_in_screen.dart';
-import 'package:weather_assistant/src/features/authentication/presentation/sign_up_screen.dart';
-import 'package:weather_assistant/src/features/locations/presentation/location_screen.dart';
-import 'package:weather_assistant/src/features/onboarding/presentation/onboarding_screen.dart';
-import 'package:weather_assistant/src/features/settings/presentation/setting_screen.dart';
-import 'package:weather_assistant/src/features/weather/presentation/weather_screen.dart';
-import 'package:weather_assistant/src/routing/not_found_screen.dart';
+import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
+import 'package:weatherjourney/src/features/authentication/presentation/app_initialization_screen.dart';
+import 'package:weatherjourney/src/features/authentication/presentation/sign_in_screen.dart';
+import 'package:weatherjourney/src/features/authentication/presentation/sign_up_screen.dart';
+import 'package:weatherjourney/src/features/locations/presentation/location_screen.dart';
+import 'package:weatherjourney/src/features/onboarding/presentation/onboarding_screen.dart';
+import 'package:weatherjourney/src/features/settings/presentation/setting_screen.dart';
+import 'package:weatherjourney/src/features/weather/presentation/weather_screen.dart';
+import 'package:weatherjourney/src/routing/not_found_screen.dart';
 
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();

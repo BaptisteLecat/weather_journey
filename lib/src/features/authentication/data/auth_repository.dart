@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
-import 'package:weather_assistant/src/features/authentication/data/firestore/user_firestore_repository.dart';
-import 'package:weather_assistant/src/features/authentication/domain/app_user.dart';
+import 'package:weatherjourney/src/features/authentication/data/firestore/user_firestore_repository.dart';
+import 'package:weatherjourney/src/features/authentication/domain/app_user.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="weather_journey"
-        android:name="Weather Journey"
+        android:label="weatherjourney"
+        android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
@@ -31,4 +31,12 @@
             android:value="2" />
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Provide required visibility configuration for API level 30 and above -->
+    <queries>
+        <!-- If your app checks for HTTPs url support -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https://weatherjourney.webflow.io" />
+        </intent>
+    </queries>
 </manifest>

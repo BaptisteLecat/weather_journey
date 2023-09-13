@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weather_assistant/src/routing/app_router.dart';
+import 'package:weatherjourney/src/routing/app_router.dart';
 
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});

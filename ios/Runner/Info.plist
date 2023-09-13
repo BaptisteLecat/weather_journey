@@ -61,5 +61,9 @@
 		</dict>
 	</array>
 	<!-- End of the Google Sign-in Section -->
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>https://weatherjourney.webflow.io</string>
+	</array>
 </dict>
 </plist>

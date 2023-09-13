@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
-import 'package:weather_assistant/src/features/authentication/domain/app_user.dart';
-import 'package:weather_assistant/src/features/locations/data/firestore/location_firestore_repository.dart';
-import 'package:weather_assistant/src/features/locations/data/http/location_repository.dart';
-import 'package:weather_assistant/src/features/weather/data/dto/generation_dto.dart';
+import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
+import 'package:weatherjourney/src/features/authentication/domain/app_user.dart';
+import 'package:weatherjourney/src/features/locations/data/firestore/location_firestore_repository.dart';
+import 'package:weatherjourney/src/features/locations/data/http/location_repository.dart';
+import 'package:weatherjourney/src/features/weather/data/dto/generation_dto.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:timezone/timezone.dart' as tz;
 

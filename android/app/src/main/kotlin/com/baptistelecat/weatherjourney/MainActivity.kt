@@ -1,4 +1,4 @@
-package com.example.weather_assistant
+package com.baptistelecat.weatherjourney
 
 import io.flutter.embedding.android.FlutterActivity
 

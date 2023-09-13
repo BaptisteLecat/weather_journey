@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:weather_assistant/src/features/locations/presentation/controller/location_controller.dart';
+import 'package:weatherjourney/src/features/locations/presentation/controller/location_controller.dart';
 import 'package:weather_pack/weather_pack.dart';
 
 class EmptyWeather extends ConsumerWidget {

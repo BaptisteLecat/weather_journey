@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather_assistant/src/features/weather/domain/generation/generation.dart';
+import 'package:weatherjourney/src/features/weather/domain/generation/generation.dart';
 
 class GenerationFirestoreRepository {
   static String ressource = 'users';

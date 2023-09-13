@@ -2,15 +2,15 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
-import 'package:weather_assistant/src/common_widgets/async_value_widget.dart';
-import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
-import 'package:weather_assistant/src/features/locations/data/firestore/location_firestore_repository.dart';
-import 'package:weather_assistant/src/features/locations/domain/location/location.dart';
-import 'package:weather_assistant/src/features/locations/domain/parameters/useruid_location_parameter.dart';
-import 'package:weather_assistant/src/features/locations/presentation/controller/location_controller.dart';
-import 'package:weather_assistant/src/features/weather/data/firestore/generation_firestore_repository.dart';
-import 'package:weather_assistant/src/features/weather/data/services/weather_service.dart';
-import 'package:weather_assistant/src/features/weather/domain/generation/generation.dart';
+import 'package:weatherjourney/src/common_widgets/async_value_widget.dart';
+import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
+import 'package:weatherjourney/src/features/locations/data/firestore/location_firestore_repository.dart';
+import 'package:weatherjourney/src/features/locations/domain/location/location.dart';
+import 'package:weatherjourney/src/features/locations/domain/parameters/useruid_location_parameter.dart';
+import 'package:weatherjourney/src/features/locations/presentation/controller/location_controller.dart';
+import 'package:weatherjourney/src/features/weather/data/firestore/generation_firestore_repository.dart';
+import 'package:weatherjourney/src/features/weather/data/services/weather_service.dart';
+import 'package:weatherjourney/src/features/weather/domain/generation/generation.dart';
 import 'package:weather_pack/weather_pack.dart';
 
 class LocationCard extends ConsumerWidget {

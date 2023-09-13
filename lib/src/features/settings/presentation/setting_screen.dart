@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:weather_assistant/src/features/settings/presentation/controller/setting_controller.dart';
-import 'package:weather_assistant/src/features/settings/presentation/widget/setting_auth_widget.dart';
-import 'package:weather_assistant/src/features/settings/presentation/widget/setting_box_widget.dart';
-import 'package:weather_assistant/src/features/settings/presentation/widget/setting_frequencies_widget.dart';
-import 'package:weather_assistant/src/features/settings/presentation/widget/setting_header.dart';
-import 'package:weather_assistant/src/features/settings/presentation/widget/setting_styles_widget.dart';
+import 'package:weatherjourney/src/features/settings/presentation/controller/setting_controller.dart';
+import 'package:weatherjourney/src/features/settings/presentation/widget/setting_auth_widget.dart';
+import 'package:weatherjourney/src/features/settings/presentation/widget/setting_box_widget.dart';
+import 'package:weatherjourney/src/features/settings/presentation/widget/setting_frequencies_widget.dart';
+import 'package:weatherjourney/src/features/settings/presentation/widget/setting_header.dart';
+import 'package:weatherjourney/src/features/settings/presentation/widget/setting_styles_widget.dart';
 
 class SettingScreen extends ConsumerWidget {
   const SettingScreen({super.key});

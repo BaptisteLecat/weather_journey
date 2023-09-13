@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
-import 'package:weather_assistant/src/features/locations/domain/place/place.dart';
+import 'package:weatherjourney/src/features/locations/domain/place/place.dart';
 
 part 'nominatim_place_repository.g.dart';
 

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather_assistant/src/features/locations/domain/location/location.dart';
-import 'package:weather_assistant/src/features/locations/domain/parameters/useruid_location_parameter.dart';
-import 'package:weather_assistant/src/features/weather/domain/generation/generation.dart';
+import 'package:weatherjourney/src/features/locations/domain/location/location.dart';
+import 'package:weatherjourney/src/features/locations/domain/parameters/useruid_location_parameter.dart';
+import 'package:weatherjourney/src/features/weather/domain/generation/generation.dart';
 
 class LocationFirestoreRepository {
   static String ressource = 'users';

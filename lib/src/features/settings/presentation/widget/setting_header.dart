@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:weather_assistant/src/constants/app_sizes.dart';
+import 'package:weatherjourney/src/constants/app_sizes.dart';
 
 class SettingHeader extends StatelessWidget {
   const SettingHeader({super.key});

@@ -1,4 +1,4 @@
-name: weather_assistant
+name: weatherjourney
 description: A new Flutter project.
 publish_to: 'none'
 version: 0.1.0+1
@@ -29,6 +29,7 @@ dependencies:
   google_sign_in: ^6.1.4
   flutter_svg: ^2.0.7
   flutter_launcher_icons: ^0.13.1
+  url_launcher: ^6.1.14
 
 dev_dependencies:
   flutter_test:

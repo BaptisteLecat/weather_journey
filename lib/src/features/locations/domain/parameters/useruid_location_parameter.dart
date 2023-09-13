@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:weather_assistant/src/features/locations/domain/location/location.dart';
+import 'package:weatherjourney/src/features/locations/domain/location/location.dart';
 
 part 'useruid_location_parameter.g.dart';
 part 'useruid_location_parameter.freezed.dart';

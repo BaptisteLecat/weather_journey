@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:weather_assistant/src/common_widgets/async_value_widget.dart';
-import 'package:weather_assistant/src/constants/app_sizes.dart';
-import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
-import 'package:weather_assistant/src/features/settings/data/firestore/frequency_firestore_repository.dart';
-import 'package:weather_assistant/src/features/settings/presentation/controller/setting_controller.dart';
+import 'package:weatherjourney/src/common_widgets/async_value_widget.dart';
+import 'package:weatherjourney/src/constants/app_sizes.dart';
+import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
+import 'package:weatherjourney/src/features/settings/data/firestore/frequency_firestore_repository.dart';
+import 'package:weatherjourney/src/features/settings/presentation/controller/setting_controller.dart';
 
 class SettingFrequenciesWidget extends ConsumerWidget {
   const SettingFrequenciesWidget({

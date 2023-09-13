@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart' as wp;
-import 'package:weather_assistant/src/features/locations/domain/location/location.dart';
+import 'package:weatherjourney/src/features/locations/domain/location/location.dart';
 
 class WeatherService {
   final wp.WeatherService _weatherFactory;

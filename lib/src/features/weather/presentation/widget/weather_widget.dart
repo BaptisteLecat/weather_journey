@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather_assistant/src/common_widgets/async_value_widget.dart';
-import 'package:weather_assistant/src/common_widgets/error_message_widget.dart';
-import 'package:weather_assistant/src/common_widgets/glass_morphism.dart';
-import 'package:weather_assistant/src/constants/app_sizes.dart';
-import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
-import 'package:weather_assistant/src/features/locations/data/firestore/location_firestore_repository.dart';
-import 'package:weather_assistant/src/features/locations/domain/location/location.dart';
-import 'package:weather_assistant/src/features/locations/domain/parameters/useruid_location_parameter.dart';
-import 'package:weather_assistant/src/features/locations/presentation/controller/location_controller.dart';
-import 'package:weather_assistant/src/features/settings/presentation/controller/setting_controller.dart';
-import 'package:weather_assistant/src/features/weather/data/services/weather_service.dart';
-import 'package:weather_assistant/src/features/weather/domain/generation/generation.dart';
-import 'package:weather_assistant/src/features/weather/presentation/widget/empty_weather.dart';
-import 'package:weather_assistant/src/features/weather/presentation/widget/generation_loading.dart';
+import 'package:weatherjourney/src/common_widgets/async_value_widget.dart';
+import 'package:weatherjourney/src/common_widgets/error_message_widget.dart';
+import 'package:weatherjourney/src/common_widgets/glass_morphism.dart';
+import 'package:weatherjourney/src/constants/app_sizes.dart';
+import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
+import 'package:weatherjourney/src/features/locations/data/firestore/location_firestore_repository.dart';
+import 'package:weatherjourney/src/features/locations/domain/location/location.dart';
+import 'package:weatherjourney/src/features/locations/domain/parameters/useruid_location_parameter.dart';
+import 'package:weatherjourney/src/features/locations/presentation/controller/location_controller.dart';
+import 'package:weatherjourney/src/features/settings/presentation/controller/setting_controller.dart';
+import 'package:weatherjourney/src/features/weather/data/services/weather_service.dart';
+import 'package:weatherjourney/src/features/weather/domain/generation/generation.dart';
+import 'package:weatherjourney/src/features/weather/presentation/widget/empty_weather.dart';
+import 'package:weatherjourney/src/features/weather/presentation/widget/generation_loading.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:timezone/timezone.dart' as tz;
 
@@ -76,7 +76,7 @@ class WeatherWidget extends ConsumerWidget {
                             children: [
                               Image.network(
                                 generation.generatedImage!.uri,
-                                fit: BoxFit.fitHeight,
+                                fit: BoxFit.fill,
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:weather_assistant/src/features/settings/domain/frequency/frequency.dart';
-import 'package:weather_assistant/src/features/settings/domain/style/style.dart';
+import 'package:weatherjourney/src/features/settings/domain/frequency/frequency.dart';
+import 'package:weatherjourney/src/features/settings/domain/style/style.dart';
 part 'app_user.freezed.dart';
 part 'app_user.g.dart';
 

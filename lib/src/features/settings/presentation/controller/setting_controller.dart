@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather_assistant/src/features/authentication/data/auth_repository.dart';
-import 'package:weather_assistant/src/features/authentication/data/firestore/user_firestore_repository.dart';
-import 'package:weather_assistant/src/features/authentication/domain/app_user.dart';
-import 'package:weather_assistant/src/features/settings/data/firestore/frequency_firestore_repository.dart';
-import 'package:weather_assistant/src/features/settings/data/firestore/style_firestore_repository.dart';
-import 'package:weather_assistant/src/features/settings/domain/frequency/frequency.dart';
-import 'package:weather_assistant/src/features/settings/domain/style/style.dart';
+import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
+import 'package:weatherjourney/src/features/authentication/data/firestore/user_firestore_repository.dart';
+import 'package:weatherjourney/src/features/authentication/domain/app_user.dart';
+import 'package:weatherjourney/src/features/settings/data/firestore/frequency_firestore_repository.dart';
+import 'package:weatherjourney/src/features/settings/data/firestore/style_firestore_repository.dart';
+import 'package:weatherjourney/src/features/settings/domain/frequency/frequency.dart';
+import 'package:weatherjourney/src/features/settings/domain/style/style.dart';
 
 class SettingController extends StateNotifier<AsyncValue<void>> {
   SettingController({

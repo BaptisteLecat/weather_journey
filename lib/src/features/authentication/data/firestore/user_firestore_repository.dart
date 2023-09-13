@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather_assistant/src/features/authentication/domain/app_user.dart';
-import 'package:weather_assistant/src/features/settings/domain/frequency/frequency.dart';
-import 'package:weather_assistant/src/features/settings/domain/style/style.dart';
+import 'package:weatherjourney/src/features/authentication/domain/app_user.dart';
+import 'package:weatherjourney/src/features/settings/domain/frequency/frequency.dart';
+import 'package:weatherjourney/src/features/settings/domain/style/style.dart';
 
 class AppUserFirestoreRepository {
   static String ressource = 'users';

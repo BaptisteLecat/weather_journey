@@ -1,12 +1,14 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
-import 'package:weather_assistant/src/constants/app_sizes.dart';
-import 'package:weather_assistant/src/features/authentication/domain/services/apple_sign_in_available_service.dart';
-import 'package:weather_assistant/src/features/authentication/presentation/controller/auth_controller.dart';
-import 'package:weather_assistant/src/features/authentication/presentation/widget/secondary_button.dart';
-import 'package:weather_assistant/src/routing/app_router.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:weatherjourney/src/constants/app_sizes.dart';
+import 'package:weatherjourney/src/features/authentication/domain/services/apple_sign_in_available_service.dart';
+import 'package:weatherjourney/src/features/authentication/presentation/controller/auth_controller.dart';
+import 'package:weatherjourney/src/features/authentication/presentation/widget/secondary_button.dart';
+import 'package:weatherjourney/src/routing/app_router.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
   const SignInScreen({super.key});
@@ -72,7 +74,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 ),
               ),
               Expanded(
-                flex: 3,
+                flex: 4,
                 child: Form(
                     key: _formKey,
                     child: Column(
@@ -136,6 +138,33 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                                                 .titleLarge!
                                                 .copyWith(color: Colors.white))
                                         : const CircularProgressIndicator())),
+                          ),
+                          const SizedBox(height: Sizes.p16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                  onTap: () =>
+                                      context.goNamed(AppRoute.signUp.name),
+                                  child: RichText(
+                                      text: TextSpan(
+                                          text: "Don't have an account? ",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall,
+                                          children: [
+                                        TextSpan(
+                                            text: "Sign up",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    fontWeight:
+                                                        FontWeight.bold))
+                                      ]))),
+                            ],
                           ),
                         ])),
               ),
@@ -212,22 +241,46 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                      onTap: () => context.goNamed(AppRoute.signUp.name),
-                      child: RichText(
-                          text: TextSpan(
-                              text: "Don't have an account? ",
-                              style: Theme.of(context).textTheme.titleSmall,
-                              children: [
-                            TextSpan(
-                                text: "Sign up",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall!
-                                    .copyWith(
-                                        color: Theme.of(context).primaryColor,
-                                        fontWeight: FontWeight.bold))
-                          ]))),
+                  Flexible(
+                    child: GestureDetector(
+                        onTap: () => context.goNamed(AppRoute.signIn.name),
+                        child: RichText(
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                                text:
+                                    "By signing in, you agree to Weather Journey's\n",
+                                style: Theme.of(context).textTheme.titleSmall,
+                                children: [
+                                  TextSpan(
+                                      text: "Terms of Service",
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () => launchUrl(Uri.https(
+                                            "weatherjourney.webflow.io",
+                                            "terms-of-use")),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              fontWeight: FontWeight.bold)),
+                                  const TextSpan(text: " and "),
+                                  TextSpan(
+                                      text: "Privacy Policy",
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () => launchUrl(Uri.https(
+                                            "weatherjourney.webflow.io",
+                                            "confidentiality-rules")),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              fontWeight: FontWeight.bold)),
+                                ]))),
+                  ),
                 ],
               ),
             ]),
