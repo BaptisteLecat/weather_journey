@@ -26,6 +26,11 @@ class SettingController extends StateNotifier<AsyncValue<void>> {
     state = await AsyncValue.guard(() => authRepository.signOut());
   }
 
+  Future<void> deleteAccount() async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() => authRepository.deleteAccount());
+  }
+
   Future<void> selectStyle({required String styleId}) async {
     state = const AsyncLoading();
     //Fetch the style we want to add from firestore.

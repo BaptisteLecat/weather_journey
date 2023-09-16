@@ -113,6 +113,11 @@ class AuthRepository {
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
   }
+
+  Future<void> deleteAccount() async {
+    final user = FirebaseAuth.instance.currentUser;
+    await user!.delete();
+  }
 }
 
 final firebaseAuthProvider =
