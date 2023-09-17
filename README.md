@@ -14,22 +14,24 @@ As an enthusiast and student of AI, mobile development, and cloud computing, thi
 
 ## Technology Stack
 
-Mobile App: Developed using Flutter (version 3.10).
-Backend: NestJS powers the API, which interacts with ChatGPT for prompt generation and MidJourney through a Discord bot integration.
-Hosting: Infrastructure hosted on Google Cloud Run.
-Authentication & Data Storage: Firebase Auth for authentication and Firestore for data storage.
-Features
+- Mobile App: Developed using Flutter (version 3.10).
+- Backend: NestJS powers the API, which interacts with ChatGPT for prompt generation and MidJourney through a Discord bot integration.
+- Hosting: Infrastructure hosted on Google Cloud Run.
+- Authentication & Data Storage: Firebase Auth for authentication and Firestore for data storage.
 
-Dynamic Weather Visualizations: See real-time weather forecasts as never before with AI-generated images tailored to each forecast.
-AI-Powered: Leveraging the prowess of ChatGPT for textual prompts and MidJourney for generating imagery.
-Multi-Platform: Available on both App Store and Play Store.
-Getting Started
+## Features
 
-## Prerequisites
+- Dynamic Weather Visualizations: See real-time weather forecasts as never before with AI-generated images tailored to each forecast.
+- AI-Powered: Leveraging the prowess of ChatGPT for textual prompts and MidJourney for generating imagery.
+- Multi-Platform: Available on both App Store and Play Store.
+
+## Getting Started
+
+### Prerequisites
 Flutter SDK (Version 3.10)
 A functioning environment for Flutter development.
 
-## Setup Instructions
+#### Setup Instructions
 Clone the repository:
 ```
 git clone
