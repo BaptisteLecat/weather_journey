@@ -9,7 +9,7 @@ As an enthusiast and student of AI, mobile development, and cloud computing, thi
 ## Available on the App Store and Play Store
 
 [![App Store](/.github/assets/app-store.png?raw=true "App Store")](https://apps.apple.com/us/app/weather-journey/id1597876360)
-[![Play Store](/.github/assets/google-play.png?raw=true "Play Store")](https://play.google.com/store/apps/details?id=com.baptistelecat.weatherjourney&pcampaignid=web_share)
+[![Play Store](/.github/assets/google-play.png?raw=true  =100x20 "Play Store")](https://play.google.com/store/apps/details?id=com.baptistelecat.weatherjourney&pcampaignid=web_share)
 
 ## Technology Stack
 
