@@ -8,10 +8,8 @@ As an enthusiast and student of AI, mobile development, and cloud computing, thi
 
 ## Available on the App Store and Play Store
 
-[![App Store](/.github/assets/app-store.png?raw=true "App Store")](https://apps.apple.com/us/app/weather-journey/id1597876360)
-[![Play Store](/.github/assets/google-play.png?raw=true  =100x20 "Play Store")](https://play.google.com/store/apps/details?id=com.baptistelecat.weatherjourney&pcampaignid=web_share)
-in img html
-<a href="https://play.google.com/store/apps/details?id=com.baptistelecat.weatherjourney&pcampaignid=web_share"><img src="/.github/assets/google-play.png" alt="Play Store" width="200"/></a>
+<a href="https://apps.apple.com/us/app/weather-journey/id1597876360"><img src="/.github/assets/app-store.png" alt="App Store" width="80"/></a
+<a href="https://play.google.com/store/apps/details?id=com.baptistelecat.weatherjourney&pcampaignid=web_share"><img src="/.github/assets/google-play.png" alt="Play Store" width="80"/></a>
 
 ## Technology Stack
 
