@@ -187,24 +187,24 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                           false)
                         SecondaryButton(
                             isSubmitable: true,
-                            content: Stack(children: [
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20.0),
-                                    child: SizedBox(
+                            content: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0, vertical: 8),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    SizedBox(
                                         height: 28,
                                         width: 28,
                                         child: Image.asset(
                                             "assets/icons/apple.png")),
-                                  )),
-                              Center(
-                                  child: Text("Connexion avec Apple",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline6)),
-                            ]),
+                                    Text("Connexion avec Apple",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6),
+                                  ]),
+                            ),
                             onSubmit: () {
                               ref
                                   .read(authControllerProvider.notifier)
@@ -213,23 +213,24 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                             }),
                       SecondaryButton(
                           isSubmitable: true,
-                          content: Stack(children: [
-                            Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
-                                  child: SizedBox(
+                          content: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 8),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  SizedBox(
                                       height: 28,
                                       width: 28,
                                       child: Image.asset(
                                           "assets/icons/google.png")),
-                                )),
-                            Center(
-                                child: Text("Connexion avec Google",
-                                    style:
-                                        Theme.of(context).textTheme.headline6)),
-                          ]),
+                                  Text("Connexion avec Google",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6),
+                                ]),
+                          ),
                           onSubmit: () {
                             ref
                                 .read(authControllerProvider.notifier)
