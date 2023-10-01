@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:weatherjourney/firebase_options.dart';
 import 'package:weatherjourney/src/app.dart';
-import 'package:weatherjourney/src/features/authentication/domain/services/apple_sign_in_available_service.dart';
+import 'package:weatherjourney/src/features/authentication/application/services/apple_sign_in_available_service.dart';
 import 'package:weatherjourney/src/localization/string_hardcoded.dart';
 import 'package:timezone/data/latest.dart' as tz;
 

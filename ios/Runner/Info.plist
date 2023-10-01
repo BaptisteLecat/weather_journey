@@ -65,5 +65,7 @@
 	<array>
 		<string>https://weatherjourney.webflow.io</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access to location only when open to generate landscape based on your position</string>
 </dict>
 </plist>

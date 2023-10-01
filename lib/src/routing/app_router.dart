@@ -5,23 +5,36 @@ import 'package:weatherjourney/src/features/authentication/data/auth_repository.
 import 'package:weatherjourney/src/features/authentication/presentation/app_initialization_screen.dart';
 import 'package:weatherjourney/src/features/authentication/presentation/sign_in_screen.dart';
 import 'package:weatherjourney/src/features/authentication/presentation/sign_up_screen.dart';
+import 'package:weatherjourney/src/features/locations/presentation/create_location_screen.dart';
 import 'package:weatherjourney/src/features/locations/presentation/location_screen.dart';
 import 'package:weatherjourney/src/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:weatherjourney/src/features/settings/presentation/setting_screen.dart';
 import 'package:weatherjourney/src/features/weather/presentation/weather_screen.dart';
 import 'package:weatherjourney/src/routing/not_found_screen.dart';
+import 'package:weatherjourney/src/routing/scaffold_with_nested_navigation.dart';
 
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
+final _shellNavigatorWeatherKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shellWeather');
+final _shellNavigatorLocationKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shellLocation');
+final _shellNavigatorSettingsKey = GlobalKey<NavigatorState>(
+  debugLabel: 'shellSettings',
+);
 
 enum AppRoute {
-  onboarding,
-  appInitialization,
-  signIn,
-  signUp,
-  weather,
-  locations,
-  settings,
+  onboarding(route: "/onboarding"),
+  appInitialization(route: "/appInitialization"),
+  signIn(route: "/signIn"),
+  signUp(route: "/signUp"),
+  weather(route: "/weather"),
+  locations(route: "/locations"),
+  locationCreate(route: "/create"),
+  settings(route: "/settings");
+
+  const AppRoute({required this.route});
+  final String route;
 }
 
 GoRouter goRouter(ProviderRef<GoRouter> ref) {
@@ -58,8 +71,51 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
       return null;
     },
     routes: [
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return ScaffoldWithNestedNavigation(navigationShell: navigationShell);
+        },
+        branches: [
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorWeatherKey,
+            routes: [
+              GoRoute(
+                path: AppRoute.weather.route,
+                name: AppRoute.weather.name,
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: WeatherScreen()),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorLocationKey,
+            routes: [
+              // Shopping Cart
+              GoRoute(
+                path: AppRoute.locations.route,
+                name: AppRoute.locations.name,
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: LocationScreen()),
+                routes: [],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorSettingsKey,
+            routes: [
+              // Shopping Cart
+              GoRoute(
+                path: AppRoute.settings.route,
+                name: AppRoute.settings.name,
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: SettingScreen()),
+              ),
+            ],
+          ),
+        ],
+      ),
       GoRoute(
-        path: '/onboarding',
+        path: AppRoute.onboarding.route,
         name: AppRoute.onboarding.name,
         pageBuilder: (context, state) {
           return MaterialPage(
@@ -68,43 +124,26 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
         },
       ),
       GoRoute(
-        path: '/appInitialization',
+        path: AppRoute.appInitialization.route,
         name: AppRoute.appInitialization.name,
         builder: (context, state) => const AppInitializationScreen(),
       ),
       GoRoute(
-        path: '/signIn',
+        path: AppRoute.signIn.route,
         name: AppRoute.signIn.name,
         builder: (context, state) => const SignInScreen(),
       ),
       GoRoute(
-        path: '/signUp',
+        path: AppRoute.signUp.route,
         name: AppRoute.signUp.name,
         builder: (context, state) => const SignUpScreen(),
       ),
       GoRoute(
-        path: '/weather',
-        name: AppRoute.weather.name,
-        builder: (context, state) => const WeatherScreen(),
-      ),
-      GoRoute(
-        path: '/settings',
-        name: AppRoute.settings.name,
+        path: AppRoute.locationCreate.route,
+        name: AppRoute.locationCreate.name,
         pageBuilder: (context, state) {
           return const MaterialPage(
-            fullscreenDialog: true,
-            child: SettingScreen(),
-          );
-        },
-      ),
-      GoRoute(
-        path: '/locations',
-        name: AppRoute.locations.name,
-        pageBuilder: (context, state) {
-          return const MaterialPage(
-            fullscreenDialog: true,
-            child: LocationScreen(),
-          );
+              fullscreenDialog: true, child: LocationCreateScreen());
         },
       ),
     ],

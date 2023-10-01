@@ -3,6 +3,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'package:weatherjourney/src/features/weather/data/dto/generation_dto.dart';
 import 'package:weatherjourney/src/features/weather/domain/generation/generation.dart';
+import 'package:weatherjourney/src/utils/dio_fetcher.dart';
 
 part 'location_repository.g.dart';
 
@@ -21,5 +22,6 @@ abstract class LocationRepository {
 }
 
 final locationRepositoryProvider = Provider<LocationRepository>((ref) {
-  return LocationRepository(Dio());
+  final dio = ref.watch(dioFetcherProvider);
+  return LocationRepository(dio);
 });

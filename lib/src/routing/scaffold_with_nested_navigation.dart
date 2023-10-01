@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:weatherjourney/src/localization/string_hardcoded.dart';
+import 'package:weatherjourney/src/routing/app_router.dart';
 
 // Stateful navigation based on:
 // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
@@ -44,7 +46,7 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
   }
 }
 
-class ScaffoldWithBottomNavBar extends StatelessWidget {
+class ScaffoldWithBottomNavBar extends ConsumerWidget {
   const ScaffoldWithBottomNavBar({
     super.key,
     required this.body,
@@ -56,10 +58,21 @@ class ScaffoldWithBottomNavBar extends StatelessWidget {
   final ValueChanged<int> onDestinationSelected;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    //current route in gorouter
+    final goRouter = ref.watch(goRouterProvider);
     return Scaffold(
       body: body,
+      floatingActionButton: (goRouter.location == AppRoute.locations.route)
+          ? FloatingActionButton(
+              onPressed: () {
+                context.goNamed(AppRoute.locationCreate.name);
+              },
+              child: const Icon(Icons.add),
+            )
+          : null,
       bottomNavigationBar: NavigationBar(
+        height: 72,
         selectedIndex: currentIndex,
         destinations: [
           // products

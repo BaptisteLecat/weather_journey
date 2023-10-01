@@ -54,6 +54,7 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
     final userStream = ref.read(appUserStreamProvider);
     final locations =
         ref.watch(locationsListStreamProvider(userStream.value!.id!));
+    context.goNamed((AppRoute.locationCreate.name));
     return Scaffold(
       body: Stack(
         children: [
@@ -81,30 +82,7 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  child:
-                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    GestureDetector(
-                      onTap: () {
-                        context.pushNamed(AppRoute.locations.name);
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Center(
-                            child: Icon(
-                          Icons.menu_rounded,
-                          size: 32,
-                          color: Colors.black,
-                        )),
-                      ),
-                    )
-                  ]),
-                ),
+                Spacer(),
                 (locations.asData != null)
                     ? SizedBox(
                         height: 10,

@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:weatherjourney/src/constants/app_sizes.dart';
-import 'package:weatherjourney/src/features/authentication/domain/services/apple_sign_in_available_service.dart';
+import 'package:weatherjourney/src/features/authentication/application/services/apple_sign_in_available_service.dart';
 import 'package:weatherjourney/src/features/authentication/presentation/controller/auth_controller.dart';
 import 'package:weatherjourney/src/features/authentication/presentation/widget/secondary_button.dart';
 import 'package:weatherjourney/src/routing/app_router.dart';

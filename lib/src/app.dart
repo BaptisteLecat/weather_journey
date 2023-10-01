@@ -21,7 +21,7 @@ class MyApp extends ConsumerWidget {
         ),
         primaryColor: const Color(0xFF3F51B5),
         //scaffoldBackgroundColor: Colors.white,
-        scaffoldBackgroundColor: Colors.grey[200],
+        scaffoldBackgroundColor: Color(0xFFF6F6FE),
         dividerColor: Colors.grey[400],
         // https://github.com/firebase/flutterfire/blob/master/packages/firebase_ui_auth/doc/theming.md
         outlinedButtonTheme: OutlinedButtonThemeData(
