@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'useruid_location_parameter.dart';
+part of 'user_id_location_parameter.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

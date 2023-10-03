@@ -6,9 +6,8 @@ import 'package:weatherjourney/src/common_widgets/async_value_widget.dart';
 import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
 import 'package:weatherjourney/src/features/locations/data/firestore/location_firestore_repository.dart';
 import 'package:weatherjourney/src/features/locations/domain/location/location.dart';
-import 'package:weatherjourney/src/features/locations/domain/parameters/useruid_location_parameter.dart';
+import 'package:weatherjourney/src/features/locations/domain/parameters/user_id_location_parameter/user_id_location_parameter.dart';
 import 'package:weatherjourney/src/features/locations/presentation/controller/location_controller.dart';
-import 'package:weatherjourney/src/features/weather/data/firestore/generation_firestore_repository.dart';
 import 'package:weatherjourney/src/features/weather/data/services/weather_service.dart';
 import 'package:weatherjourney/src/features/weather/domain/generation/generation.dart';
 import 'package:weather_pack/weather_pack.dart';
@@ -116,9 +115,8 @@ class LocationCard extends ConsumerWidget {
           builder: (context, ref, child) {
             final userStream = ref.read(appUserStreamProvider);
             final lastGenerationStreamProvider = ref.watch(
-                lastGenerationForLocationStreamProvider(
-                    UseruidLocationParameter(
-                        uid: userStream.value!.id!, location: location)));
+                lastGenerationForLocationStreamProvider(UserIdLocationParameter(
+                    uid: userStream.value!.id!, location: location)));
             return AsyncValueWidget<Generation?>(
                 value: lastGenerationStreamProvider,
                 data: (lastGeneration) => Stack(

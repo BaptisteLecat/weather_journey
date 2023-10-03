@@ -9,9 +9,14 @@ import 'package:weatherjourney/src/features/locations/presentation/controller/pl
 import 'package:weatherjourney/src/features/locations/presentation/widget/location_header.dart';
 import 'package:weatherjourney/src/features/locations/presentation/widget/place_search_item.dart';
 import 'package:weatherjourney/src/routing/app_router.dart';
+import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
+import 'package:weatherjourney/src/features/locations/data/firestore/location_firestore_repository.dart';
+import 'package:weatherjourney/src/features/locations/domain/location/location.dart';
 
 class LocationCreateScreen extends ConsumerStatefulWidget {
-  const LocationCreateScreen({super.key});
+  const LocationCreateScreen({
+    super.key,
+  });
 
   @override
   ConsumerState<LocationCreateScreen> createState() =>
@@ -191,8 +196,29 @@ class _LocationCreateScreenState extends ConsumerState<LocationCreateScreen> {
                         ref.watch(placeSelectControllerProvider).value != null;
                     return Expanded(
                       child: GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           if (!itemSelected) return;
+                          final placeSelectNotifier =
+                              ref.watch(placeSelectControllerProvider);
+                          final place = placeSelectNotifier.value!;
+                          final locationRepository =
+                              ref.watch(locationFirestoreRepositoryProvider);
+                          final userStream = ref.read(appUserStreamProvider);
+                          final Location location = Location(
+                              latitude: place.lat,
+                              longitude: place.lon,
+                              city: place.displayName);
+                          final locationId = await locationRepository
+                              .insert(
+                                  docId: userStream.value!.id!,
+                                  entity: location)
+                              .then((value) => value.id);
+                          context.goNamed(
+                            AppRoute.locationGenerate.name,
+                            queryParameters: {
+                              "locationId": locationId!,
+                            },
+                          );
                         },
                         child: Container(
                             height: 54,

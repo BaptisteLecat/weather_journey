@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weatherjourney/src/features/locations/domain/location/location.dart';
-import 'package:weatherjourney/src/features/locations/domain/parameters/useruid_location_parameter.dart';
+import 'package:weatherjourney/src/features/locations/domain/parameters/user_id_location_id_parameter.dart/user_id_location_id_parameter.dart';
+import 'package:weatherjourney/src/features/locations/domain/parameters/user_id_location_parameter/user_id_location_parameter.dart';
 import 'package:weatherjourney/src/features/weather/domain/generation/generation.dart';
 
 class LocationFirestoreRepository {
@@ -238,8 +239,18 @@ final locationsListStreamProvider =
   return locationRepository.fetchAllForOneWithStream(docId: docId);
 });
 
+final locationByIdStreamProvider = StreamProvider.autoDispose
+    .family<Location, UserIdLocationIdParameter>(
+        (ref, useruidLocationParameter) {
+  final locationRepository = ref.watch(locationFirestoreRepositoryProvider);
+  return locationRepository.fetchOneWithStream(
+    docId: useruidLocationParameter.userId,
+    subDocId: useruidLocationParameter.locationId,
+  );
+});
+
 final lastGenerationForLocationStreamProvider = StreamProvider.autoDispose
-    .family<Generation?, UseruidLocationParameter>(
+    .family<Generation?, UserIdLocationParameter>(
         (ref, userUidLocationParameter) {
   final locationRepository = ref.watch(locationFirestoreRepositoryProvider);
   return locationRepository.fetchLastGenerationForLocationWithStream(

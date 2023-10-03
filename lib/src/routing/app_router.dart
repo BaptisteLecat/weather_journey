@@ -5,7 +5,8 @@ import 'package:weatherjourney/src/features/authentication/data/auth_repository.
 import 'package:weatherjourney/src/features/authentication/presentation/app_initialization_screen.dart';
 import 'package:weatherjourney/src/features/authentication/presentation/sign_in_screen.dart';
 import 'package:weatherjourney/src/features/authentication/presentation/sign_up_screen.dart';
-import 'package:weatherjourney/src/features/locations/presentation/create_location_screen.dart';
+import 'package:weatherjourney/src/features/locations/presentation/location_create_screen.dart';
+import 'package:weatherjourney/src/features/locations/presentation/location_generate_screen.dart';
 import 'package:weatherjourney/src/features/locations/presentation/location_screen.dart';
 import 'package:weatherjourney/src/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:weatherjourney/src/features/settings/presentation/setting_screen.dart';
@@ -31,6 +32,7 @@ enum AppRoute {
   weather(route: "/weather"),
   locations(route: "/locations"),
   locationCreate(route: "/create"),
+  locationGenerate(route: "/generate"),
   settings(route: "/settings");
 
   const AppRoute({required this.route});
@@ -144,6 +146,19 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
         pageBuilder: (context, state) {
           return const MaterialPage(
               fullscreenDialog: true, child: LocationCreateScreen());
+        },
+      ),
+      GoRoute(
+        path: AppRoute.locationGenerate.route,
+        name: AppRoute.locationGenerate.name,
+        builder: (context, state) {
+          print(state.pathParameters);
+          print(state.queryParameters);
+          final locationId = state.queryParameters['locationId'] as String?;
+          if (locationId == null) return const NotFoundScreen();
+          return LocationGenerateScreen(
+            locationId: locationId,
+          );
         },
       ),
     ],
