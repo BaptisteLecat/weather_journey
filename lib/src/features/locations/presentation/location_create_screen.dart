@@ -214,7 +214,7 @@ class _LocationCreateScreenState extends ConsumerState<LocationCreateScreen> {
                                   entity: location)
                               .then((value) => value.id);
                           context.goNamed(
-                            AppRoute.locationGenerate.name,
+                            AppRoute.weather.name,
                             queryParameters: {
                               "locationId": locationId!,
                             },

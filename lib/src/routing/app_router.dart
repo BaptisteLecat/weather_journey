@@ -84,8 +84,13 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
               GoRoute(
                 path: AppRoute.weather.route,
                 name: AppRoute.weather.name,
-                pageBuilder: (context, state) =>
-                    const NoTransitionPage(child: WeatherScreen()),
+                pageBuilder: (context, state) {
+                  final locationId = state.queryParameters['locationId'];
+                  return NoTransitionPage(
+                      child: WeatherScreen(
+                    locationId: locationId,
+                  ));
+                },
               ),
             ],
           ),
@@ -152,8 +157,6 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
         path: AppRoute.locationGenerate.route,
         name: AppRoute.locationGenerate.name,
         builder: (context, state) {
-          print(state.pathParameters);
-          print(state.queryParameters);
           final locationId = state.queryParameters['locationId'] as String?;
           if (locationId == null) return const NotFoundScreen();
           return LocationGenerateScreen(

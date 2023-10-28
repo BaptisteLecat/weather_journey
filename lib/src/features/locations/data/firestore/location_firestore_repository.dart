@@ -228,10 +228,12 @@ final locationFirestoreRepositoryProvider =
 });
 
 final locationsListFutureProvider =
-    FutureProvider.autoDispose.family<List<Location>, String>((ref, docId) {
-  final locationRepository = ref.watch(locationFirestoreRepositoryProvider);
-  return locationRepository.fetchAllForOne(docId: docId);
-});
+    FutureProvider.autoDispose.family<List<Location>, String>(
+  (ref, docId) {
+    final locationRepository = ref.watch(locationFirestoreRepositoryProvider);
+    return locationRepository.fetchAllForOne(docId: docId);
+  },
+);
 
 final locationsListStreamProvider =
     StreamProvider.autoDispose.family<List<Location>, String>((ref, docId) {

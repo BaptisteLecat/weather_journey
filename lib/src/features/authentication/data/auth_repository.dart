@@ -128,20 +128,23 @@ final authStateChangesProvider = StreamProvider<User?>(
     (ref) => ref.watch(firebaseAuthProvider).authStateChanges());
 
 // 3
-final appUserStreamProvider = StreamProvider<AppUser?>((ref) {
-  final auth = ref.watch(authStateChangesProvider);
+final appUserStreamProvider = StreamProvider<AppUser?>(
+  (ref) {
+    final auth = ref.watch(authStateChangesProvider);
 
-  if (auth.value != null) {
-    final userFirestoreRepository = ref.watch(userFirestoreRepositoryProvider);
-    return userFirestoreRepository
-        .fetchOneWithStream(docId: auth.value!.uid)
-        .map((user) => user.copyWith(
-              firebaseAppUser: auth.value,
-            ));
-  } else {
-    return Stream.value(null);
-  }
-});
+    if (auth.value != null) {
+      final userFirestoreRepository =
+          ref.watch(userFirestoreRepositoryProvider);
+      return userFirestoreRepository
+          .fetchOneWithStream(docId: auth.value!.uid)
+          .map((user) => user.copyWith(
+                firebaseAppUser: auth.value,
+              ));
+    } else {
+      return Stream.value(null);
+    }
+  },
+);
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepository();
