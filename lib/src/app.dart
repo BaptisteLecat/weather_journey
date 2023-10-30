@@ -19,6 +19,10 @@ class MyApp extends ConsumerWidget {
           elevation: 2.0,
           centerTitle: true,
         ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          selectedItemColor: Theme.of(context).primaryColor,
+          unselectedItemColor: Color.fromARGB(255, 172, 174, 178),
+        ),
         primaryColor: const Color(0xFF3F51B5),
         //scaffoldBackgroundColor: Colors.white,
         scaffoldBackgroundColor: Color(0xFFF6F6FE),

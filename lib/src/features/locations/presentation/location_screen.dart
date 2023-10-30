@@ -6,16 +6,9 @@ import 'package:go_router/go_router.dart';
 import 'package:weatherjourney/src/common_widgets/async_value_widget.dart';
 import 'package:weatherjourney/src/constants/app_sizes.dart';
 import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
-import 'package:weatherjourney/src/features/locations/application/services/geolocation_service.dart';
 import 'package:weatherjourney/src/features/locations/data/firestore/location_firestore_repository.dart';
-import 'package:weatherjourney/src/features/locations/data/http/nominatim_place_repository.dart';
 import 'package:weatherjourney/src/features/locations/domain/location/location.dart';
-import 'package:weatherjourney/src/features/locations/domain/place/place.dart';
-import 'package:weatherjourney/src/features/locations/presentation/controller/place_search_controller.dart';
 import 'package:weatherjourney/src/features/locations/presentation/widget/location_card.dart';
-import 'package:weatherjourney/src/features/locations/presentation/widget/location_header.dart';
-import 'package:weatherjourney/src/features/locations/presentation/widget/place_search_item.dart';
-import 'package:weatherjourney/src/routing/app_router.dart';
 
 class LocationScreen extends ConsumerStatefulWidget {
   const LocationScreen({super.key});
