@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
 import 'package:weatherjourney/src/common_widgets/async_value_widget.dart';
+import 'package:weatherjourney/src/common_widgets/shimmer_item_widget.dart';
 import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
 import 'package:weatherjourney/src/features/locations/data/firestore/location_firestore_repository.dart';
 import 'package:weatherjourney/src/features/locations/domain/location/location.dart';
@@ -109,7 +110,6 @@ class LocationCard extends ConsumerWidget {
         height: 120,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: Theme.of(context).primaryColor,
         ),
         child: Consumer(
           builder: (context, ref, child) {
@@ -132,9 +132,17 @@ class LocationCard extends ConsumerWidget {
                                         imageFilter: ImageFilter.blur(
                                             sigmaX: 2.5, sigmaY: 2.5),
                                         child: Image.network(
-                                          lastGeneration.generatedImage!.uri,
-                                          fit: BoxFit.fitWidth,
-                                        ),
+                                            lastGeneration.generatedImage!.uri,
+                                            fit: BoxFit.fitWidth,
+                                            loadingBuilder:
+                                                (BuildContext context,
+                                                    Widget child,
+                                                    ImageChunkEvent?
+                                                        loadingProgress) {
+                                          return (loadingProgress == null)
+                                              ? child
+                                              : ShimmerItemWidget();
+                                        }),
                                       ),
                                     ),
                                   ],

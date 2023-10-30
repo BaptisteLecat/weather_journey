@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:weatherjourney/src/common_widgets/async_value_widget.dart';
+import 'package:weatherjourney/src/common_widgets/shimmer_list_widget.dart';
 import 'package:weatherjourney/src/constants/app_sizes.dart';
 import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
 import 'package:weatherjourney/src/features/locations/data/firestore/location_firestore_repository.dart';
@@ -76,42 +78,23 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
                 child: Column(
                   children: [
                     Expanded(
-                      child: ListView(
-                        padding: EdgeInsets.zero,
-                        children: [
-                          Text(
-                            "Added Locations",
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                          const SizedBox(height: Sizes.p16),
-                          Consumer(
-                            builder: (context, ref, child) {
-                              final userStream =
-                                  ref.read(appUserStreamProvider);
-                              final locations = ref.watch(
-                                  locationsListStreamProvider(
-                                      userStream.value!.id!));
-                              return AsyncValueWidget<List<Location>>(
-                                value: locations,
-                                data: (locations) => ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: locations.length,
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: Sizes.p8),
-                                      child: LocationCard(
-                                        location: locations[index],
-                                      ),
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                        ],
+                      child: Consumer(
+                        builder: (context, ref, child) {
+                          final userStream = ref.read(appUserStreamProvider);
+                          final locations = ref.watch(
+                              locationsListStreamProvider(
+                                  userStream.value!.id!));
+                          return ShimmerListWidget(
+                              value: locations,
+                              itemBuilder: (context, index, locations) =>
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: Sizes.p8),
+                                    child: LocationCard(
+                                      location: locations[index],
+                                    ),
+                                  ));
+                        },
                       ),
                     ),
                   ],
