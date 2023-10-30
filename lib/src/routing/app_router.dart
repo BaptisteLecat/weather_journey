@@ -146,11 +146,11 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
         builder: (context, state) => const SignUpScreen(),
       ),
       GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
         path: AppRoute.locationCreate.route,
         name: AppRoute.locationCreate.name,
-        pageBuilder: (context, state) {
-          return const MaterialPage(
-              fullscreenDialog: true, child: LocationCreateScreen());
+        builder: (context, state) {
+          return LocationCreateScreen();
         },
       ),
       GoRoute(

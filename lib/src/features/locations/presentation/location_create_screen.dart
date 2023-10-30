@@ -42,42 +42,13 @@ class _LocationCreateScreenState extends ConsumerState<LocationCreateScreen> {
     BuildContext context,
   ) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Sizes.p24),
+          padding: const EdgeInsets.symmetric(
+              horizontal: Sizes.p24, vertical: Sizes.p16),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Spacer(),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          context.goNamed((AppRoute.weather.name));
-                        },
-                        child: Container(
-                          height: 38,
-                          width: 38,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Center(
-                            child: Icon(
-                              Icons.close,
-                              color: Colors.black,
-                              size: 22,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-              const SizedBox(height: Sizes.p24),
               Expanded(
                 child: Column(
                   children: [

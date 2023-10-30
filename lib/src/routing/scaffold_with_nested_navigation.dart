@@ -67,7 +67,7 @@ class ScaffoldWithBottomNavBar extends ConsumerWidget {
       floatingActionButton: (goRouter.location == AppRoute.locations.route)
           ? FloatingActionButton(
               onPressed: () {
-                context.goNamed(AppRoute.locationCreate.name);
+                context.pushNamed(AppRoute.locationCreate.name);
               },
               child: const Icon(Icons.add),
             )
