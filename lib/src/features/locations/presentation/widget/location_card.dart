@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
+import 'package:go_router/go_router.dart';
 import 'package:weatherjourney/src/common_widgets/async_value_widget.dart';
 import 'package:weatherjourney/src/common_widgets/shimmer_item_widget.dart';
 import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
@@ -12,6 +13,7 @@ import 'package:weatherjourney/src/features/locations/presentation/controller/lo
 import 'package:weatherjourney/src/features/weather/data/services/weather_service.dart';
 import 'package:weatherjourney/src/features/weather/domain/generation/generation.dart';
 import 'package:weather_pack/weather_pack.dart';
+import 'package:weatherjourney/src/routing/app_router.dart';
 
 class LocationCard extends ConsumerWidget {
   final Location location;
@@ -106,101 +108,119 @@ class LocationCard extends ConsumerWidget {
           },
         )
       ],
-      child: Container(
-        height: 120,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Consumer(
-          builder: (context, ref, child) {
-            final userStream = ref.read(appUserStreamProvider);
-            final lastGenerationStreamProvider = ref.watch(
-                lastGenerationForLocationStreamProvider(UserIdLocationParameter(
-                    uid: userStream.value!.id!, location: location)));
-            return AsyncValueWidget<Generation?>(
-                value: lastGenerationStreamProvider,
-                data: (lastGeneration) => Stack(
-                      children: [
-                        lastGeneration == null
-                            ? Container()
-                            : ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: ImageFiltered(
-                                        imageFilter: ImageFilter.blur(
-                                            sigmaX: 2.5, sigmaY: 2.5),
-                                        child: Image.network(
-                                            lastGeneration.generatedImage!.uri,
-                                            fit: BoxFit.fitWidth,
-                                            loadingBuilder:
-                                                (BuildContext context,
-                                                    Widget child,
-                                                    ImageChunkEvent?
-                                                        loadingProgress) {
-                                          return (loadingProgress == null)
-                                              ? child
-                                              : ShimmerItemWidget();
-                                        }),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                        Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          cityText,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleMedium!
-                                              .copyWith(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
+      child: GestureDetector(
+        onTap: () {
+          context.goNamed(
+            AppRoute.weather.name,
+            queryParameters: {
+              "locationId": location.id,
+            },
+          );
+        },
+        child: Container(
+          height: 120,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Consumer(
+            builder: (context, ref, child) {
+              final userStream = ref.read(appUserStreamProvider);
+              final lastGenerationStreamProvider = ref.watch(
+                  lastGenerationForLocationStreamProvider(
+                      UserIdLocationParameter(
+                          uid: userStream.value!.id!, location: location)));
+              return AsyncValueWidget<Generation?>(
+                  value: lastGenerationStreamProvider,
+                  data: (lastGeneration) => Stack(
+                        children: [
+                          lastGeneration == null
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                )
+                              : ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: ImageFiltered(
+                                          imageFilter: ImageFilter.blur(
+                                              sigmaX: 2.5, sigmaY: 2.5),
+                                          child: Image.network(
+                                              lastGeneration
+                                                  .generatedImage!.uri,
+                                              fit: BoxFit.fitWidth,
+                                              loadingBuilder:
+                                                  (BuildContext context,
+                                                      Widget child,
+                                                      ImageChunkEvent?
+                                                          loadingProgress) {
+                                            return (loadingProgress == null)
+                                                ? child
+                                                : ShimmerItemWidget();
+                                          }),
                                         ),
-                                        Text(location.city!.split(", ").last,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                          Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            cityText,
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .titleSmall!
+                                                .titleMedium!
                                                 .copyWith(
-                                                  color: Colors.white,
-                                                )),
-                                      ],
-                                    ),
-                                    Text(
-                                        weatherForLocation
-                                                    .value?.current?.temp !=
-                                                null
-                                            ? "${Temp.celsius.valueToString(weatherForLocation.value!.current!.temp!)}°C"
-                                            : "",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineLarge!
-                                            .copyWith(
-                                              color: Colors.white,
-                                              fontSize: 42,
-                                            )),
-                                  ],
-                                )
-                              ],
-                            )),
-                      ],
-                    ));
-          },
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          Text(location.city!.split(", ").last,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                    color: Colors.white,
+                                                  )),
+                                        ],
+                                      ),
+                                      Text(
+                                          weatherForLocation
+                                                      .value?.current?.temp !=
+                                                  null
+                                              ? "${Temp.celsius.valueToString(weatherForLocation.value!.current!.temp!)}°C"
+                                              : "",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineLarge!
+                                              .copyWith(
+                                                color: Colors.white,
+                                                fontSize: 42,
+                                              )),
+                                    ],
+                                  )
+                                ],
+                              )),
+                        ],
+                      ));
+            },
+          ),
         ),
       ),
     );
