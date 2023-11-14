@@ -28,24 +28,44 @@ jobs:
       with:
         xcode-version: "14.2"
 
+    - name: "Authenticate to Google Cloud"
+      uses: "google-github-actions/auth@v1"
+      with:
+          credentials_json: "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}"
+
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
+      with:
+          project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
+
+    - name: Download AppleAuthKey and GCloud KeyFile Json from GCP bucket
+      run: |
+        gsutil cp gs://'${{ secrets.GOOGLE_CLOUD_BUCKET_NAME }}'/'${{ secrets.APPLE_AUTH_KEY_FILENAME }}' .
+        gsutil cp gs://'${{ secrets.GOOGLE_CLOUD_BUCKET_NAME }}'/'${{ secrets.GOOGLE_CLOUD_KEY_FILENAME }}' ./ios/'${{ secrets.GOOGLE_CLOUD_KEY_FILENAME }}'
+        ls
+
     - name: Install Setup AppStore files
       run: |
         cd ios
         bundle install
-        cd ..
-        echo $GCKEY_FILE >> ./ios/gc_keys.json
-        echo $APP_STORE_CONNECT_KEY >> ./ios/AuthKey.p8
       shell: bash
-      env:
-        GCKEY_FILE: ${{ secrets.GCKEY_FILE }}
-        APP_STORE_CONNECT_KEY: ${{ secrets.AUTHKEY_FILE }}
-        KEY_ID: ${{ secrets.APPLE_KEY_ID }}
 
 
-    - name: Build and Deploy
-      run: |
-        flutter pub get
-        cd ios
-        fastlane beta
+    - name: Deploy iOS Beta to TestFlight via Fastlane
+      uses: maierj/fastlane-action@v1.4.0
+      with:
+        lane: beta
+        subdirectory: ios
       env:
-        APP_STORE_CONNECT_KEY: ${{ secrets.AUTHKEY_FILE }}
+        DEVELOPER_APP_IDENTIFIER: "${{ secrets.DEVELOPER_APP_IDENTIFIER }}"
+        APPLE_DEVELOPER_USERNAME: "${{ secrets.APPLE_DEVELOPER_USERNAME }}"
+        APPLE_AUTH_KEY_ID: "${{ secrets.APPLE_AUTH_KEY_ID }}"
+        APPLE_AUTH_ISSUER_ID: "${{ secrets.APPLE_AUTH_ISSUER_ID }}"
+        APPLE_AUTH_KEY_PATH: "${{ secrets.APPLE_AUTH_KEY_PATH }}"
+        FASTLANE_APPLE_ID: "${{ secrets.FASTLANE_APPLE_ID }}"
+        APP_STORE_CONNECT_TEAM_ID: "${{ secrets.APP_STORE_CONNECT_TEAM_ID }}"
+        DEVELOPER_PORTAL_TEAM_ID: "${{ secrets.DEVELOPER_PORTAL_TEAM_ID }}"
+        FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: "${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}"
+        MATCH_KEYCHAIN_PASSWORD: "${{ secrets.MATCH_KEYCHAIN_PASSWORD }}"
+        GOOGLE_CLOUD_BUCKET_NAME: "${{ secrets.GOOGLE_CLOUD_BUCKET_NAME }}"
+        GOOGLE_CLOUD_PROJECT_ID: "${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}"
