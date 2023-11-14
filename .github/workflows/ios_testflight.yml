@@ -33,8 +33,8 @@ jobs:
         cd ios
         bundle install
         cd ..
-        echo "$GCKEY_FILE" > ./ios/gc_keys.json
-        echo "$APP_STORE_CONNECT" > ./ios/AuthKey.p8
+        echo $GCKEY_FILE > ./ios/gc_keys.json
+        echo $APP_STORE_CONNECT > ./ios/AuthKey.p8
       shell: bash
       env:
         GCKEY_FILE: ${{ secrets.GCKEY_FILE }}
