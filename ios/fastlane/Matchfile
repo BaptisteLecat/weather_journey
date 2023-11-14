@@ -2,7 +2,7 @@ google_cloud_bucket_name(ENV["GOOGLE_CLOUD_BUCKET_NAME"])
 
 storage_mode("google_cloud")
 
-type("development") # The default type, can be: appstore, adhoc, enterprise or development
+type("appstore") # The default type, can be: appstore, adhoc, enterprise or development
 
 # app_identifier(["tools.fastlane.app", "tools.fastlane.app2"])
 username(ENV["APPLE_DEVELOPER_USERNAME"])
