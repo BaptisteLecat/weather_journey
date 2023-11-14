@@ -24,7 +24,7 @@ platform :ios do
       issuer_id: "2174b29f-1a4b-40d9-8f5a-7c4ed51a8189",
       #key_filepath: "./AuthKey_6L423769S5.p8",
       #key_filepath: "./AuthKey.p8",
-      #key_content: ENV["APP_STORE_CONNECT_KEY"],
+      key_content: "#{ENV["APP_STORE_CONNECT_KEY"]}",
       duration: 500, # optional (maximum 1200)
       in_house: false, # optional but may be required if using match/sigh
     )
