@@ -34,7 +34,8 @@ jobs:
         bundle install
         cd ..
         echo $GCKEY_FILE > ./ios/gc_keys.json
-        echo $APP_STORE_CONNECT > ./ios/AuthKey.p8
+        echo $APP_STORE_CONNECT > ./ios/.env
+        echo $APP_STORE_CONNECT > ./ios/fastlane/.env
       shell: bash
       env:
         GCKEY_FILE: ${{ secrets.GCKEY_FILE }}
