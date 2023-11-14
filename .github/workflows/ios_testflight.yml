@@ -12,73 +12,77 @@ jobs:
       id-token: "write"
     runs-on: macos-12
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        channel: stable
-        cache: true
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
 
-    - name: Setup Fastlane
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 2.6
-        rubygems: latest
+      - name: Setup Fastlane
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+          rubygems: latest
 
-    - name: Setup Xcode
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: "14.2"
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "14.2"
 
-    - name: "Authenticate to Google Cloud"
-      uses: "google-github-actions/auth@v1"
-      with:
+      - name: "Authenticate to Google Cloud"
+        uses: "google-github-actions/auth@v1"
+        with:
           credentials_json: "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}"
 
-    - name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v1'
-      with:
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v1"
+        with:
           project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
 
-    - name: Download AppleAuthKey and GCloud KeyFile Json from GCP bucket
-      run: |
-        gsutil cp gs://'${{ secrets.GOOGLE_CLOUD_BUCKET_NAME }}'/'${{ secrets.APPLE_AUTH_KEY_FILENAME }}' ./ios/'${{ secrets.APPLE_AUTH_KEY_FILENAME }}'
-        gsutil cp gs://'${{ secrets.GOOGLE_CLOUD_BUCKET_NAME }}'/'${{ secrets.GOOGLE_CLOUD_KEY_FILENAME }}' ./ios/'${{ secrets.GOOGLE_CLOUD_KEY_FILENAME }}'
-        ls
+      - name: Download AppleAuthKey and GCloud KeyFile Json from GCP bucket
+        run: |
+          gsutil cp gs://'${{ secrets.GOOGLE_CLOUD_BUCKET_NAME }}'/'${{ secrets.APPLE_AUTH_KEY_FILENAME }}' ./ios/'${{ secrets.APPLE_AUTH_KEY_FILENAME }}'
+          gsutil cp gs://'${{ secrets.GOOGLE_CLOUD_BUCKET_NAME }}'/'${{ secrets.GOOGLE_CLOUD_KEY_FILENAME }}' ./ios/'${{ secrets.GOOGLE_CLOUD_KEY_FILENAME }}'
+          ls
 
-    - name: Install Setup AppStore files
-      run: |
-        cd ios
-        bundle install
-      shell: bash
+      - name: Install Setup AppStore files
+        run: |
+          cd ios
+          bundle install
+        shell: bash
 
-    - name: Generate Firebase options
-      run: |
-        flutter pub global activate flutterfire_cli
-        flutterfire configure --project=FIREBASE_PROJECT_ID --ios-bundle-id=IOS_BUNDLE_ID
-      shell: bash
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        FIREBASE_PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
-        IOS_BUNDLE_ID: ${{ secrets.DEVELOPER_APP_IDENTIFIER }}
+      - name: Install Firebase CLI
+        uses: pocket-apps/action-setup-firebase@v2
+        with:
+          firebase-token: ${{ secrets.FIREBASE_TOKEN }}
 
-    - name: Deploy iOS Beta to TestFlight via Fastlane
-      uses: maierj/fastlane-action@v1.4.0
-      with:
-        lane: beta
-        subdirectory: ios
-      env:
-        DEVELOPER_APP_IDENTIFIER: "${{ secrets.DEVELOPER_APP_IDENTIFIER }}"
-        APPLE_DEVELOPER_USERNAME: "${{ secrets.APPLE_DEVELOPER_USERNAME }}"
-        APPLE_AUTH_KEY_ID: "${{ secrets.APPLE_AUTH_KEY_ID }}"
-        APPLE_AUTH_ISSUER_ID: "${{ secrets.APPLE_AUTH_ISSUER_ID }}"
-        APPLE_AUTH_KEY_PATH: "${{ secrets.APPLE_AUTH_KEY_PATH }}"
-        FASTLANE_APPLE_ID: "${{ secrets.FASTLANE_APPLE_ID }}"
-        APP_STORE_CONNECT_TEAM_ID: "${{ secrets.APP_STORE_CONNECT_TEAM_ID }}"
-        DEVELOPER_PORTAL_TEAM_ID: "${{ secrets.DEVELOPER_PORTAL_TEAM_ID }}"
-        FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: "${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}"
-        MATCH_KEYCHAIN_PASSWORD: "${{ secrets.MATCH_KEYCHAIN_PASSWORD }}"
-        GOOGLE_CLOUD_BUCKET_NAME: "${{ secrets.GOOGLE_CLOUD_BUCKET_NAME }}"
-        GOOGLE_CLOUD_PROJECT_ID: "${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}"
+      - name: Generate Firebase options
+        run: |
+          flutter pub global activate flutterfire_cli
+          flutterfire configure --project=FIREBASE_PROJECT_ID --ios-bundle-id=IOS_BUNDLE_ID
+        shell: bash
+        env:
+          FIREBASE_PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
+          IOS_BUNDLE_ID: ${{ secrets.DEVELOPER_APP_IDENTIFIER }}
+
+      - name: Deploy iOS Beta to TestFlight via Fastlane
+        uses: maierj/fastlane-action@v1.4.0
+        with:
+          lane: beta
+          subdirectory: ios
+        env:
+          DEVELOPER_APP_IDENTIFIER: "${{ secrets.DEVELOPER_APP_IDENTIFIER }}"
+          APPLE_DEVELOPER_USERNAME: "${{ secrets.APPLE_DEVELOPER_USERNAME }}"
+          APPLE_AUTH_KEY_ID: "${{ secrets.APPLE_AUTH_KEY_ID }}"
+          APPLE_AUTH_ISSUER_ID: "${{ secrets.APPLE_AUTH_ISSUER_ID }}"
+          APPLE_AUTH_KEY_PATH: "${{ secrets.APPLE_AUTH_KEY_PATH }}"
+          FASTLANE_APPLE_ID: "${{ secrets.FASTLANE_APPLE_ID }}"
+          APP_STORE_CONNECT_TEAM_ID: "${{ secrets.APP_STORE_CONNECT_TEAM_ID }}"
+          DEVELOPER_PORTAL_TEAM_ID: "${{ secrets.DEVELOPER_PORTAL_TEAM_ID }}"
+          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: "${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}"
+          MATCH_KEYCHAIN_PASSWORD: "${{ secrets.MATCH_KEYCHAIN_PASSWORD }}"
+          GOOGLE_CLOUD_BUCKET_NAME: "${{ secrets.GOOGLE_CLOUD_BUCKET_NAME }}"
+          GOOGLE_CLOUD_PROJECT_ID: "${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}"
