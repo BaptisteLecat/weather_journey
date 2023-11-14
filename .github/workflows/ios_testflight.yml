@@ -35,11 +35,12 @@ jobs:
         bundle install
         cd ..
         echo "$GCKEY_FILE" > ./ios/gc_keys.json
-        echo "$APP_STORE_CONNECT" > ./ios/.env
+        echo "$APP_STORE_CONNECT" > ./ios/AuthKey.p8
       shell: bash
       env:
         GCKEY_FILE: ${{ secrets.GCKEY_FILE }}
-        #APP_STORE_CONNECT: ${{ secrets.AUTHKEY_FILE }}
+        APP_STORE_CONNECT: ${{ secrets.AUTHKEY_FILE }}
+        KEY_ID: ${{ secrets.APPLE_KEY_ID }}
 
 
     - name: Build and Deploy

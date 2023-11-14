@@ -17,4 +17,4 @@ DEPLOY_PATH="$SCRIPT_PATH"
 
 #flutter pub run flutter_launcher_icons:main
 cd "$DEPLOY_PATH"
-flutter build ipa --build-number="$NUMVERSION" --build-name=0.1.0+1
+flutter build ipa --build-number="$NUMVERSION" --build-name=0.2.0
