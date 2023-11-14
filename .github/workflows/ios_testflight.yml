@@ -37,7 +37,7 @@ jobs:
       shell: bash
       env:
         GCKEY_FILE: ${{ secrets.GCKEY_FILE }}
-        APP_STORE_CONNECT_KEY: ${{ secrets.AUTHKEY_FILE }}
+        APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.AUTHKEY_FILE }}
         KEY_ID: ${{ secrets.APPLE_KEY_ID }}
 
 
