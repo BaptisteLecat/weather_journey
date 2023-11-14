@@ -28,17 +28,15 @@ jobs:
       with:
         xcode-version: "14.2"
 
-    - id: auth
-      name: Login
-      uses: google-github-actions/auth@v1
+    - name: "Authenticate to Google Cloud"
+      uses: "google-github-actions/auth@v1"
       with:
-        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_ID }}
-        service_account: ${{ secrets.WIP_EMAIL }}
+          credentials_json: "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}"
 
-    - name: Configure gcloud
-      uses: google-github-actions/setup-gcloud@v1
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
       with:
-        project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
+          project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
 
     - name: Download AppleAuthKey and GCloud KeyFile Json from GCP bucket
       run: |
