@@ -6,6 +6,10 @@ on:
 
 jobs:
   ios:
+    environment: beta
+    permissions:
+      contents: "read"
+      id-token: "write"
     runs-on: macos-12
     steps:
     - name: Checkout Code
@@ -49,7 +53,6 @@ jobs:
         cd ios
         bundle install
       shell: bash
-
 
     - name: Deploy iOS Beta to TestFlight via Fastlane
       uses: maierj/fastlane-action@v1.4.0
