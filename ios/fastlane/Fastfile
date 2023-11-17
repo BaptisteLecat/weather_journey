@@ -33,7 +33,7 @@ platform :ios do
       export_method: "app-store",
       output_directory: "./build", # Specify the output directory here
       output_name: "weather_assistant.ipa", # Specify the output name here
-      clean: true, # Clean the project before building
+      clean: false, # Clean the project before building
       include_bitcode: true # Include bitcode
     )
     
