@@ -16,4 +16,4 @@ ASSET_PATH="$SCRIPT_PATH/../asset"
 DEPLOY_PATH="$SCRIPT_PATH"
 
 #flutter pub run flutter_launcher_icons:main
-flutter build ipa --export-options-plist ios/export.plist --release --build-number="$NUMVERSION" --build-name=0.2.0
+flutter build ipa --export-options-plist ../ios/export.plist --release --build-number="$NUMVERSION" --build-name=0.2.0
