@@ -30,7 +30,8 @@ platform :ios do
     match(type: "appstore", app_identifier: "com.baptistelecat.weatherjourney", api_key: api_key)
     version_code = latest_testflight_build_number + 1
     #build_app(workspace: "Runner.xcworkspace", scheme: "Runner")
-    sh("cd ../../deploy && ./deploy_ios.sh #{version_code.to_s}")
+    sh("pwd")
+    #sh("cd ../../deploy && ./deploy_ios.sh #{version_code.to_s}")
     upload_to_testflight(ipa: "../build/ios/ipa/weather_assistant.ipa")
     #TODO IN CI upload_to_testflight(skip_waiting_for_build_processing: true)
   end
