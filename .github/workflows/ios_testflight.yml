@@ -48,11 +48,11 @@ jobs:
           gsutil cp gs://'${{ secrets.GOOGLE_CLOUD_BUCKET_NAME }}'/'${{ secrets.GOOGLE_CLOUD_KEY_FILENAME }}' ./ios/'${{ secrets.GOOGLE_CLOUD_KEY_FILENAME }}'
           ls
 
-      - name: Install Setup AppStore files
-        run: |
-          cd ios
-          bundle install
-        shell: bash
+      # - name: Install Setup AppStore files
+      #   run: |
+      #     cd ios
+      #     bundle install
+      #   shell: bash
 
       - name: Install Firebase CLI
         uses: pocket-apps/action-setup-firebase@v2
