@@ -51,8 +51,6 @@ jobs:
       - name: Install Setup AppStore files
         run: |
           cd ios
-          sudo gem uninstall cocoapods
-          sudo gem install cocoapods
           pod cache clean --all
           bundle install
           bundle exec pod install
