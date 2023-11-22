@@ -50,6 +50,7 @@ jobs:
 
       - name: Install Setup AppStore files
         run: |
+          flutter pub get
           cd ios
           pod cache clean --all
           bundle install
