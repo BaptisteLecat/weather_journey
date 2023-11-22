@@ -12,9 +12,7 @@ else
 fi
 
 #flutter pub run flutter_launcher_icons:main
-pwd
-cd ..
-pwd
-ls -al
-cd fastlane
-flutter build ipa --export-options-plist ../export.plist --release --build-number="$NUMVERSION" --build-name=0.2.0
+CURRENT_DIR=$(pwd)
+EXPORT_PLIST=$CURRENT_DIR/export.plist
+
+flutter build ipa --export-options-plist "$EXPORT_PLIST" --release --build-number="$NUMVERSION" --build-name=0.2.0
