@@ -1,0 +1,61 @@
+name: Android CI/CD
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '12.x'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Get Flutter dependencies
+        run: flutter pub get
+
+      # - name: Run Flutter tests
+      #   run: flutter test
+
+      - name: Setup Fastlane
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+          rubygems: latest
+
+      - name: Install Firebase CLI
+        uses: pocket-apps/action-setup-firebase@v2
+        with:
+          firebase-token: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: Generate Firebase options
+        run: |
+          flutter pub global activate flutterfire_cli
+          flutterfire configure --project=$FIREBASE_PROJECT_ID --android-package-name=$ANDROID_PACKAGE_NAME --platforms=android --yes
+        shell: bash
+        env:
+          FIREBASE_PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
+          ANDROID_PACKAGE_NAME: ${{ secrets.DEVELOPER_APP_IDENTIFIER }}
+
+      - name: Deploy iOS Beta to TestFlight via Fastlane
+        uses: maierj/fastlane-action@v1.4.0
+        with:
+          lane: beta
+          subdirectory: android
