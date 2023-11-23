@@ -52,6 +52,14 @@ jobs:
           FIREBASE_PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
           ANDROID_PACKAGE_NAME: ${{ secrets.DEVELOPER_APP_IDENTIFIER }}
 
+      - name: Setup Android release key
+        run: |
+          echo ${{ secrets.KEY_BASE_64 }} | base64 --decode > android/app/key.jks
+          echo keyPassword=\${{ secrets.KEY_PASSWORD }} > android/keystore.properties
+          echo storePassword=\${{ secrets.STORE_PASSWORD }} >> android/keystore.properties
+          echo keyAlias=\${{ secrets.KEY_ALIAS }} >> android/keystore.properties 
+        shell: bash
+
       - name: Deploy iOS Beta to TestFlight via Fastlane
         uses: maierj/fastlane-action@v1.4.0
         with:
