@@ -55,9 +55,9 @@ jobs:
       - name: Setup Android release key
         run: |
           echo ${{ secrets.KEY_BASE_64 }} | base64 --decode > android/app/key.jks
-          echo keyPassword=\${{ secrets.KEY_PASSWORD }} > android/keystore.properties
-          echo storePassword=\${{ secrets.STORE_PASSWORD }} >> android/keystore.properties
-          echo keyAlias=\${{ secrets.KEY_ALIAS }} >> android/keystore.properties 
+          echo keyPassword=\${{ secrets.KEY_PASSWORD }} > android/key.properties
+          echo storePassword=\${{ secrets.STORE_PASSWORD }} >> android/key.properties
+          echo keyAlias=\${{ secrets.KEY_ALIAS }} >> android/key.properties 
         shell: bash
 
       - name: Deploy iOS Beta to TestFlight via Fastlane
