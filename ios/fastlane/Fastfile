@@ -31,8 +31,8 @@ platform :ios do
     version_code = latest_testflight_build_number + 1
     #build_app(workspace: "Runner.xcworkspace", scheme: "Runner")
     sh("sh ../../deploy/deploy_ios.sh #{version_code.to_s}")
-    upload_to_testflight(ipa: "../../build/ios/ipa/weather_assistant.ipa")
     sh("cd ../../build/ios/ipa && ls -al")
+    upload_to_testflight(ipa: "../../build/ios/ipa/weather_assistant.ipa")
     #TODO IN CI upload_to_testflight(skip_waiting_for_build_processing: true)
   end
 end
