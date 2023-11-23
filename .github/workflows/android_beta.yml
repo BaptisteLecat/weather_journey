@@ -16,11 +16,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Set up Java
-        uses: actions/setup-java@v3
+      
+      - name: Setup JDK
+        uses: actions/setup-java@v1
         with:
-          java-version: '12.x'
+          java-version: "12.x"
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
