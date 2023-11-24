@@ -74,5 +74,5 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: app-release.apk
+          name: weather_assistant.aab
           path: build/app/outputs/bundle/release/app-release.aab

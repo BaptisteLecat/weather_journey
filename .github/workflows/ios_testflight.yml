@@ -93,5 +93,5 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: app-release.apk
+          name: weather_assistant.ipa
           path: build/ios/ipa/weather_assistant.ipa
