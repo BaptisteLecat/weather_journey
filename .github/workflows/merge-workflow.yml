@@ -1,0 +1,26 @@
+name: Merge Workflow
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  merge-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Merge Develop to Main
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          git checkout main
+          git merge develop
+          git push origin main
+      - name: Tag New Release
+        if: github.ref == 'refs/heads/main'
+        run: |
+          # Exemple de script pour taguer une nouvelle release
+          VERSION="v$(date +'%Y.%m.%d.%H%M')"
+          git tag $VERSION
+          git push origin $VERSION
