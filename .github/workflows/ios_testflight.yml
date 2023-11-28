@@ -1,9 +1,9 @@
 name: BETA - IOS | TestFlight
+
 on:
   push:
     branches:
-      - main
-
+      - release/**
 jobs:
   ios:
     environment: beta
@@ -20,6 +20,12 @@ jobs:
         with:
           channel: stable
           cache: true
+
+      - name: Get Flutter dependencies
+        run: flutter pub get
+
+      - name: Run tests
+        run: flutter test
 
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1

@@ -3,12 +3,7 @@ name: BETA - ANDROID | PlayStore
 on:
   push:
     branches:
-      - main
-    paths-ignore:
-      - '**.md'
-  pull_request:
-    branches:
-      - main
+      - release/**
 
 jobs:
   build-and-deploy:
@@ -31,6 +26,9 @@ jobs:
 
       - name: Get Flutter dependencies
         run: flutter pub get
+
+      - name: Run tests
+        run: flutter test
 
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
