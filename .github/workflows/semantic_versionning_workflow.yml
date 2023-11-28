@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'release/**'
+
+jobs:
+  semantic-versioning:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Nécessaire pour récupérer tous les tags
+
+      - name: Semantic Versioning
+        id: semver # Définissez un ID pour cette étape pour pouvoir récupérer les outputs
+        uses: paulhatch/semantic-version@v4.0.2
+        with:
+          branch: ${{ github.ref }}
+          format: '${major}.${minor}.${patch}-beta.${increment}'
+          tag_prefix: ''
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Print new version
+        run: echo "The new version is ${{ steps.semver.outputs.version }}"
+
+      # Utilisez l'output dans d'autres étapes de votre workflow
+      - name: Build and Publish
+        run: |
+          echo "Building and publishing version ${{ steps.semver.outputs.version }}"
+          # Remplacez ce commentaire par vos commandes de build et de publication
+          # En utilisant la variable ${{ steps.semver.outputs.version }} pour référencer la version
