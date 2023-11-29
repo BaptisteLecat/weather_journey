@@ -21,3 +21,11 @@ jobs:
           branch: ${{ github.ref }}
           format: '${major}.${minor}.${patch}-beta.${increment}'
           tag_prefix: ''
+
+      - name: Create tag
+        run: |
+          echo "Creating tag ${{ steps.semver.outputs.version }}"
+          git config --local user.email "
+          git config --local user.name "
+          git tag -a ${{ steps.semver.outputs.version }} -m "Tag ${{ steps.semver.outputs.version }}"
+          git push origin ${{ steps.semver.outputs.version }}
