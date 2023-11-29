@@ -1,0 +1,34 @@
+name: CI
+
+on: workflow_dispatch
+
+jobs:
+  release-draft-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Nécessaire pour récupérer tous les tags
+
+      - name: Get the release version from the branch name (release/x.y.z)
+        id: semver
+        run: |
+          echo "##[set-output name=version;]${GITHUB_REF#refs/heads/release/}"
+
+      - name: Create pull request
+        uses: thomaseizinger/create-pull-request@1.0.0
+        with:
+          head: release/${{ steps.semver.outputs.version }}
+          base: main
+          title: Release version ${{ steps.semver.outputs.version }}
+          reviewers: ${{ github.actor }} # By default, we request a review from the person who triggered the workflow.
+          # Write a nice message to the user.
+          # We are claiming things here based on the `publish-new-release.yml` workflow.
+          # You should obviously adopt it to say the truth depending on your release workflow :)
+          body: |
+            Hi @${{ github.actor }}!
+
+            This PR was created in response to a manual trigger of the release workflow here: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}.
+
+            Merging this PR will create a GitHub release and upload any assets that are created as part of the release build.
