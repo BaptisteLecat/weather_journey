@@ -1,13 +1,12 @@
 name: CI
 
 on:
-  push:
+  pull_request:
     branches:
-      - main
-      - 'release/**'
+      - release
 
 jobs:
-  semantic-versioning:
+  release-draft-pr:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -20,17 +19,17 @@ jobs:
         uses: paulhatch/semantic-version@v4.0.2
         with:
           branch: ${{ github.ref }}
-          format: '${major}.${minor}.${patch}-beta.${increment}'
-          tag_prefix: ''
+          format: "${major}.${minor}.${patch}-beta.${increment}"
+          tag_prefix: "v"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Print new version
         run: echo "The new version is ${{ steps.semver.outputs.version }}"
 
-      # Utilisez l'output dans d'autres étapes de votre workflow
-      - name: Build and Publish
+      - name: Create a tag for the new version
         run: |
-          echo "Building and publishing version ${{ steps.semver.outputs.version }}"
-          # Remplacez ce commentaire par vos commandes de build et de publication
-          # En utilisant la variable ${{ steps.semver.outputs.version }} pour référencer la version
+          git config --local user.email "ci-worker@github.com"
+          git config --local user.name "GitHub Action"
+          git tag -a ${{ steps.semver.outputs.version }} -m "Release ${{ steps.semver.outputs.version }}"
+          git push origin ${{ steps.semver.outputs.version }}
