@@ -14,18 +14,10 @@ jobs:
         with:
           fetch-depth: 0 # Nécessaire pour récupérer tous les tags
 
-      - name: Semantic Versioning
-        id: semver # Définissez un ID pour cette étape pour pouvoir récupérer les outputs
-        uses: paulhatch/semantic-version@v4.0.2
-        with:
-          branch: ${{ github.ref }}
-          format: "${major}.${minor}.${patch}-beta.${increment}"
-          tag_prefix: "v"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Print new version
-        run: echo "The new version is ${{ steps.semver.outputs.version }}"
+      - name: Get the release version from the branch name (release/x.y.z)
+        id: semver
+        run: |
+          echo "##[set-output name=version;]${GITHUB_REF#refs/heads/release/}"
 
       - name: Create pull request
         uses: thomaseizinger/create-pull-request@1.0.0
