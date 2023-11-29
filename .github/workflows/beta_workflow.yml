@@ -1,6 +1,9 @@
 name: BETA Deployment Workflow | PlayStore - TestFlight
 
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+    branches:
+      - develop
 
 jobs:
   create-release-branch:
@@ -16,10 +19,8 @@ jobs:
         uses: paulhatch/semantic-version@v4.0.2
         with:
           branch: ${{ github.ref }}
-          format: "${major}.${minor}.${patch}-beta.${increment}"
+          format: "${major}.${minor}.${patch}"
           tag_prefix: "v"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Print new version
         run: echo "The new version is ${{ steps.semver.outputs.version }}"
