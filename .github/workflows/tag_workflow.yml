@@ -25,7 +25,7 @@ jobs:
       - name: Create tag
         run: |
           echo "Creating tag ${{ steps.semver.outputs.version }}"
-          git config --local user.email "
-          git config --local user.name "
+          git config --global user.email "ci-executor@baptistelecat.com"
+          git config --global user.name "Ci Executor"
           git tag -a ${{ steps.semver.outputs.version }} -m "Tag ${{ steps.semver.outputs.version }}"
           git push origin ${{ steps.semver.outputs.version }}
