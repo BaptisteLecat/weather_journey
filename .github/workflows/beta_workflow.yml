@@ -32,6 +32,7 @@ jobs:
           git push origin release/${{ steps.semver.outputs.version }}
 
   build-and-deploy-android:
+    needs: create-release-branch
     environment: beta
     runs-on: ubuntu-latest
     steps:
@@ -103,6 +104,7 @@ jobs:
           path: build/app/outputs/bundle/release/app-release.aab
 
   build-and-deploy-ios:
+    needs: create-release-branch
     environment: beta
     permissions:
       contents: "read"
