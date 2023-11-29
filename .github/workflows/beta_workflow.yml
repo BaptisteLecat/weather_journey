@@ -1,6 +1,6 @@
 name: BETA Deployment Workflow | PlayStore - TestFlight
 
-on: 
+on:
   workflow_dispatch:
     branches:
       - develop
@@ -20,7 +20,7 @@ jobs:
         with:
           branch: ${{ github.ref }}
           format: "${major}.${minor}.${patch}"
-          tag_prefix: "v"
+          tag_prefix: ""
 
       - name: Print new version
         run: echo "The new version is ${{ steps.semver.outputs.version }}"
@@ -40,6 +40,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
+          fetch-depth: 0 # Nécessaire pour récupérer tous les tags
           ref: release/${{ github.event.inputs.version }}
 
       - name: Setup JDK
@@ -115,6 +116,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
+          fetch-depth: 0 # Nécessaire pour récupérer tous les tags
           ref: release/${{ github.event.inputs.version }}
 
       - name: Setup Flutter
