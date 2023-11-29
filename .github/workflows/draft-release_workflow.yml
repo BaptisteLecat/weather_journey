@@ -1,4 +1,4 @@
-name: CI
+name: Create a draft release PR
 
 on: workflow_dispatch
 
