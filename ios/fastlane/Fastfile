@@ -35,7 +35,7 @@ platform :ios do
       force: true, # Skip HTMl report verification
       skip_metadata: true,
       skip_screenshots: true,
-      skip_binary_upload: true
+      skip_binary_upload: true,
       run_precheck_before_submit: false
     )
   end
