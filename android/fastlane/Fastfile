@@ -40,6 +40,8 @@ platform :android do
   lane :promote_beta_to_production do
     supply(
       track: 'internal',
+      skip_upload_screenshots: true,
+      skip_upload_metadata: true,
       track_promote_to: 'production'
     )
   end
