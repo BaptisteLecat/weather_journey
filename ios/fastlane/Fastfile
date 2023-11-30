@@ -18,4 +18,11 @@ platform :ios do
     sh("sh ../../deploy/deploy_ios.sh #{version_code.to_s}")
     upload_to_testflight(ipa: "../../weather_assistant/build/ios/ipa/weather_assistant.ipa")
   end
+
+  lane :promote_to_app_store do
+    deliver(
+      submit_for_review: true,
+      automatic_release: true
+    )
+  end
 end
