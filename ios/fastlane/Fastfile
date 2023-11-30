@@ -36,6 +36,7 @@ platform :ios do
       skip_metadata: true,
       skip_screenshots: true,
       skip_binary_upload: true
+      run_precheck_before_submit: false
     )
   end
 end
