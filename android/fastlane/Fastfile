@@ -42,6 +42,7 @@ platform :android do
       track: 'internal',
       skip_upload_screenshots: true,
       skip_upload_metadata: true,
+      skip_upload_changelogs: true,
       track_promote_to: 'production'
     )
   end
