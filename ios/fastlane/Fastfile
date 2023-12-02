@@ -15,7 +15,9 @@ platform :ios do
       
     match(type: "appstore", app_identifier: "com.baptistelecat.weatherjourney", api_key: api_key)
     version_code = latest_testflight_build_number + 1
-    sh("sh ../../deploy/deploy_ios.sh #{version_code.to_s}")
+    semver = git_branch.match(/release\/(\d+\.\d+\.\d+)/)[1]
+
+    sh("sh ../../deploy/deploy_ios.sh #{version_code.to_s} #{semver}")
     upload_to_testflight(ipa: "../../weather_assistant/build/ios/ipa/weather_assistant.ipa")
   end
 

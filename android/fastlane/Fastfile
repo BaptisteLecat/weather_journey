@@ -25,9 +25,9 @@ platform :android do
   lane :beta do
       versions = google_play_track_version_codes(track: "internal")
       version_code = versions[0] + 1
-      print("version_code: #{version_code.to_s}")
+      semver = git_branch.match(/release\/(\d+\.\d+\.\d+)/)[1]
 
-      sh("flutter build appbundle --build-number=#{version_code.to_s}")
+      sh("flutter build appbundle --build-number=#{version_code.to_s} --build-name=#{semver}")
 
       upload_to_play_store(track: 'internal',
         version_code: version_code,
