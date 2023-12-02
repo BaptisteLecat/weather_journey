@@ -27,11 +27,11 @@ jobs:
       - name: Print new version
         run: echo "The new version is ${{ steps.semver.outputs.version }}"
 
-      - name: Create a release branch for the new version
+      - name: Create a release branch for the new version from develop
         run: |
           git config --local user.email "ci-executor@github.com"
           git config --local user.name "GitHub Action"
-          git checkout -b release/${{ steps.semver.outputs.version }}
+          git checkout -b release/${{ steps.semver.outputs.version }} develop
           git push origin release/${{ steps.semver.outputs.version }}
 
   build-and-deploy-android:
