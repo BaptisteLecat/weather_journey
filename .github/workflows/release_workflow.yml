@@ -98,5 +98,20 @@ jobs:
           MATCH_KEYCHAIN_PASSWORD: "${{ secrets.MATCH_KEYCHAIN_PASSWORD }}"
           GOOGLE_CLOUD_BUCKET_NAME: "${{ secrets.GOOGLE_CLOUD_BUCKET_NAME }}"
           GOOGLE_CLOUD_PROJECT_ID: "${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}"
-          
+
+  merge-main-to-develop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Nécessaire pour récupérer tous les tags
+
+      - name: Merge main to develop
+        uses: pascalgn/automerge-action@v0.13.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          source-branch: main
+          destination-branch: develop
+          merge-method: squash
       
