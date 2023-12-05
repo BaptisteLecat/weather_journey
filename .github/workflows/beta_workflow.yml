@@ -157,7 +157,7 @@ jobs:
       - name: Download AppleAuthKey and GCloud KeyFile Json from GCP bucket
         run: |
           gsutil cp gs://'${{ secrets.GOOGLE_CLOUD_BUCKET_NAME }}'/'${{ secrets.APPLE_AUTH_KEY_FILENAME }}' ./ios/'${{ secrets.APPLE_AUTH_KEY_FILENAME }}'
-          gsutil cp gs://'${{ secrets.GOOGLE_CLOUD_BUCKET_NAME }}'/'${{ secrets.GOOGLE_CLOUD_KEY_FILENAME }}' ./ios/'${{ secrets.GOOGLE_CLOUD_KEY_FILENAME }}'
+          gsutil cp gs://'${{ secrets.GOOGLE_CLOUD_BUCKET_NAME }}'/'${{ secrets.GOOGLE_CLOUD_KEY_FILENAME }}' ./ios/gc_keys.json
           ls
 
       - name: Install Setup AppStore files
