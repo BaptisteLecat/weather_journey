@@ -11,7 +11,7 @@ GitHub Actions for Flutter apps Documentation
 | Name | Description | Where to get it |
 |------|-------------| --------------- |
 APPLE_AUTH_ISSUER_ID | Use the value of the issuer ID from the Apple Developer Portal, it will be used to generate the JWT token for Fastlane | Create a new key in the Apple Developer Portal in User Access |
-APPLE_AUTH_KEY_FILENAME | Name of the stored file in the Google Cloud Storage, it will be used to generate the JWT token for Fastlane | The name of this file has to be the key ID.p8 |
+APPLE_AUTH_KEY_FILENAME | Name of the stored file in the Google Cloud Storage, it will be used to generate the JWT token for Fastlane | The name of this file has to be AuthKey-env.p8 |
 APPLE_AUTH_KEY_ID | Use the value of the key ID from the Apple Developer Portal, it will be used to generate the JWT token for Fastlane | Create a new key in the Apple Developer Portal in User Access |
 APPLE_AUTH_KEY_PATH | Use the value of the key path to access the key file and generate the JWT token for Fastlane | The relative path to the key file usually in IOS folder so it's just ./APPLE_AUTH_KEY_FILENAME |
 APPLE_DEVELOPER_USERNAME | This is the Apple Developer Portal username, it will be queried by Fastlane | Find it in the Apple Developer Portal in Membership |
