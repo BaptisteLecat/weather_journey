@@ -36,7 +36,7 @@ jobs:
 
   build-and-deploy-android:
     needs: create-release-branch
-    environment: prod
+    environment: beta
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -109,7 +109,7 @@ jobs:
 
   build-and-deploy-ios:
     needs: create-release-branch
-    environment: prod
+    environment: beta
     permissions:
       contents: "read"
       id-token: "write"
@@ -157,7 +157,7 @@ jobs:
       - name: Download AppleAuthKey and GCloud KeyFile Json from GCP bucket
         run: |
           gsutil cp gs://'${{ secrets.GOOGLE_CLOUD_BUCKET_NAME }}'/'${{ secrets.APPLE_AUTH_KEY_FILENAME }}' ./ios/'${{ secrets.APPLE_AUTH_KEY_FILENAME }}'
-          gsutil cp gs://'${{ secrets.GOOGLE_CLOUD_BUCKET_NAME }}'/'${{ secrets.GOOGLE_CLOUD_KEY_FILENAME }}' ./ios/gc_keys.json
+          gsutil cp gs://'${{ secrets.GOOGLE_CLOUD_BUCKET_NAME }}'/'${{ secrets.GOOGLE_CLOUD_KEY_FILENAME }}' ./ios/'${{ secrets.GOOGLE_CLOUD_KEY_FILENAME }}'
           ls
 
       - name: Install Setup AppStore files
