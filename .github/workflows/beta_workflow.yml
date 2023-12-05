@@ -36,7 +36,7 @@ jobs:
 
   build-and-deploy-android:
     needs: create-release-branch
-    environment: beta
+    environment: prod
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -109,7 +109,7 @@ jobs:
 
   build-and-deploy-ios:
     needs: create-release-branch
-    environment: beta
+    environment: prod
     permissions:
       contents: "read"
       id-token: "write"
