@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:weatherjourney/src/constants/app_sizes.dart';
 import 'package:weatherjourney/src/features/settings/presentation/controller/setting_controller.dart';
 

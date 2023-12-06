@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:weatherjourney/src/routing/app_router.dart';
 
@@ -25,8 +24,8 @@ class EmptyLocation extends StatelessWidget {
                 width: 120,
                 height: 120,
               ),
-              SizedBox(height: 28),
-              Text(
+              const SizedBox(height: 28),
+              const Text(
                 'You have no locations yet',
                 style: TextStyle(
                   fontSize: 20,

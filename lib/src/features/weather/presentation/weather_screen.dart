@@ -1,18 +1,12 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:weatherjourney/src/common_widgets/async_value_widget.dart';
 import 'package:weatherjourney/src/constants/app_sizes.dart';
 import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
-import 'package:weatherjourney/src/features/authentication/data/firestore/user_firestore_repository.dart';
 import 'package:weatherjourney/src/features/locations/data/firestore/location_firestore_repository.dart';
 import 'package:weatherjourney/src/features/locations/domain/location/location.dart';
 import 'package:weatherjourney/src/features/locations/presentation/widget/empty_location.dart';
-import 'package:weatherjourney/src/features/weather/data/firestore/generation_firestore_repository.dart';
-import 'package:weatherjourney/src/features/locations/data/http/location_repository.dart';
 import 'package:weatherjourney/src/features/weather/presentation/widget/weather_widget.dart';
-import 'package:weatherjourney/src/routing/app_router.dart';
 
 class WeatherScreen extends ConsumerStatefulWidget {
   final String? locationId;
@@ -23,7 +17,7 @@ class WeatherScreen extends ConsumerStatefulWidget {
 }
 
 class _WeatherScreenState extends ConsumerState<WeatherScreen> {
-  late PageController _pageController = PageController();
+  late final PageController _pageController = PageController();
   bool _hasNavigatedToInitialPage = false;
 
   late int _currentPage = 0;
@@ -77,7 +71,7 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
                       }
                     });
 
-                    return locations.length == 0
+                    return locations.isEmpty
                         ? const EmptyLocation()
                         : PageView(
                             controller: _pageController,
@@ -97,7 +91,7 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Spacer(),
+                const Spacer(),
                 (locations.asData != null)
                     ? SizedBox(
                         height: 10,

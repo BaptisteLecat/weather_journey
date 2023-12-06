@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weatherjourney/src/features/authentication/domain/app_user.dart';
 import 'package:weatherjourney/src/features/settings/domain/frequency/frequency.dart';

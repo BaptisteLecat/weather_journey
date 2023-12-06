@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:weatherjourney/src/features/weather/domain/generated_image/generated_image.dart';
 
 part 'generation.g.dart';

@@ -64,7 +64,7 @@ class _LocationCreateScreenState extends ConsumerState<LocationCreateScreen> {
                                       .copyWith(
                                         fontWeight: FontWeight.bold,
                                       )),
-                              Spacer()
+                              const Spacer()
                             ],
                           ),
                           Text(

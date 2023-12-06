@@ -202,7 +202,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                                     Text("Connexion avec Apple",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6),
+                                            .titleLarge),
                                   ]),
                             ),
                             onSubmit: () {
@@ -228,7 +228,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                                   Text("Connexion avec Google",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline6),
+                                          .titleLarge),
                                 ]),
                           ),
                           onSubmit: () {

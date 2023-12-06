@@ -104,7 +104,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         flex: 3,
                         child: PageView(
                           controller: _pageController,
-                          children: [
+                          children: const [
                             OnboardingText(
                                 title: "Dive into the Weather AI World",
                                 description:

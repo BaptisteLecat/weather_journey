@@ -41,7 +41,7 @@ class ShimmerListWidget<T> extends StatelessWidget {
                 return ShimmerItemWidget(
                   height: shimmerHeight,
                   borderRadius: shimmerBorderRadius,
-                  margin: EdgeInsets.symmetric(vertical: Sizes.p8),
+                  margin: const EdgeInsets.symmetric(vertical: Sizes.p8),
                 );
               },
             ));
