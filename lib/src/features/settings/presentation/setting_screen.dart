@@ -36,7 +36,6 @@ class SettingScreen extends ConsumerWidget {
         }
       },
     );
-    final state = ref.watch(settingControllerProvider);
     return Scaffold(
         body: SafeArea(
       child: ListView(

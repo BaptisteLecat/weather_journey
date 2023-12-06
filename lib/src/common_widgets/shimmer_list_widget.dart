@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:weatherjourney/src/common_widgets/error_message_widget.dart';
 import 'package:weatherjourney/src/common_widgets/shimmer_item_widget.dart';
 import 'package:weatherjourney/src/constants/app_sizes.dart';

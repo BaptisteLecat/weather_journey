@@ -83,7 +83,7 @@ class WeatherWidget extends ConsumerWidget {
                                 child: Column(
                                   children: [
                                     Expanded(
-                                        child: Container(
+                                        child: SizedBox(
                                       child: Row(
                                         children: [
                                           Column(

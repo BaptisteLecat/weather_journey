@@ -13,7 +13,7 @@ class StyleFirestoreRepository {
   CollectionReference<Style> fetchAllByCustomFilter() {
     final reference = firestore.collection(ressource).withConverter<Style>(
           fromFirestore: (snapshot, _) => Style.fromJson(snapshot.data()!),
-          toFirestore: (Style, _) => Style.toJson(),
+          toFirestore: (style, _) => style.toJson(),
         );
     return reference;
   }
@@ -21,7 +21,7 @@ class StyleFirestoreRepository {
   Future<List<Style>> fetchAll() async {
     final reference = firestore.collection(ressource).withConverter<Style>(
           fromFirestore: (snapshot, _) => Style.fromJson(snapshot.data()!),
-          toFirestore: (Style, _) => Style.toJson(),
+          toFirestore: (style, _) => style.toJson(),
         );
     return await reference.get().then((snapshot) {
       return snapshot.docs.map((doc) => doc.data()).toList();
@@ -31,7 +31,7 @@ class StyleFirestoreRepository {
   Stream<List<Style>> fetchAllWithStream() {
     final reference = firestore.collection(ressource).withConverter<Style>(
           fromFirestore: (snapshot, _) => Style.fromJson(snapshot.data()!),
-          toFirestore: (Style, _) => Style.toJson(),
+          toFirestore: (style, _) => style.toJson(),
         );
     return reference.snapshots().map((snapshot) {
       return snapshot.docs.map((doc) => doc.data()).toList();
@@ -44,7 +44,7 @@ class StyleFirestoreRepository {
     final reference =
         firestore.collection(ressource).doc(docId).withConverter<Style>(
               fromFirestore: (snapshot, _) => Style.fromJson(snapshot.data()!),
-              toFirestore: (Style, _) => Style.toJson(),
+              toFirestore: (style, _) => style.toJson(),
             );
     return await reference.get().then((snapshot) {
       return snapshot.data();
@@ -55,7 +55,7 @@ class StyleFirestoreRepository {
     final reference =
         firestore.collection(ressource).doc(docId).withConverter<Style>(
               fromFirestore: (snapshot, _) => Style.fromJson(snapshot.data()!),
-              toFirestore: (Style, _) => Style.toJson(),
+              toFirestore: (style, _) => style.toJson(),
             );
     return reference.snapshots().map((snapshot) {
       return snapshot.data()!;

@@ -20,7 +20,7 @@ class AppUserFirestoreRepository {
         .doc(docId)
         .withConverter<AppUser>(
           fromFirestore: (snapshot, _) => AppUser.fromJson(snapshot.data()!),
-          toFirestore: (AppUser, _) => AppUser.toJson(),
+          toFirestore: (appUser, _) => appUser.toJson(),
         );
     return await reference.get().then((snapshot) {
       return snapshot.data();
@@ -33,7 +33,7 @@ class AppUserFirestoreRepository {
         .doc(docId)
         .withConverter<AppUser>(
           fromFirestore: (snapshot, _) => AppUser.fromJson(snapshot.data()!),
-          toFirestore: (AppUser, _) => AppUser.toJson(),
+          toFirestore: (appUser, _) => appUser.toJson(),
         );
     //return a stream of AppUser
     return reference.snapshots().map((snapshot) {

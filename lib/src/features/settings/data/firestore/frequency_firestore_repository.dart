@@ -13,7 +13,7 @@ class FrequencyFirestoreRepository {
   CollectionReference<Frequency> fetchAllByCustomFilter() {
     final reference = firestore.collection(ressource).withConverter<Frequency>(
           fromFirestore: (snapshot, _) => Frequency.fromJson(snapshot.data()!),
-          toFirestore: (Frequency, _) => Frequency.toJson(),
+          toFirestore: (frequency, _) => frequency.toJson(),
         );
     return reference;
   }
@@ -21,7 +21,7 @@ class FrequencyFirestoreRepository {
   Future<List<Frequency>> fetchAll() async {
     final reference = firestore.collection(ressource).withConverter<Frequency>(
           fromFirestore: (snapshot, _) => Frequency.fromJson(snapshot.data()!),
-          toFirestore: (Frequency, _) => Frequency.toJson(),
+          toFirestore: (frequency, _) => frequency.toJson(),
         );
     return await reference.get().then((snapshot) {
       return snapshot.docs.map((doc) => doc.data()).toList();
@@ -31,7 +31,7 @@ class FrequencyFirestoreRepository {
   Stream<List<Frequency>> fetchAllWithStream() {
     final reference = firestore.collection(ressource).withConverter<Frequency>(
           fromFirestore: (snapshot, _) => Frequency.fromJson(snapshot.data()!),
-          toFirestore: (Frequency, _) => Frequency.toJson(),
+          toFirestore: (frequency, _) => frequency.toJson(),
         );
     return reference.snapshots().map((snapshot) {
       return snapshot.docs.map((doc) => doc.data()).toList();
@@ -46,7 +46,7 @@ class FrequencyFirestoreRepository {
         .doc(docId)
         .withConverter<Frequency>(
           fromFirestore: (snapshot, _) => Frequency.fromJson(snapshot.data()!),
-          toFirestore: (Frequency, _) => Frequency.toJson(),
+          toFirestore: (frequency, _) => frequency.toJson(),
         );
     return await reference.get().then((snapshot) {
       return snapshot.data();
@@ -59,7 +59,7 @@ class FrequencyFirestoreRepository {
         .doc(docId)
         .withConverter<Frequency>(
           fromFirestore: (snapshot, _) => Frequency.fromJson(snapshot.data()!),
-          toFirestore: (Frequency, _) => Frequency.toJson(),
+          toFirestore: (frequency, _) => frequency.toJson(),
         );
     return reference.snapshots().map((snapshot) {
       return snapshot.data()!;

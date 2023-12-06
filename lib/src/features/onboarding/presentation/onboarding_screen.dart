@@ -146,6 +146,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                                     .updateHasSeenOnboarding(
                                       docId: userId,
                                     );
+                                //To avoid use_build_context_synchrounously linting issue:
+                                if (!context.mounted) return;
                                 context.goNamed(AppRoute.weather.name);
                               }
                               _pageController.nextPage(

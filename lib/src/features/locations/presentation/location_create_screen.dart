@@ -184,6 +184,8 @@ class _LocationCreateScreenState extends ConsumerState<LocationCreateScreen> {
                                   docId: userStream.value!.id!,
                                   entity: location)
                               .then((value) => value.id);
+                          //To avoid use_build_context_synchrounously linting issue:
+                          if (!context.mounted) return;
                           context.goNamed(
                             AppRoute.weather.name,
                             queryParameters: {

@@ -5,8 +5,8 @@ part 'user_id_location_parameter.g.dart';
 part 'user_id_location_parameter.freezed.dart';
 
 @Freezed()
+@JsonSerializable(explicitToJson: true)
 class UserIdLocationParameter with _$UserIdLocationParameter {
-  @JsonSerializable(explicitToJson: true)
   const factory UserIdLocationParameter({
     required String uid,
     required Location location,
