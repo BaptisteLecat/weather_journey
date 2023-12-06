@@ -29,8 +29,8 @@ class EmptyWeather extends ConsumerWidget {
                 width: 200,
                 height: 200,
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'No generations for this location',
                 style: TextStyle(
                   fontSize: 20,

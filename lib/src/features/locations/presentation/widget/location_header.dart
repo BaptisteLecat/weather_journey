@@ -55,7 +55,7 @@ class _LocationHeaderState extends ConsumerState<LocationHeader> {
                         },
                         textAlignVertical: TextAlignVertical.center,
                         style: Theme.of(context).textTheme.titleMedium,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "Search a city",
                           contentPadding: EdgeInsets.zero,
                           isCollapsed: true,
@@ -74,13 +74,13 @@ class _LocationHeaderState extends ConsumerState<LocationHeader> {
                               isWriting = false;
                               setState(() {});
                             },
-                            child: Icon(
+                            child: const Icon(
                               Icons.close,
                               color: Colors.black,
                               size: 28,
                             ),
                           ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         GestureDetector(

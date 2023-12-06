@@ -14,24 +14,27 @@ String _coordinatesToJson(double coordinate) => coordinate.toString();
 
 @Freezed()
 class Place with _$Place {
+  // ignore: invalid_annotation_target
   @JsonSerializable(explicitToJson: true)
   const factory Place({
-    @JsonKey(name: 'place_id')
-        required int placeId,
-    @JsonKey(name: 'licence')
-        required String licence,
-    @JsonKey(name: 'osm_type')
-        String? osmType,
-    @JsonKey(name: 'osm_id')
-        int? osmId,
-    @JsonKey(name: 'boundingbox')
-        required List<String> boundingBox,
+    // ignore: invalid_annotation_target
+    @JsonKey(name: 'place_id') required int placeId,
+    // ignore: invalid_annotation_target
+    @JsonKey(name: 'licence') required String licence,
+    // ignore: invalid_annotation_target
+    @JsonKey(name: 'osm_type') String? osmType,
+    // ignore: invalid_annotation_target
+    @JsonKey(name: 'osm_id') int? osmId,
+    // ignore: invalid_annotation_target
+    @JsonKey(name: 'boundingbox') required List<String> boundingBox,
+    // ignore: invalid_annotation_target
     @JsonKey(fromJson: _coordinatesFromJson, toJson: _coordinatesToJson)
-        required double lat,
+    required double lat,
+    // ignore: invalid_annotation_target
     @JsonKey(fromJson: _coordinatesFromJson, toJson: _coordinatesToJson)
-        required double lon,
-    @JsonKey(name: 'display_name')
-        required String displayName,
+    required double lon,
+    // ignore: invalid_annotation_target
+    @JsonKey(name: 'display_name') required String displayName,
     required String type,
     required double importance,
     String? icon,

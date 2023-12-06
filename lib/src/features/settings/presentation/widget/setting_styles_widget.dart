@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:weatherjourney/src/common_widgets/async_value_widget.dart';
 import 'package:weatherjourney/src/constants/app_sizes.dart';
 import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';

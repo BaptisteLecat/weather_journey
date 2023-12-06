@@ -104,7 +104,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         flex: 3,
                         child: PageView(
                           controller: _pageController,
-                          children: [
+                          children: const [
                             OnboardingText(
                                 title: "Dive into the Weather AI World",
                                 description:
@@ -146,6 +146,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                                     .updateHasSeenOnboarding(
                                       docId: userId,
                                     );
+                                //To avoid use_build_context_synchrounously linting issue:
+                                if (!context.mounted) return;
                                 context.goNamed(AppRoute.weather.name);
                               }
                               _pageController.nextPage(

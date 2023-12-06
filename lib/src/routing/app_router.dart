@@ -103,7 +103,7 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
                 name: AppRoute.locations.name,
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: LocationScreen()),
-                routes: [],
+                routes: const [],
               ),
             ],
           ),
@@ -125,7 +125,7 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
         path: AppRoute.onboarding.route,
         name: AppRoute.onboarding.name,
         pageBuilder: (context, state) {
-          return MaterialPage(
+          return const MaterialPage(
             child: OnboardingScreen(),
           );
         },
@@ -150,14 +150,14 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
         path: AppRoute.locationCreate.route,
         name: AppRoute.locationCreate.name,
         builder: (context, state) {
-          return LocationCreateScreen();
+          return const LocationCreateScreen();
         },
       ),
       GoRoute(
         path: AppRoute.locationGenerate.route,
         name: AppRoute.locationGenerate.name,
         builder: (context, state) {
-          final locationId = state.queryParameters['locationId'] as String?;
+          final locationId = state.queryParameters['locationId'];
           if (locationId == null) return const NotFoundScreen();
           return LocationGenerateScreen(
             locationId: locationId,

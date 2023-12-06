@@ -4,8 +4,8 @@ part 'generated_image.g.dart';
 part 'generated_image.freezed.dart';
 
 @Freezed()
+@JsonSerializable(explicitToJson: true)
 class GeneratedImage with _$GeneratedImage {
-  @JsonSerializable(explicitToJson: true)
   factory GeneratedImage(
       {required String id,
       required String hash,

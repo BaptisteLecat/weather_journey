@@ -4,8 +4,8 @@ part 'location.g.dart';
 part 'location.freezed.dart';
 
 @Freezed()
+@JsonSerializable(explicitToJson: true)
 class Location with _$Location {
-  @JsonSerializable(explicitToJson: true)
   const factory Location(
       {String? id,
       required double latitude,
