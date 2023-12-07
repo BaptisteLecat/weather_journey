@@ -39,6 +39,11 @@ platform :ios do
       skip_screenshots: true,
       skip_binary_upload: true,
       run_precheck_before_submit: false,
+      release_notes: {
+        'en-GB' => "Fixes bugs",
+        'fr-FR' => "Corrige des bugs",
+        'en-US' => "Fixes bugs",
+      },
       submission_information: {
         add_id_info_limits_tracking: true,
         add_id_info_serves_ads: false,
