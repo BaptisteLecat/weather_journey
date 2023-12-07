@@ -30,20 +30,16 @@ platform :ios do
       duration: 500, # optional (maximum 1200)
       in_house: false, # optional but may be required if using match/sigh
     )
+    set_changelog(changelog: "Changelog for all Languages")
     deliver(
       api_key: api_key,
-      submit_for_review: true,
+      submit_for_review: false,
       automatic_release: true,
       force: true, # Skip HTMl report verification
       skip_metadata: true,
       skip_screenshots: true,
       skip_binary_upload: true,
       run_precheck_before_submit: false,
-      release_notes: {
-        'en-GB' => "Fixes bugs",
-        'fr-FR' => "Corrige des bugs",
-        'en-US' => "Fixes bugs",
-      },
       submission_information: {
         add_id_info_limits_tracking: true,
         add_id_info_serves_ads: false,
