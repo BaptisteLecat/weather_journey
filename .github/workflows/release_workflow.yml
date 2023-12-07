@@ -25,12 +25,13 @@ jobs:
         run: flutter pub get
 
       - name: Run tests
-        run: flutter test --coverage
+        run: flutter test --coverage 
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage/lcov.info
           fail_ci_if_error: true
 
 
@@ -139,10 +140,13 @@ jobs:
           fetch-depth: 0 # Nécessaire pour récupérer tous les tags
 
       - name: Merge main to develop
-        uses: pascalgn/automerge-action@v0.13.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          source-branch: main
-          destination-branch: develop
-          merge-method: squash
+        run: |
+          git config --local user.email "ci-executor@github.com"
+          git config --local user.name "GitHub Action"
+          git checkout develop
+          git merge main
+          git push origin develop
+        shell: bash
+
+      
       
