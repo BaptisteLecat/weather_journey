@@ -16,12 +16,12 @@ jobs:
         with:
           fetch-depth: 0 # Nécessaire pour récupérer tous les tags
 
-      - name: Create a PATCH commit
+      - name: Create a MINOR commit
         run: |
           git config --local user.email "ci-executor@github.com"
           git config --local user.name "GitHub Action"
           git checkout develop
-          git commit --allow-empty -m "PATCH Bump version"
+          git commit --allow-empty -m "MINOR Bump version"
           git push origin develop
         shell: bash
 
