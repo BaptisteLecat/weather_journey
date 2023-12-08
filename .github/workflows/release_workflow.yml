@@ -156,14 +156,20 @@ jobs:
         with:
           fetch-depth: 0 # Nécessaire pour récupérer tous les tags
 
-      - name: Merge main to develop
+      - name: Merge main to a temp branch and then develop
         run: |
           git config --local user.email "ci-executor@github.com"
           git config --local user.name "GitHub Action"
           git checkout develop
-          git merge origin/main -m "Merge main into develop
-          skip-checks: true"
+          git pull origin develop
+          git checkout -b temp
+          git merge main
+          git push origin temp
+          git checkout develop
+          git pull origin develop
+          git merge temp
           git push origin develop
+          git branch -d temp
         shell: bash
 
       
