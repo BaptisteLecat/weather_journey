@@ -16,6 +16,15 @@ jobs:
         with:
           fetch-depth: 0 # Nécessaire pour récupérer tous les tags
 
+      - name: Create a PATCH commit
+        run: |
+          git config --local user.email "ci-executor@github.com"
+          git config --local user.name "GitHub Action"
+          git checkout develop
+          git commit --allow-empty -m "PATCH Bump version"
+          git push origin develop
+        shell: bash
+
       - name: Semantic Versioning
         id: semver # Définissez un ID pour cette étape pour pouvoir récupérer les outputs
         uses: paulhatch/semantic-version@v4.0.2
