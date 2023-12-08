@@ -161,7 +161,7 @@ jobs:
           git config --local user.email "ci-executor@github.com"
           git config --local user.name "GitHub Action"
           git checkout develop
-          git merge main
+          git merge origin/main
           git push origin develop
         shell: bash
 
