@@ -1,4 +1,4 @@
-GitHub Actions for Flutter apps Documentation
+GitHub Actions for Flutter apps Documentation :
 
 ## Ressources
 

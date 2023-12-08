@@ -8,9 +8,6 @@ on:
   push:
     branches:
       - develop
-  push:
-    branches:
-      - develop
 
 jobs:
   build-and-test:
