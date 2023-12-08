@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "53131514713-o3bu7c9h7mmaec3sgu835m3vl8nan5lj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.baptistelecat.weatherjourney",
+            "certificate_hash": "f33b3bad08602d6176a8bb05e65c75530e57383f"
+          }
+        },
+        {
           "client_id": "53131514713-6i44pcvaglffu4i3mlfbqorhfo0q72u8.apps.googleusercontent.com",
           "client_type": 3
         }
