@@ -2,8 +2,9 @@ name: Develop Workflow
 
 on:
   pull_request:
+    types: [closed]
     branches:
-      - develop
+      - main
   push:
     branches:
       - develop
@@ -26,4 +27,23 @@ jobs:
 
       - name: Run tests
         run: flutter test
+
+  update-develop-from-main:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Nécessaire pour récupérer tous les tags
+
+      - name: Merge main into develop
+        run: |
+          git config --local user.email "ci-executor@github.com"
+          git config --local user.name "GitHub Action"
+          git merge origin/main --no-edit
+          git push
+        shell: bash
+
+  
           
