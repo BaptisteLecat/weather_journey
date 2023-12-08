@@ -163,7 +163,7 @@ jobs:
           git checkout develop
           git pull origin develop
           git checkout -b temp
-          git merge main
+          git merge origin/main
           git push origin temp
           git checkout develop
           git pull origin develop
