@@ -1,4 +1,4 @@
-GitHub Actions for Flutter apps Documentation
+GitHub Actions for Flutter apps Documentation :
 
 ## Ressources
 
@@ -31,3 +31,7 @@ KEY_PASSWORD | This is the key password of the keystore, it will be used to sign
 MATCH_KEYCHAIN_PASSWORD | This is the keychain password, it will be used to get the Fastlane's match certificates | Defined by the user in the Fastlane's match certificates |
 PLAYSTORE_SERVICE_ACCOUNT_BASE_64 | This is the base64 encoded Google Play Store service account, it will be used to upload the app to the Google Play Store | Create a new service account in the Google Play Console |
 STORE_PASSWORD | This is the store password of the keystore, it will be used to sign the android app | Defined by the user in the Android Studio |
+ |  |  |
+ CODECOV_TOKEN | This is the Codecov token, it will be used to upload the coverage report to Codecov | Find it in the Codecov settings |
+ SONAR_TOKEN | This is the Sonar CLOUD token, it will be used to upload the coverage report to Sonar CLOUD | Find it in the Sonar CLOUD settings |
+ 
