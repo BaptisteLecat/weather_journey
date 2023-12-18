@@ -74,7 +74,6 @@ jobs:
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.0
           rubygems: latest
 
       - name: Install Firebase CLI
