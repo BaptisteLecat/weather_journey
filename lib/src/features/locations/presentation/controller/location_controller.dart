@@ -28,7 +28,7 @@ class LocationController extends StateNotifier<AsyncValue<void>> {
   Future<void> generate(
       {required String locationId, required WeatherOneCall weather}) async {
     state = const AsyncLoading();
-    String token = await appUser.firebaseAppUser!.getIdToken();
+    String? token = await appUser.firebaseAppUser!.getIdToken();
     String apiKey = "api_key";
     String contentType = "application/json";
     String timezoneString = weather.timezone!;
