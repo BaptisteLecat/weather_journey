@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:weatherjourney/src/constants/app_sizes.dart';
 
 class ShimmerItemWidget extends StatelessWidget {
   final double? height;
@@ -17,7 +16,7 @@ class ShimmerItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height ?? 120,
-      margin: margin ?? null,
+      margin: margin,
       child: Shimmer.fromColors(
         baseColor: Colors.grey[300]!,
         highlightColor: Colors.grey[100]!,

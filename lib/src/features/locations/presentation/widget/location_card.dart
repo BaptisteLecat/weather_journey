@@ -159,7 +159,7 @@ class LocationCard extends ConsumerWidget {
                                                           loadingProgress) {
                                             return (loadingProgress == null)
                                                 ? child
-                                                : ShimmerItemWidget();
+                                                : const ShimmerItemWidget();
                                           }),
                                         ),
                                       ),

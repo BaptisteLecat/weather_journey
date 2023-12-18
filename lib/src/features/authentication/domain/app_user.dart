@@ -17,7 +17,9 @@ class AppUser with _$AppUser {
     bool? created,
     String? token,
     bool? hasSeenOnboarding,
-    @JsonKey(ignore: true) firebase.User? firebaseAppUser,
+    // ignore: invalid_annotation_target
+    @JsonKey(includeFromJson: false, includeToJson: false)
+    firebase.User? firebaseAppUser,
     List<Style>? styles,
     List<Frequency>? frequencies,
   }) = _AppUser;

@@ -83,7 +83,7 @@ class WeatherWidget extends ConsumerWidget {
                                 child: Column(
                                   children: [
                                     Expanded(
-                                        child: Container(
+                                        child: SizedBox(
                                       child: Row(
                                         children: [
                                           Column(
@@ -132,6 +132,13 @@ class WeatherWidget extends ConsumerWidget {
                                     )),
                                     const Spacer(),
                                     GlassMorphism(
+                                      height: 80,
+                                      borderRadius:
+                                          BorderRadius.circular(Sizes.p16),
+                                      border: Border.all(
+                                        color: Colors.white,
+                                        width: 2,
+                                      ),
                                       child: Center(
                                           child: Row(
                                         mainAxisAlignment:
@@ -221,13 +228,6 @@ class WeatherWidget extends ConsumerWidget {
                                           ),
                                         ],
                                       )),
-                                      height: 80,
-                                      borderRadius:
-                                          BorderRadius.circular(Sizes.p16),
-                                      border: Border.all(
-                                        color: Colors.white,
-                                        width: 2,
-                                      ),
                                     )
                                   ],
                                 ),

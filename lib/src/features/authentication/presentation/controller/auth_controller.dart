@@ -1,8 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
-import 'package:weatherjourney/src/features/locations/data/firestore/location_firestore_repository.dart';
-import 'package:weatherjourney/src/features/locations/data/http/location_repository.dart';
 
 class AuthController extends StateNotifier<AsyncValue<void>> {
   AuthController({

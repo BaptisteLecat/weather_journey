@@ -21,12 +21,12 @@ class _GenerationLoadingState extends ConsumerState<GenerationLoading>
   late AnimationController _animationController;
   late Animation<Color?> _colorAnimation;
   List<Widget> _progressIndicators = [];
-  List<String> _titleTexts = [
+  final List<String> _titleTexts = [
     "Scanning the sky",
     "Generating the prompt",
     "Making your landscape"
   ];
-  List<String> _bodyTexts = [
+  final List<String> _bodyTexts = [
     "We are scanning the sky to identify weather conditions in your location",
     "We are generating the prompt for MidJourney based on the weather conditions",
     "We are making your landscape, please wait a moment"
@@ -132,7 +132,7 @@ class _GenerationLoadingState extends ConsumerState<GenerationLoading>
               const SizedBox(height: 10),
               Row(
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   Expanded(
                     flex: 6,
                     child: Text(
@@ -141,7 +141,7 @@ class _GenerationLoadingState extends ConsumerState<GenerationLoading>
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                 ],
               )
             ],

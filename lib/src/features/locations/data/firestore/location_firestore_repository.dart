@@ -23,7 +23,7 @@ class LocationFirestoreRepository {
         .collection(subRessource)
         .withConverter<Location>(
           fromFirestore: (snapshot, _) => Location.fromJson(snapshot.data()!),
-          toFirestore: (Location, _) => Location.toJson(),
+          toFirestore: (location, _) => location.toJson(),
         );
     return reference;
   }
@@ -37,7 +37,7 @@ class LocationFirestoreRepository {
         .collection(subRessource)
         .withConverter<Location>(
           fromFirestore: (snapshot, _) => Location.fromJson(snapshot.data()!),
-          toFirestore: (Location, _) => Location.toJson(),
+          toFirestore: (location, _) => location.toJson(),
         );
     return await reference.get().then((snapshot) {
       return snapshot.docs.map((doc) => doc.data()).toList();
@@ -53,7 +53,7 @@ class LocationFirestoreRepository {
         .collection(subRessource)
         .withConverter<Location>(
           fromFirestore: (snapshot, _) => Location.fromJson(snapshot.data()!),
-          toFirestore: (Location, _) => Location.toJson(),
+          toFirestore: (location, _) => location.toJson(),
         );
     return reference.snapshots().map((snapshot) {
       return snapshot.docs.map((doc) => doc.data()).toList();
@@ -70,7 +70,7 @@ class LocationFirestoreRepository {
         .orderBy('createdAt', descending: true)
         .withConverter<Location>(
           fromFirestore: (snapshot, _) => Location.fromJson(snapshot.data()!),
-          toFirestore: (Location, _) => Location.toJson(),
+          toFirestore: (location, _) => location.toJson(),
         );
     return reference.snapshots().map((snapshot) {
       return snapshot.docs.map((doc) => doc.data()).toList();
@@ -87,7 +87,7 @@ class LocationFirestoreRepository {
         .collection(subRessource)
         .withConverter<Location>(
           fromFirestore: (snapshot, _) => Location.fromJson(snapshot.data()!),
-          toFirestore: (Location, _) => Location.toJson(),
+          toFirestore: (location, _) => location.toJson(),
         );
     return await reference.doc(subDocId).get().then((snapshot) {
       return snapshot.data();
@@ -103,7 +103,7 @@ class LocationFirestoreRepository {
         .doc(subDocId)
         .withConverter<Location>(
           fromFirestore: (snapshot, _) => Location.fromJson(snapshot.data()!),
-          toFirestore: (Location, _) => Location.toJson(),
+          toFirestore: (location, _) => location.toJson(),
         );
     return reference.snapshots().map((snapshot) {
       return snapshot.data()!;
@@ -127,7 +127,7 @@ class LocationFirestoreRepository {
         .collection(subRessource)
         .withConverter<Location>(
           fromFirestore: (snapshot, _) => Location.fromJson(snapshot.data()!),
-          toFirestore: (Location, _) => Location.toJson(),
+          toFirestore: (location, _) => location.toJson(),
         );
     return await reference.doc(entity.id).set(entity).then((_) {
       return entity;
@@ -144,7 +144,7 @@ class LocationFirestoreRepository {
         .collection(subRessource)
         .withConverter<Location>(
           fromFirestore: (snapshot, _) => Location.fromJson(snapshot.data()!),
-          toFirestore: (Location, _) => Location.toJson(),
+          toFirestore: (location, _) => location.toJson(),
         );
     return await reference.doc(subDocId).delete().then((_) {
       return true;
@@ -161,7 +161,7 @@ class LocationFirestoreRepository {
         .collection(subRessource)
         .withConverter<Location>(
           fromFirestore: (snapshot, _) => Location.fromJson(snapshot.data()!),
-          toFirestore: (Location, _) => Location.toJson(),
+          toFirestore: (location, _) => location.toJson(),
         );
     return await reference
         .doc(entity.id.toString())
@@ -180,7 +180,7 @@ class LocationFirestoreRepository {
         .collection(subRessource)
         .withConverter<Location>(
           fromFirestore: (snapshot, _) => Location.fromJson(snapshot.data()!),
-          toFirestore: (Location, _) => Location.toJson(),
+          toFirestore: (location, _) => location.toJson(),
         );
     return reference;
   }
@@ -197,9 +197,9 @@ class LocationFirestoreRepository {
         .collection('generations')
         .orderBy('createdAt', descending: true)
         .limit(1)
-        .withConverter<Generation?>(
+        .withConverter<Generation>(
           fromFirestore: (snapshot, _) => Generation.fromJson(snapshot.data()!),
-          toFirestore: (Generation, _) => Generation!.toJson(),
+          toFirestore: (generation, _) => generation.toJson(),
         );
     return reference.snapshots().map((snapshot) {
       if (snapshot.docs.isEmpty) {

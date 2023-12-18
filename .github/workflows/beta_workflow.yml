@@ -16,6 +16,15 @@ jobs:
         with:
           fetch-depth: 0 # Nécessaire pour récupérer tous les tags
 
+      - name: Create a MINOR commit
+        run: |
+          git config --local user.email "ci-executor@github.com"
+          git config --local user.name "GitHub Action"
+          git checkout develop
+          git commit --allow-empty -m "(MINOR) Bump version"
+          git push origin develop
+        shell: bash
+
       - name: Semantic Versioning
         id: semver # Définissez un ID pour cette étape pour pouvoir récupérer les outputs
         uses: paulhatch/semantic-version@v4.0.2
@@ -65,7 +74,7 @@ jobs:
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.6
+          ruby-version: 3.0
           rubygems: latest
 
       - name: Install Firebase CLI
@@ -136,7 +145,7 @@ jobs:
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.6
+          ruby-version: 3.0
           rubygems: latest
 
       - name: Setup Xcode

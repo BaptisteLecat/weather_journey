@@ -20,7 +20,7 @@ class GenerationFirestoreRepository {
         .collection(subRessource)
         .withConverter<Generation>(
           fromFirestore: (snapshot, _) => Generation.fromJson(snapshot.data()!),
-          toFirestore: (Generation, _) => Generation.toJson(),
+          toFirestore: (generation, _) => generation.toJson(),
         );
     return reference;
   }
@@ -34,7 +34,7 @@ class GenerationFirestoreRepository {
         .collection(subRessource)
         .withConverter<Generation>(
           fromFirestore: (snapshot, _) => Generation.fromJson(snapshot.data()!),
-          toFirestore: (Generation, _) => Generation.toJson(),
+          toFirestore: (generation, _) => generation.toJson(),
         );
     return await reference.get().then((snapshot) {
       return snapshot.docs.map((doc) => doc.data()).toList();
@@ -50,7 +50,7 @@ class GenerationFirestoreRepository {
         .collection(subRessource)
         .withConverter<Generation>(
           fromFirestore: (snapshot, _) => Generation.fromJson(snapshot.data()!),
-          toFirestore: (Generation, _) => Generation.toJson(),
+          toFirestore: (generation, _) => generation.toJson(),
         );
     return reference.snapshots().map((snapshot) {
       return snapshot.docs.map((doc) => doc.data()).toList();
@@ -67,7 +67,7 @@ class GenerationFirestoreRepository {
         .orderBy('createdAt', descending: true)
         .withConverter<Generation>(
           fromFirestore: (snapshot, _) => Generation.fromJson(snapshot.data()!),
-          toFirestore: (Generation, _) => Generation.toJson(),
+          toFirestore: (generation, _) => generation.toJson(),
         );
     return reference.snapshots().map((snapshot) {
       return snapshot.docs.map((doc) => doc.data()).toList();
@@ -84,7 +84,7 @@ class GenerationFirestoreRepository {
         .orderBy('createdAt', descending: true)
         .withConverter<Generation>(
           fromFirestore: (snapshot, _) => Generation.fromJson(snapshot.data()!),
-          toFirestore: (Generation, _) => Generation.toJson(),
+          toFirestore: (generation, _) => generation.toJson(),
         );
     return reference.snapshots().map((snapshot) {
       return snapshot.docs.map((doc) => doc.data()).toList();
@@ -101,7 +101,7 @@ class GenerationFirestoreRepository {
         .collection(subRessource)
         .withConverter<Generation>(
           fromFirestore: (snapshot, _) => Generation.fromJson(snapshot.data()!),
-          toFirestore: (Generation, _) => Generation.toJson(),
+          toFirestore: (generation, _) => generation.toJson(),
         );
     return await reference.doc(subDocId).get().then((snapshot) {
       return snapshot.data();
@@ -117,7 +117,7 @@ class GenerationFirestoreRepository {
         .doc(subDocId)
         .withConverter<Generation>(
           fromFirestore: (snapshot, _) => Generation.fromJson(snapshot.data()!),
-          toFirestore: (Generation, _) => Generation.toJson(),
+          toFirestore: (generation, _) => generation.toJson(),
         );
     return reference.snapshots().map((snapshot) {
       return snapshot.data()!;
@@ -134,7 +134,7 @@ class GenerationFirestoreRepository {
         .collection(subRessource)
         .withConverter<Generation>(
           fromFirestore: (snapshot, _) => Generation.fromJson(snapshot.data()!),
-          toFirestore: (Generation, _) => Generation.toJson(),
+          toFirestore: (generation, _) => generation.toJson(),
         );
     return await reference.doc(entity.id).set(entity).then((_) {
       return entity;
@@ -151,7 +151,7 @@ class GenerationFirestoreRepository {
         .collection(subRessource)
         .withConverter<Generation>(
           fromFirestore: (snapshot, _) => Generation.fromJson(snapshot.data()!),
-          toFirestore: (Generation, _) => Generation.toJson(),
+          toFirestore: (generation, _) => generation.toJson(),
         );
     return await reference.doc(subDocId).delete().then((_) {
       return true;
@@ -168,7 +168,7 @@ class GenerationFirestoreRepository {
         .collection(subRessource)
         .withConverter<Generation>(
           fromFirestore: (snapshot, _) => Generation.fromJson(snapshot.data()!),
-          toFirestore: (Generation, _) => Generation.toJson(),
+          toFirestore: (generation, _) => generation.toJson(),
         );
     return await reference
         .doc(entity.id.toString())
@@ -187,7 +187,7 @@ class GenerationFirestoreRepository {
         .collection(subRessource)
         .withConverter<Generation>(
           fromFirestore: (snapshot, _) => Generation.fromJson(snapshot.data()!),
-          toFirestore: (Generation, _) => Generation.toJson(),
+          toFirestore: (generation, _) => generation.toJson(),
         );
     return reference;
   }
