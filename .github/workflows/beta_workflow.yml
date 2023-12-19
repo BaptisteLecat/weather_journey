@@ -43,6 +43,13 @@ jobs:
           git checkout -b release/${{ steps.semver.outputs.version }} develop
           git push origin release/${{ steps.semver.outputs.version }}
 
+      - name: create a tag for the new version
+        run: |
+          git config --local user.email "ci-executor@github.com"
+          git config --local user.name "GitHub Action"
+          git tag -a ${{ steps.semver.outputs.version }} -m "Release ${{ steps.semver.outputs.version }}"
+          git push origin ${{ steps.semver.outputs.version }}
+
   build-and-deploy-android:
     needs: create-release-branch
     environment: beta
