@@ -152,15 +152,26 @@ class LocationCard extends ConsumerWidget {
                                               lastGeneration
                                                   .generatedImage!.uri,
                                               fit: BoxFit.fitWidth,
+                                              errorBuilder: (context, error,
+                                                      stackTrace) =>
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
+                                                  ),
                                               loadingBuilder:
                                                   (BuildContext context,
                                                       Widget child,
                                                       ImageChunkEvent?
                                                           loadingProgress) {
-                                            return (loadingProgress == null)
-                                                ? child
-                                                : const ShimmerItemWidget();
-                                          }),
+                                                return (loadingProgress == null)
+                                                    ? child
+                                                    : const ShimmerItemWidget();
+                                              }),
                                         ),
                                       ),
                                     ],

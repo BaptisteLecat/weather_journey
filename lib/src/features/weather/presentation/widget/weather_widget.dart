@@ -73,6 +73,50 @@ class WeatherWidget extends ConsumerWidget {
                             children: [
                               Image.network(
                                 generation.generatedImage!.uri,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 24, vertical: 12),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                          "Error loading image try to regenerate it "),
+                                      const SizedBox(height: 20),
+                                      GestureDetector(
+                                        onTap: () {
+                                          ref
+                                              .read(locationControllerProvider
+                                                  .notifier)
+                                              .generate(
+                                                locationId: location.id!,
+                                                weather:
+                                                    weatherForLocation.value!,
+                                              );
+                                        },
+                                        child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 24, vertical: 12),
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: const Center(
+                                              child: Text(
+                                                'Regenerate',
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            )),
+                                      )
+                                    ],
+                                  ),
+                                ),
                                 fit: BoxFit.fill,
                               ),
                               Padding(
