@@ -25,6 +25,25 @@ As an enthusiast and student of AI, mobile development, and cloud computing, thi
 - AI-Powered: Leveraging the prowess of ChatGPT for textual prompts and MidJourney for generating imagery.
 - Multi-Platform: Available on both App Store and Play Store.
 
+## Automated Deployment
+
+As you know my app is available on IOS and Android. So I have to deploy it on the App Store and Google Play Store. I use Fastlane to automate the deployment process.
+Because I want to learn more about the way to do it well, I started learning the Github Workflow and Github Actions. I have a dedicated workflow for the deployment of my app.
+
+### The Workflow
+
+Basically I have 2 branches in my repository:
+-**main** : This is the branch where the current version of the app is available. It's the production branch.
+-**develop** : This is the branch where I work on the app. It's the development branch.
+
+To start working on a new feature, I create a new branch from the develop branch. When the feature is done, I merge the branch into the develop branch. A Github Action is triggered when a new commit is pushed to the develop branch. This action will run the tests to ensure that the app is working well.
+
+When I want to deploy a new version of the app, I have to create a new release on Github. I have a dedicated script to do it. This script will create a new tag with the version number by using a semantic versioning system, thanks to semver Github Action. Then it will create a new release with the tag. The Github Action will be triggered when a new release is created. This action will build the app and deploy it on the App Store and Google Play Store in BETA / INTERNAL TESTING mode.
+
+After that a Pull Request is created to merge the release branch into the main branch. This PR will trigger a new Github Action to deploy the app on the App Store and Google Play Store in PRODUCTION mode.
+
+You can find the Github Actions in the **`.github/workflows`** folder. And a documentation about the CI/CD Setup in the **`.github/cicd_setup.md`** file.
+
 ## Getting Started
 
 ### Prerequisites
@@ -50,11 +69,3 @@ Run the app:
 ```
 flutter run
 ```
-
-## Additional Information
-
-API Repository: [Link to the API GitHub repository]
-Contribution: Currently, contributions are not being accepted for this project.
-Feedback
-
-While contributions are not currently open, feedback and suggestions are always appreciated. Feel free to open an issue if you find a bug or see an area of improvement.
