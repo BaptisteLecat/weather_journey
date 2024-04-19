@@ -1,9 +1,11 @@
-name: BETA Deployment Workflow | PlayStore - TestFlight
+name: Release BETA Fix Workflow
 
 on:
-  workflow_dispatch:
+  pull_request_target:
     branches:
-      - develop
+      - main
+    types:
+      - synchronize
 
 jobs:
   create-release-branch:

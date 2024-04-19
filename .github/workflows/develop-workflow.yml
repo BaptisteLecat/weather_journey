@@ -1,10 +1,6 @@
 name: Develop Workflow
 
 on:
-  pull_request:
-    types: [closed]
-    branches:
-      - main
   push:
     branches:
       - develop
