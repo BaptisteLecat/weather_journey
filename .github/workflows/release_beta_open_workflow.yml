@@ -45,7 +45,7 @@ jobs:
           git config user.name "GitHub Action"
           
       - name: Create release branch
-        run: git checkout -b release/${{ github.event.inputs.version }} {{ github.event.inputs.branch }}
+        run: git checkout -b release/${{ github.event.inputs.version }} ${{ github.event.inputs.branch }}
 
       - name: Push new branch
         run: git push origin release/${{ github.event.inputs.version }}
