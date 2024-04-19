@@ -3,6 +3,9 @@ name: Release BETA Open Workflow
 on:
   workflow_dispatch:
     inputs:
+      branch:
+        description: 'The branch you want to release.'
+        required: true
       version:
         description: 'The version you want to release.'
         required: true
@@ -42,7 +45,7 @@ jobs:
           git config user.name "GitHub Action"
           
       - name: Create release branch
-        run: git checkout -b release/${{ github.event.inputs.version }}
+        run: git checkout -b release/${{ github.event.inputs.version }} {{ github.event.inputs.branch }}
 
       - name: Push new branch
         run: git push origin release/${{ github.event.inputs.version }}
