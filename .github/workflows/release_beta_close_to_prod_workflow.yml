@@ -1,8 +1,8 @@
-name: Release workflow
+name: Release BETA Close - To PRODUCTION workflow
 
 on:
-  pull_request:
-    types: [opened]
+  pull_request_target:
+    types: [closed]
     branches:
       - main
 
@@ -23,39 +23,13 @@ jobs:
         run: flutter pub get
 
       - name: Run tests
-        run: flutter test   
-  update-codecov:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # Nécessaire pour récupérer tous les tags
-
-      - name: Installing Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-          cache: true
-
-      - name: Get Flutter dependencies
-        run: flutter pub get
-
-      - name: Run tests
-        run: flutter test --coverage 
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage/lcov.info
-          fail_ci_if_error: true
+        run: flutter test
 
 
   release-android:
     environment: prod
     runs-on: ubuntu-latest
-    needs: update-codecov
+    needs: build-and-test
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -95,7 +69,7 @@ jobs:
   release-ios:
     environment: prod
     runs-on: macos-13
-    needs: update-codecov
+    needs: build-and-test
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
