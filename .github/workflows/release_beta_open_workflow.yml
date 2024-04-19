@@ -34,28 +34,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Create release branch
-        run: git checkout -b release/${{ github.event.inputs.version }}
-
       # In order to make a commit, we need to initialize a user.
       # You may choose to write something less generic here if you want, it doesn't matter functionality wise.
       - name: Initialize mandatory git config
         run: |
           git config user.email "ci-executor@github.com"
           git config user.name "GitHub Action"
-
-      # This step will differ depending on your project setup
-      # Fortunately, yarn has a built-in command for doing this!
-      - name: Bump version in package.json
-        run: yarn version --new-version ${{ github.event.inputs.version }} --no-git-tag-version
-
-      - name: Commit changelog and manifest files
-        id: make-commit
-        run: |
-          git add package.json
-          git commit --message "Prepare release ${{ github.event.inputs.version }}"
           
-          echo "::set-output name=commit::$(git rev-parse HEAD)"
+      - name: Create release branch
+        run: git checkout -b release/${{ github.event.inputs.version }}
 
       - name: Push new branch
         run: git push origin release/${{ github.event.inputs.version }}
