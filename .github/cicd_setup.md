@@ -1,7 +1,18 @@
 GitHub Actions for Flutter apps Documentation :
 
+## Introduction
+
+This documentation will guide you through the setup of the GitHub Actions for Weather Journey Mobile App. The GitHub Actions will be used to build, test, and deploy the app to the Google Play Store and the Apple App Store.
+I inspired myself from the **GitFlow Workflow** to create the CI/CD workflow. The GitFlow Workflow is a branching model for Git, created by Vincent Driessen. It has attracted a lot of attention because it is very well suited to collaboration and scaling the development team.
+
+## Workflow
+
+![gitflow-workflow.png](assets/gitflow-workflow.png)
+
+
 ## Ressources
 
+- [GitFlow Workflow](https://nvie.com/posts/a-successful-git-branching-model/)
 - [Fastlane find the Apple Teams IDS](https://sarunw.com/posts/fastlane-find-team-id/)
 - [Fastlane AppStore Connect Auth documentation](https://docs.fastlane.tools/app-store-connect-api/)
 - [Fastlane Match documentation](https://docs.fastlane.tools/actions/match/)
