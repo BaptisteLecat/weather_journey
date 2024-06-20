@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weatherjourney/src/common_widgets/async_value_widget.dart';
@@ -5,6 +6,7 @@ import 'package:weatherjourney/src/constants/app_sizes.dart';
 import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
 import 'package:weatherjourney/src/features/locations/data/firestore/location_firestore_repository.dart';
 import 'package:weatherjourney/src/features/locations/domain/location/location.dart';
+import 'package:weatherjourney/src/features/locations/presentation/controller/location_controller.dart';
 import 'package:weatherjourney/src/features/locations/presentation/widget/empty_location.dart';
 import 'package:weatherjourney/src/features/weather/presentation/widget/weather_widget.dart';
 
@@ -51,6 +53,31 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
     final userStream = ref.read(appUserStreamProvider);
     final locations =
         ref.watch(locationsListStreamProvider(userStream.value!.id!));
+    ref.listen<AsyncValue>(
+      locationControllerProvider,
+          (_, state) => state.maybeWhen(
+        error: (error, _) {
+          if(error is DioException){
+            if(((error).response?.data as Map<String, dynamic>).containsKey('message')){
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Colors.red,
+                  content: Text((error).response?.data['message'] as String),
+                ),
+              );
+              return;
+            }
+          }
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(error.toString()),
+            ),
+          );
+        },
+        orElse: () {},
+      ),
+    );
     return Scaffold(
       body: Stack(
         children: [
