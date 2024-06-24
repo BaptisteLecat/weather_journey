@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 
 import 'package:weatherjourney/src/localization/string_hardcoded.dart';
 import 'package:weatherjourney/src/routing/app_router.dart';
@@ -72,68 +72,78 @@ class ScaffoldWithBottomNavBar extends ConsumerWidget {
               child: const Icon(Icons.add),
             )
           : null,
-      bottomNavigationBar: BottomNavigationBar(
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
-          backgroundColor: Colors.white,
-          onTap: onDestinationSelected,
-          currentIndex: currentIndex,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/icons/menu/sun.svg",
-                height: 26,
-                color: Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .unselectedItemColor,
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        child: BottomNavigationBar(
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            elevation: 0,
+            onTap: onDestinationSelected,
+            currentIndex: currentIndex,
+            selectedFontSize: 0,
+            unselectedFontSize: 0,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(IconsaxPlusLinear.flash_circle,
+                    size: 28,
+                    color: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .unselectedItemColor),
+                activeIcon: Icon(IconsaxPlusBold.flash_circle,
+                    size: 28,
+                    color: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .selectedItemColor),
+                label: 'Home',
+                backgroundColor: Colors.transparent,
               ),
-              activeIcon: SvgPicture.asset(
-                "assets/icons/menu/sun.svg",
-                height: 26,
-                color: Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .selectedItemColor,
+              BottomNavigationBarItem(
+                icon: Icon(IconsaxPlusLinear.sun_1,
+                    size: 28,
+                    color: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .unselectedItemColor),
+                activeIcon: Icon(IconsaxPlusBold.sun_1,
+                    size: 28,
+                    color: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .selectedItemColor),
+                label: 'Weather',
+                backgroundColor: Colors.transparent,
               ),
-              label: 'Weather',
-              backgroundColor: Colors.transparent,
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/icons/menu/compass.svg",
-                height: 26,
-                color: Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .unselectedItemColor,
+              BottomNavigationBarItem(
+                icon: Icon(IconsaxPlusLinear.location,
+                    size: 28,
+                    color: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .unselectedItemColor),
+                activeIcon: Icon(IconsaxPlusBold.location,
+                    size: 28,
+                    color: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .selectedItemColor),
+                label: 'Locations',
+                backgroundColor: Colors.transparent,
               ),
-              activeIcon: SvgPicture.asset(
-                "assets/icons/menu/compass.svg",
-                height: 26,
-                color: Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .selectedItemColor,
+              BottomNavigationBarItem(
+                icon: Icon(IconsaxPlusLinear.profile,
+                    size: 28,
+                    color: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .unselectedItemColor),
+                activeIcon: Icon(IconsaxPlusBold.profile,
+                    size: 28,
+                    color: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .selectedItemColor),
+                label: 'Account',
+                backgroundColor: Colors.transparent,
               ),
-              label: 'Locations',
-              backgroundColor: Colors.transparent,
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/icons/menu/user.svg",
-                height: 26,
-                color: Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .unselectedItemColor,
-              ),
-              activeIcon: SvgPicture.asset(
-                "assets/icons/menu/user.svg",
-                height: 26,
-                color: Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .selectedItemColor,
-              ),
-              label: 'Account',
-              backgroundColor: Colors.transparent,
-            ),
-          ]),
+            ]),
+      ),
     );
   }
 }
