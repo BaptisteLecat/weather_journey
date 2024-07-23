@@ -12,7 +12,7 @@ part of 'generation_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 GenerationDto _$GenerationDtoFromJson(Map<String, dynamic> json) {
   return _GenerationDto.fromJson(json);
@@ -23,8 +23,12 @@ mixin _$GenerationDto {
   String? get time => throw _privateConstructorUsedError;
   String? get weather => throw _privateConstructorUsedError;
 
+  /// Serializes this GenerationDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of GenerationDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $GenerationDtoCopyWith<GenerationDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +52,8 @@ class _$GenerationDtoCopyWithImpl<$Res, $Val extends GenerationDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of GenerationDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -68,31 +74,33 @@ class _$GenerationDtoCopyWithImpl<$Res, $Val extends GenerationDto>
 }
 
 /// @nodoc
-abstract class _$$_GenerationDtoCopyWith<$Res>
+abstract class _$$GenerationDtoImplCopyWith<$Res>
     implements $GenerationDtoCopyWith<$Res> {
-  factory _$$_GenerationDtoCopyWith(
-          _$_GenerationDto value, $Res Function(_$_GenerationDto) then) =
-      __$$_GenerationDtoCopyWithImpl<$Res>;
+  factory _$$GenerationDtoImplCopyWith(
+          _$GenerationDtoImpl value, $Res Function(_$GenerationDtoImpl) then) =
+      __$$GenerationDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? time, String? weather});
 }
 
 /// @nodoc
-class __$$_GenerationDtoCopyWithImpl<$Res>
-    extends _$GenerationDtoCopyWithImpl<$Res, _$_GenerationDto>
-    implements _$$_GenerationDtoCopyWith<$Res> {
-  __$$_GenerationDtoCopyWithImpl(
-      _$_GenerationDto _value, $Res Function(_$_GenerationDto) _then)
+class __$$GenerationDtoImplCopyWithImpl<$Res>
+    extends _$GenerationDtoCopyWithImpl<$Res, _$GenerationDtoImpl>
+    implements _$$GenerationDtoImplCopyWith<$Res> {
+  __$$GenerationDtoImplCopyWithImpl(
+      _$GenerationDtoImpl _value, $Res Function(_$GenerationDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of GenerationDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? time = freezed,
     Object? weather = freezed,
   }) {
-    return _then(_$_GenerationDto(
+    return _then(_$GenerationDtoImpl(
       time: freezed == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
@@ -108,11 +116,11 @@ class __$$_GenerationDtoCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_GenerationDto implements _GenerationDto {
-  _$_GenerationDto({this.time, this.weather});
+class _$GenerationDtoImpl implements _GenerationDto {
+  _$GenerationDtoImpl({this.time, this.weather});
 
-  factory _$_GenerationDto.fromJson(Map<String, dynamic> json) =>
-      _$$_GenerationDtoFromJson(json);
+  factory _$GenerationDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GenerationDtoImplFromJson(json);
 
   @override
   final String? time;
@@ -125,27 +133,29 @@ class _$_GenerationDto implements _GenerationDto {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_GenerationDto &&
+            other is _$GenerationDtoImpl &&
             (identical(other.time, time) || other.time == time) &&
             (identical(other.weather, weather) || other.weather == weather));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, time, weather);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of GenerationDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GenerationDtoCopyWith<_$_GenerationDto> get copyWith =>
-      __$$_GenerationDtoCopyWithImpl<_$_GenerationDto>(this, _$identity);
+  _$$GenerationDtoImplCopyWith<_$GenerationDtoImpl> get copyWith =>
+      __$$GenerationDtoImplCopyWithImpl<_$GenerationDtoImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_GenerationDtoToJson(
+    return _$$GenerationDtoImplToJson(
       this,
     );
   }
@@ -153,17 +163,20 @@ class _$_GenerationDto implements _GenerationDto {
 
 abstract class _GenerationDto implements GenerationDto {
   factory _GenerationDto({final String? time, final String? weather}) =
-      _$_GenerationDto;
+      _$GenerationDtoImpl;
 
   factory _GenerationDto.fromJson(Map<String, dynamic> json) =
-      _$_GenerationDto.fromJson;
+      _$GenerationDtoImpl.fromJson;
 
   @override
   String? get time;
   @override
   String? get weather;
+
+  /// Create a copy of GenerationDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_GenerationDtoCopyWith<_$_GenerationDto> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GenerationDtoImplCopyWith<_$GenerationDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

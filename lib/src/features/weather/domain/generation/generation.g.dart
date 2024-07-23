@@ -6,10 +6,10 @@ part of 'generation.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Generation _$$_GenerationFromJson(Map<String, dynamic> json) =>
-    _$_Generation(
+_$GenerationImpl _$$GenerationImplFromJson(Map<String, dynamic> json) =>
+    _$GenerationImpl(
       id: json['id'] as String?,
-      progress: json['progress'] as int,
+      progress: (json['progress'] as num).toInt(),
       prompt: json['prompt'] as String,
       generatedImage: json['generatedImage'] == null
           ? null
@@ -18,7 +18,7 @@ _$_Generation _$$_GenerationFromJson(Map<String, dynamic> json) =>
       locationId: json['locationId'] as String?,
     );
 
-Map<String, dynamic> _$$_GenerationToJson(_$_Generation instance) =>
+Map<String, dynamic> _$$GenerationImplToJson(_$GenerationImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'progress': instance.progress,

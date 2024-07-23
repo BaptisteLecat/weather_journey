@@ -12,7 +12,7 @@ part of 'generation.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Generation _$GenerationFromJson(Map<String, dynamic> json) {
   return _Generation.fromJson(json);
@@ -26,8 +26,12 @@ mixin _$Generation {
   GeneratedImage? get generatedImage => throw _privateConstructorUsedError;
   String? get locationId => throw _privateConstructorUsedError;
 
+  /// Serializes this Generation to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Generation
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $GenerationCopyWith<Generation> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,6 +62,8 @@ class _$GenerationCopyWithImpl<$Res, $Val extends Generation>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Generation
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -91,6 +97,8 @@ class _$GenerationCopyWithImpl<$Res, $Val extends Generation>
     ) as $Val);
   }
 
+  /// Create a copy of Generation
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $GeneratedImageCopyWith<$Res>? get generatedImage {
@@ -105,11 +113,11 @@ class _$GenerationCopyWithImpl<$Res, $Val extends Generation>
 }
 
 /// @nodoc
-abstract class _$$_GenerationCopyWith<$Res>
+abstract class _$$GenerationImplCopyWith<$Res>
     implements $GenerationCopyWith<$Res> {
-  factory _$$_GenerationCopyWith(
-          _$_Generation value, $Res Function(_$_Generation) then) =
-      __$$_GenerationCopyWithImpl<$Res>;
+  factory _$$GenerationImplCopyWith(
+          _$GenerationImpl value, $Res Function(_$GenerationImpl) then) =
+      __$$GenerationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -124,13 +132,15 @@ abstract class _$$_GenerationCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_GenerationCopyWithImpl<$Res>
-    extends _$GenerationCopyWithImpl<$Res, _$_Generation>
-    implements _$$_GenerationCopyWith<$Res> {
-  __$$_GenerationCopyWithImpl(
-      _$_Generation _value, $Res Function(_$_Generation) _then)
+class __$$GenerationImplCopyWithImpl<$Res>
+    extends _$GenerationCopyWithImpl<$Res, _$GenerationImpl>
+    implements _$$GenerationImplCopyWith<$Res> {
+  __$$GenerationImplCopyWithImpl(
+      _$GenerationImpl _value, $Res Function(_$GenerationImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Generation
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -140,7 +150,7 @@ class __$$_GenerationCopyWithImpl<$Res>
     Object? generatedImage = freezed,
     Object? locationId = freezed,
   }) {
-    return _then(_$_Generation(
+    return _then(_$GenerationImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -168,16 +178,16 @@ class __$$_GenerationCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_Generation implements _Generation {
-  _$_Generation(
+class _$GenerationImpl implements _Generation {
+  _$GenerationImpl(
       {this.id,
       required this.progress,
       required this.prompt,
       this.generatedImage,
       this.locationId});
 
-  factory _$_Generation.fromJson(Map<String, dynamic> json) =>
-      _$$_GenerationFromJson(json);
+  factory _$GenerationImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GenerationImplFromJson(json);
 
   @override
   final String? id;
@@ -196,10 +206,10 @@ class _$_Generation implements _Generation {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Generation &&
+            other is _$GenerationImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.progress, progress) ||
                 other.progress == progress) &&
@@ -210,20 +220,22 @@ class _$_Generation implements _Generation {
                 other.locationId == locationId));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, progress, prompt, generatedImage, locationId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Generation
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GenerationCopyWith<_$_Generation> get copyWith =>
-      __$$_GenerationCopyWithImpl<_$_Generation>(this, _$identity);
+  _$$GenerationImplCopyWith<_$GenerationImpl> get copyWith =>
+      __$$GenerationImplCopyWithImpl<_$GenerationImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_GenerationToJson(
+    return _$$GenerationImplToJson(
       this,
     );
   }
@@ -235,10 +247,10 @@ abstract class _Generation implements Generation {
       required final int progress,
       required final String prompt,
       final GeneratedImage? generatedImage,
-      final String? locationId}) = _$_Generation;
+      final String? locationId}) = _$GenerationImpl;
 
   factory _Generation.fromJson(Map<String, dynamic> json) =
-      _$_Generation.fromJson;
+      _$GenerationImpl.fromJson;
 
   @override
   String? get id;
@@ -250,8 +262,11 @@ abstract class _Generation implements Generation {
   GeneratedImage? get generatedImage;
   @override
   String? get locationId;
+
+  /// Create a copy of Generation
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_GenerationCopyWith<_$_Generation> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GenerationImplCopyWith<_$GenerationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

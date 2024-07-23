@@ -30,12 +30,6 @@ class WeatherWidget extends ConsumerWidget {
     final lastGeneration = ref.watch(lastGenerationForLocationStreamProvider(
         UserIdLocationParameter(
             uid: userStream.value!.id!, location: location)));
-    String cityText = location.city!.split(", ").first;
-    if (location.city!.split(", ").length >= 6) {
-      cityText = location.city!.split(", ").reversed.toList()[5];
-    } else if (cityText.length < 3) {
-      cityText = location.city!.split(", ").take(2).join(" ");
-    }
 
     final state = ref.watch(locationControllerProvider);
     if (state.isLoading) {
@@ -148,7 +142,7 @@ class WeatherWidget extends ConsumerWidget {
                                                 height: Sizes.p4,
                                               ),
                                               Text(
-                                                cityText,
+                                                location.getCityText(),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .headlineSmall!

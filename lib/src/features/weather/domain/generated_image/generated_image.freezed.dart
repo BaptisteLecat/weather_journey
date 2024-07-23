@@ -12,7 +12,7 @@ part of 'generated_image.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 GeneratedImage _$GeneratedImageFromJson(Map<String, dynamic> json) {
   return _GeneratedImage.fromJson(json);
@@ -25,8 +25,12 @@ mixin _$GeneratedImage {
   String get uri => throw _privateConstructorUsedError;
   String? get locationId => throw _privateConstructorUsedError;
 
+  /// Serializes this GeneratedImage to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of GeneratedImage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $GeneratedImageCopyWith<GeneratedImage> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +54,8 @@ class _$GeneratedImageCopyWithImpl<$Res, $Val extends GeneratedImage>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of GeneratedImage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -80,24 +86,26 @@ class _$GeneratedImageCopyWithImpl<$Res, $Val extends GeneratedImage>
 }
 
 /// @nodoc
-abstract class _$$_GeneratedImageCopyWith<$Res>
+abstract class _$$GeneratedImageImplCopyWith<$Res>
     implements $GeneratedImageCopyWith<$Res> {
-  factory _$$_GeneratedImageCopyWith(
-          _$_GeneratedImage value, $Res Function(_$_GeneratedImage) then) =
-      __$$_GeneratedImageCopyWithImpl<$Res>;
+  factory _$$GeneratedImageImplCopyWith(_$GeneratedImageImpl value,
+          $Res Function(_$GeneratedImageImpl) then) =
+      __$$GeneratedImageImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, String hash, String uri, String? locationId});
 }
 
 /// @nodoc
-class __$$_GeneratedImageCopyWithImpl<$Res>
-    extends _$GeneratedImageCopyWithImpl<$Res, _$_GeneratedImage>
-    implements _$$_GeneratedImageCopyWith<$Res> {
-  __$$_GeneratedImageCopyWithImpl(
-      _$_GeneratedImage _value, $Res Function(_$_GeneratedImage) _then)
+class __$$GeneratedImageImplCopyWithImpl<$Res>
+    extends _$GeneratedImageCopyWithImpl<$Res, _$GeneratedImageImpl>
+    implements _$$GeneratedImageImplCopyWith<$Res> {
+  __$$GeneratedImageImplCopyWithImpl(
+      _$GeneratedImageImpl _value, $Res Function(_$GeneratedImageImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of GeneratedImage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -106,7 +114,7 @@ class __$$_GeneratedImageCopyWithImpl<$Res>
     Object? uri = null,
     Object? locationId = freezed,
   }) {
-    return _then(_$_GeneratedImage(
+    return _then(_$GeneratedImageImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -130,15 +138,15 @@ class __$$_GeneratedImageCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_GeneratedImage implements _GeneratedImage {
-  _$_GeneratedImage(
+class _$GeneratedImageImpl implements _GeneratedImage {
+  _$GeneratedImageImpl(
       {required this.id,
       required this.hash,
       required this.uri,
       this.locationId});
 
-  factory _$_GeneratedImage.fromJson(Map<String, dynamic> json) =>
-      _$$_GeneratedImageFromJson(json);
+  factory _$GeneratedImageImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GeneratedImageImplFromJson(json);
 
   @override
   final String id;
@@ -155,10 +163,10 @@ class _$_GeneratedImage implements _GeneratedImage {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_GeneratedImage &&
+            other is _$GeneratedImageImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.hash, hash) || other.hash == hash) &&
             (identical(other.uri, uri) || other.uri == uri) &&
@@ -166,19 +174,22 @@ class _$_GeneratedImage implements _GeneratedImage {
                 other.locationId == locationId));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, hash, uri, locationId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of GeneratedImage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GeneratedImageCopyWith<_$_GeneratedImage> get copyWith =>
-      __$$_GeneratedImageCopyWithImpl<_$_GeneratedImage>(this, _$identity);
+  _$$GeneratedImageImplCopyWith<_$GeneratedImageImpl> get copyWith =>
+      __$$GeneratedImageImplCopyWithImpl<_$GeneratedImageImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_GeneratedImageToJson(
+    return _$$GeneratedImageImplToJson(
       this,
     );
   }
@@ -189,10 +200,10 @@ abstract class _GeneratedImage implements GeneratedImage {
       {required final String id,
       required final String hash,
       required final String uri,
-      final String? locationId}) = _$_GeneratedImage;
+      final String? locationId}) = _$GeneratedImageImpl;
 
   factory _GeneratedImage.fromJson(Map<String, dynamic> json) =
-      _$_GeneratedImage.fromJson;
+      _$GeneratedImageImpl.fromJson;
 
   @override
   String get id;
@@ -202,8 +213,11 @@ abstract class _GeneratedImage implements GeneratedImage {
   String get uri;
   @override
   String? get locationId;
+
+  /// Create a copy of GeneratedImage
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_GeneratedImageCopyWith<_$_GeneratedImage> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GeneratedImageImplCopyWith<_$GeneratedImageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

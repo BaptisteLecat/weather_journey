@@ -12,7 +12,7 @@ part of 'place.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Place _$PlaceFromJson(Map<String, dynamic> json) {
   return _Place.fromJson(json);
@@ -20,20 +20,28 @@ Place _$PlaceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Place {
+// ignore: invalid_annotation_target
   @JsonKey(name: 'place_id')
-  int get placeId => throw _privateConstructorUsedError;
+  int get placeId =>
+      throw _privateConstructorUsedError; // ignore: invalid_annotation_target
   @JsonKey(name: 'licence')
-  String get licence => throw _privateConstructorUsedError;
+  String get licence =>
+      throw _privateConstructorUsedError; // ignore: invalid_annotation_target
   @JsonKey(name: 'osm_type')
-  String? get osmType => throw _privateConstructorUsedError;
+  String? get osmType =>
+      throw _privateConstructorUsedError; // ignore: invalid_annotation_target
   @JsonKey(name: 'osm_id')
-  int? get osmId => throw _privateConstructorUsedError;
+  int? get osmId =>
+      throw _privateConstructorUsedError; // ignore: invalid_annotation_target
   @JsonKey(name: 'boundingbox')
-  List<String> get boundingBox => throw _privateConstructorUsedError;
+  List<String> get boundingBox =>
+      throw _privateConstructorUsedError; // ignore: invalid_annotation_target
   @JsonKey(fromJson: _coordinatesFromJson, toJson: _coordinatesToJson)
-  double get lat => throw _privateConstructorUsedError;
+  double get lat =>
+      throw _privateConstructorUsedError; // ignore: invalid_annotation_target
   @JsonKey(fromJson: _coordinatesFromJson, toJson: _coordinatesToJson)
-  double get lon => throw _privateConstructorUsedError;
+  double get lon =>
+      throw _privateConstructorUsedError; // ignore: invalid_annotation_target
   @JsonKey(name: 'display_name')
   String get displayName => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
@@ -43,8 +51,12 @@ mixin _$Place {
   Map<String, String>? get extraTags => throw _privateConstructorUsedError;
   Map<String, String>? get nameDetails => throw _privateConstructorUsedError;
 
+  /// Serializes this Place to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Place
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PlaceCopyWith<Place> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -54,22 +66,16 @@ abstract class $PlaceCopyWith<$Res> {
       _$PlaceCopyWithImpl<$Res, Place>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'place_id')
-          int placeId,
-      @JsonKey(name: 'licence')
-          String licence,
-      @JsonKey(name: 'osm_type')
-          String? osmType,
-      @JsonKey(name: 'osm_id')
-          int? osmId,
-      @JsonKey(name: 'boundingbox')
-          List<String> boundingBox,
+      {@JsonKey(name: 'place_id') int placeId,
+      @JsonKey(name: 'licence') String licence,
+      @JsonKey(name: 'osm_type') String? osmType,
+      @JsonKey(name: 'osm_id') int? osmId,
+      @JsonKey(name: 'boundingbox') List<String> boundingBox,
       @JsonKey(fromJson: _coordinatesFromJson, toJson: _coordinatesToJson)
-          double lat,
+      double lat,
       @JsonKey(fromJson: _coordinatesFromJson, toJson: _coordinatesToJson)
-          double lon,
-      @JsonKey(name: 'display_name')
-          String displayName,
+      double lon,
+      @JsonKey(name: 'display_name') String displayName,
       String type,
       double importance,
       String? icon,
@@ -88,6 +94,8 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Place
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -168,28 +176,23 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
 }
 
 /// @nodoc
-abstract class _$$_PlaceCopyWith<$Res> implements $PlaceCopyWith<$Res> {
-  factory _$$_PlaceCopyWith(_$_Place value, $Res Function(_$_Place) then) =
-      __$$_PlaceCopyWithImpl<$Res>;
+abstract class _$$PlaceImplCopyWith<$Res> implements $PlaceCopyWith<$Res> {
+  factory _$$PlaceImplCopyWith(
+          _$PlaceImpl value, $Res Function(_$PlaceImpl) then) =
+      __$$PlaceImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'place_id')
-          int placeId,
-      @JsonKey(name: 'licence')
-          String licence,
-      @JsonKey(name: 'osm_type')
-          String? osmType,
-      @JsonKey(name: 'osm_id')
-          int? osmId,
-      @JsonKey(name: 'boundingbox')
-          List<String> boundingBox,
+      {@JsonKey(name: 'place_id') int placeId,
+      @JsonKey(name: 'licence') String licence,
+      @JsonKey(name: 'osm_type') String? osmType,
+      @JsonKey(name: 'osm_id') int? osmId,
+      @JsonKey(name: 'boundingbox') List<String> boundingBox,
       @JsonKey(fromJson: _coordinatesFromJson, toJson: _coordinatesToJson)
-          double lat,
+      double lat,
       @JsonKey(fromJson: _coordinatesFromJson, toJson: _coordinatesToJson)
-          double lon,
-      @JsonKey(name: 'display_name')
-          String displayName,
+      double lon,
+      @JsonKey(name: 'display_name') String displayName,
       String type,
       double importance,
       String? icon,
@@ -199,11 +202,15 @@ abstract class _$$_PlaceCopyWith<$Res> implements $PlaceCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_PlaceCopyWithImpl<$Res> extends _$PlaceCopyWithImpl<$Res, _$_Place>
-    implements _$$_PlaceCopyWith<$Res> {
-  __$$_PlaceCopyWithImpl(_$_Place _value, $Res Function(_$_Place) _then)
+class __$$PlaceImplCopyWithImpl<$Res>
+    extends _$PlaceCopyWithImpl<$Res, _$PlaceImpl>
+    implements _$$PlaceImplCopyWith<$Res> {
+  __$$PlaceImplCopyWithImpl(
+      _$PlaceImpl _value, $Res Function(_$PlaceImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Place
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -222,7 +229,7 @@ class __$$_PlaceCopyWithImpl<$Res> extends _$PlaceCopyWithImpl<$Res, _$_Place>
     Object? extraTags = freezed,
     Object? nameDetails = freezed,
   }) {
-    return _then(_$_Place(
+    return _then(_$PlaceImpl(
       placeId: null == placeId
           ? _value.placeId
           : placeId // ignore: cast_nullable_to_non_nullable
@@ -286,24 +293,18 @@ class __$$_PlaceCopyWithImpl<$Res> extends _$PlaceCopyWithImpl<$Res, _$_Place>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_Place implements _Place {
-  const _$_Place(
-      {@JsonKey(name: 'place_id')
-          required this.placeId,
-      @JsonKey(name: 'licence')
-          required this.licence,
-      @JsonKey(name: 'osm_type')
-          this.osmType,
-      @JsonKey(name: 'osm_id')
-          this.osmId,
-      @JsonKey(name: 'boundingbox')
-          required final List<String> boundingBox,
+class _$PlaceImpl implements _Place {
+  const _$PlaceImpl(
+      {@JsonKey(name: 'place_id') required this.placeId,
+      @JsonKey(name: 'licence') required this.licence,
+      @JsonKey(name: 'osm_type') this.osmType,
+      @JsonKey(name: 'osm_id') this.osmId,
+      @JsonKey(name: 'boundingbox') required final List<String> boundingBox,
       @JsonKey(fromJson: _coordinatesFromJson, toJson: _coordinatesToJson)
-          required this.lat,
+      required this.lat,
       @JsonKey(fromJson: _coordinatesFromJson, toJson: _coordinatesToJson)
-          required this.lon,
-      @JsonKey(name: 'display_name')
-          required this.displayName,
+      required this.lon,
+      @JsonKey(name: 'display_name') required this.displayName,
       required this.type,
       required this.importance,
       this.icon,
@@ -315,22 +316,28 @@ class _$_Place implements _Place {
         _extraTags = extraTags,
         _nameDetails = nameDetails;
 
-  factory _$_Place.fromJson(Map<String, dynamic> json) =>
-      _$$_PlaceFromJson(json);
+  factory _$PlaceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlaceImplFromJson(json);
 
+// ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'place_id')
   final int placeId;
+// ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'licence')
   final String licence;
+// ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'osm_type')
   final String? osmType;
+// ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'osm_id')
   final int? osmId;
+// ignore: invalid_annotation_target
   final List<String> _boundingBox;
+// ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'boundingbox')
   List<String> get boundingBox {
@@ -339,12 +346,15 @@ class _$_Place implements _Place {
     return EqualUnmodifiableListView(_boundingBox);
   }
 
+// ignore: invalid_annotation_target
   @override
   @JsonKey(fromJson: _coordinatesFromJson, toJson: _coordinatesToJson)
   final double lat;
+// ignore: invalid_annotation_target
   @override
   @JsonKey(fromJson: _coordinatesFromJson, toJson: _coordinatesToJson)
   final double lon;
+// ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'display_name')
   final String displayName;
@@ -390,10 +400,10 @@ class _$_Place implements _Place {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Place &&
+            other is _$PlaceImpl &&
             (identical(other.placeId, placeId) || other.placeId == placeId) &&
             (identical(other.licence, licence) || other.licence == licence) &&
             (identical(other.osmType, osmType) || other.osmType == osmType) &&
@@ -415,7 +425,7 @@ class _$_Place implements _Place {
                 .equals(other._nameDetails, _nameDetails));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -434,15 +444,17 @@ class _$_Place implements _Place {
       const DeepCollectionEquality().hash(_extraTags),
       const DeepCollectionEquality().hash(_nameDetails));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Place
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaceCopyWith<_$_Place> get copyWith =>
-      __$$_PlaceCopyWithImpl<_$_Place>(this, _$identity);
+  _$$PlaceImplCopyWith<_$PlaceImpl> get copyWith =>
+      __$$PlaceImplCopyWithImpl<_$PlaceImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlaceToJson(
+    return _$$PlaceImplToJson(
       this,
     );
   }
@@ -450,52 +462,47 @@ class _$_Place implements _Place {
 
 abstract class _Place implements Place {
   const factory _Place(
-      {@JsonKey(name: 'place_id')
-          required final int placeId,
-      @JsonKey(name: 'licence')
-          required final String licence,
-      @JsonKey(name: 'osm_type')
-          final String? osmType,
-      @JsonKey(name: 'osm_id')
-          final int? osmId,
-      @JsonKey(name: 'boundingbox')
-          required final List<String> boundingBox,
+      {@JsonKey(name: 'place_id') required final int placeId,
+      @JsonKey(name: 'licence') required final String licence,
+      @JsonKey(name: 'osm_type') final String? osmType,
+      @JsonKey(name: 'osm_id') final int? osmId,
+      @JsonKey(name: 'boundingbox') required final List<String> boundingBox,
       @JsonKey(fromJson: _coordinatesFromJson, toJson: _coordinatesToJson)
-          required final double lat,
+      required final double lat,
       @JsonKey(fromJson: _coordinatesFromJson, toJson: _coordinatesToJson)
-          required final double lon,
-      @JsonKey(name: 'display_name')
-          required final String displayName,
+      required final double lon,
+      @JsonKey(name: 'display_name') required final String displayName,
       required final String type,
       required final double importance,
       final String? icon,
       final Map<String, String>? address,
       final Map<String, String>? extraTags,
-      final Map<String, String>? nameDetails}) = _$_Place;
+      final Map<String, String>? nameDetails}) = _$PlaceImpl;
 
-  factory _Place.fromJson(Map<String, dynamic> json) = _$_Place.fromJson;
+  factory _Place.fromJson(Map<String, dynamic> json) = _$PlaceImpl.fromJson;
 
+// ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'place_id')
-  int get placeId;
+  int get placeId; // ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'licence')
-  String get licence;
+  String get licence; // ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'osm_type')
-  String? get osmType;
+  String? get osmType; // ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'osm_id')
-  int? get osmId;
+  int? get osmId; // ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'boundingbox')
-  List<String> get boundingBox;
+  List<String> get boundingBox; // ignore: invalid_annotation_target
   @override
   @JsonKey(fromJson: _coordinatesFromJson, toJson: _coordinatesToJson)
-  double get lat;
+  double get lat; // ignore: invalid_annotation_target
   @override
   @JsonKey(fromJson: _coordinatesFromJson, toJson: _coordinatesToJson)
-  double get lon;
+  double get lon; // ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'display_name')
   String get displayName;
@@ -511,8 +518,11 @@ abstract class _Place implements Place {
   Map<String, String>? get extraTags;
   @override
   Map<String, String>? get nameDetails;
+
+  /// Create a copy of Place
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_PlaceCopyWith<_$_Place> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$PlaceImplCopyWith<_$PlaceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

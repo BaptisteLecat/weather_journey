@@ -12,7 +12,7 @@ part of 'frequency.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Frequency _$FrequencyFromJson(Map<String, dynamic> json) {
   return _Frequency.fromJson(json);
@@ -23,8 +23,12 @@ mixin _$Frequency {
   String? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
+  /// Serializes this Frequency to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Frequency
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FrequencyCopyWith<Frequency> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -47,6 +51,8 @@ class _$FrequencyCopyWithImpl<$Res, $Val extends Frequency>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Frequency
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -67,30 +73,33 @@ class _$FrequencyCopyWithImpl<$Res, $Val extends Frequency>
 }
 
 /// @nodoc
-abstract class _$$_FrequencyCopyWith<$Res> implements $FrequencyCopyWith<$Res> {
-  factory _$$_FrequencyCopyWith(
-          _$_Frequency value, $Res Function(_$_Frequency) then) =
-      __$$_FrequencyCopyWithImpl<$Res>;
+abstract class _$$FrequencyImplCopyWith<$Res>
+    implements $FrequencyCopyWith<$Res> {
+  factory _$$FrequencyImplCopyWith(
+          _$FrequencyImpl value, $Res Function(_$FrequencyImpl) then) =
+      __$$FrequencyImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? id, String name});
 }
 
 /// @nodoc
-class __$$_FrequencyCopyWithImpl<$Res>
-    extends _$FrequencyCopyWithImpl<$Res, _$_Frequency>
-    implements _$$_FrequencyCopyWith<$Res> {
-  __$$_FrequencyCopyWithImpl(
-      _$_Frequency _value, $Res Function(_$_Frequency) _then)
+class __$$FrequencyImplCopyWithImpl<$Res>
+    extends _$FrequencyCopyWithImpl<$Res, _$FrequencyImpl>
+    implements _$$FrequencyImplCopyWith<$Res> {
+  __$$FrequencyImplCopyWithImpl(
+      _$FrequencyImpl _value, $Res Function(_$FrequencyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Frequency
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
     Object? name = null,
   }) {
-    return _then(_$_Frequency(
+    return _then(_$FrequencyImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -106,11 +115,11 @@ class __$$_FrequencyCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_Frequency implements _Frequency {
-  const _$_Frequency({this.id, required this.name});
+class _$FrequencyImpl implements _Frequency {
+  const _$FrequencyImpl({this.id, required this.name});
 
-  factory _$_Frequency.fromJson(Map<String, dynamic> json) =>
-      _$$_FrequencyFromJson(json);
+  factory _$FrequencyImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FrequencyImplFromJson(json);
 
   @override
   final String? id;
@@ -123,27 +132,29 @@ class _$_Frequency implements _Frequency {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Frequency &&
+            other is _$FrequencyImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Frequency
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FrequencyCopyWith<_$_Frequency> get copyWith =>
-      __$$_FrequencyCopyWithImpl<_$_Frequency>(this, _$identity);
+  _$$FrequencyImplCopyWith<_$FrequencyImpl> get copyWith =>
+      __$$FrequencyImplCopyWithImpl<_$FrequencyImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_FrequencyToJson(
+    return _$$FrequencyImplToJson(
       this,
     );
   }
@@ -151,17 +162,20 @@ class _$_Frequency implements _Frequency {
 
 abstract class _Frequency implements Frequency {
   const factory _Frequency({final String? id, required final String name}) =
-      _$_Frequency;
+      _$FrequencyImpl;
 
   factory _Frequency.fromJson(Map<String, dynamic> json) =
-      _$_Frequency.fromJson;
+      _$FrequencyImpl.fromJson;
 
   @override
   String? get id;
   @override
   String get name;
+
+  /// Create a copy of Frequency
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_FrequencyCopyWith<_$_Frequency> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$FrequencyImplCopyWith<_$FrequencyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
