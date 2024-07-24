@@ -32,7 +32,7 @@ class RootGenerationFirestoreRepository {
     });
   }
 
-  Future fetchOne({
+  Future<RootGeneration?> fetchOne({
     required String docId,
   }) async {
     final reference =
@@ -91,7 +91,9 @@ class RootGenerationFirestoreRepository {
     return await reference.doc(docId).get().then((snapshot) {
       final rootGeneration = snapshot.data();
       if (rootGeneration != null) {
-        return rootGeneration.likes!.any((like) => like.user.id == userId);
+        if (rootGeneration.likes != null) {
+          return rootGeneration.likes!.any((like) => like.user.id == userId);
+        }
       }
       return false;
     });
@@ -103,9 +105,23 @@ final rootGenerationFirestoreRepositoryProvider =
   return RootGenerationFirestoreRepository();
 });
 
-final rootGenerationfetchAllFutureProvider =
+final rootGenerationFetchAllFutureProvider =
     FutureProvider.autoDispose((ref) async {
   final rootGenerationRepository =
       ref.watch(rootGenerationFirestoreRepositoryProvider);
   return rootGenerationRepository.fetchAll();
+});
+
+final rootGenerationFetchOneStreamProvider =
+    StreamProvider.autoDispose.family((ref, String docId) {
+  final rootGenerationRepository =
+      ref.watch(rootGenerationFirestoreRepositoryProvider);
+  return rootGenerationRepository.fetchOneWithStream(docId: docId);
+});
+
+final rootGenerationFetchOneFutureProvider =
+    FutureProvider.autoDispose.family((ref, String docId) async {
+  final rootGenerationRepository =
+      ref.watch(rootGenerationFirestoreRepositoryProvider);
+  return rootGenerationRepository.fetchOne(docId: docId);
 });

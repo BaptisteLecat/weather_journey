@@ -6,6 +6,7 @@ import 'package:weatherjourney/src/features/authentication/presentation/app_init
 import 'package:weatherjourney/src/features/authentication/presentation/sign_in_screen.dart';
 import 'package:weatherjourney/src/features/authentication/presentation/sign_up_screen.dart';
 import 'package:weatherjourney/src/features/feed/presentation/feed_screen.dart';
+import 'package:weatherjourney/src/features/feed/presentation/generation_screen.dart';
 import 'package:weatherjourney/src/features/locations/presentation/location_create_screen.dart';
 import 'package:weatherjourney/src/features/locations/presentation/location_generate_screen.dart';
 import 'package:weatherjourney/src/features/locations/presentation/location_screen.dart';
@@ -181,6 +182,18 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
           );
         },
       ),
+      GoRoute(
+        path: "${AppRoute.generations.route}/:generationId",
+        name: AppRoute.generations.name,
+        builder: (context, state) {
+          final generationId = state.pathParameters['generationId'];
+          return generationId != null
+              ? GenerationScreen(
+                  generationId: generationId,
+                )
+              : const NotFoundScreen();
+        },
+      )
     ],
     errorBuilder: (context, state) => const NotFoundScreen(),
   );
