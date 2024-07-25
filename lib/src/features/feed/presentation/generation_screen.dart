@@ -87,6 +87,8 @@ class GenerationScreen extends ConsumerWidget {
                                                 .likeRootGeneration(
                                                     rootGeneration:
                                                         rootGeneration);
+                                            ref.invalidate(
+                                                userfetchOneFutureProvider);
                                           },
                                           child: ConstrainedBox(
                                             constraints: BoxConstraints(
@@ -194,9 +196,11 @@ class GenerationScreen extends ConsumerWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: AsyncValueWidget(
+                        skipLoadingOnRefresh: true,
                         value: ref.watch(
                             userfetchOneFutureProvider(rootGeneration.user.id)),
                         data: (user) {
+                          print(user);
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -270,7 +274,7 @@ class GenerationScreen extends ConsumerWidget {
                                                   Icon(Icons.favorite,
                                                       color: Colors.red),
                                                   Text(
-                                                    '332',
+                                                    "${user?.likes?.length ?? 0}",
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .bodyMedium!

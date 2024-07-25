@@ -12,6 +12,9 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       firstname: json['firstname'] as String?,
       email: json['email'] as String?,
       avatar: json['photoURL'] as String?,
+      likes: (json['likes'] as List<dynamic>?)
+          ?.map((e) => UserLike.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
@@ -21,4 +24,5 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
       'firstname': instance.firstname,
       'email': instance.email,
       'photoURL': instance.avatar,
+      'likes': instance.likes?.map((e) => e.toJson()).toList(),
     };

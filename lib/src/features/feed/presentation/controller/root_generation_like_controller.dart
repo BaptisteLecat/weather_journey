@@ -6,24 +6,32 @@ import 'package:weatherjourney/src/features/feed/data/firestore/root_generation_
 import 'package:weatherjourney/src/features/feed/domain/root_generation/root_generation.dart';
 import 'package:weatherjourney/src/features/feed/domain/root_generation_like/root_generation_like.dart';
 import 'package:weatherjourney/src/features/feed/domain/root_generation_user/root_generation_user.dart';
+import 'package:weatherjourney/src/features/user/data/firestore/user_firestore_repository.dart';
+import 'package:weatherjourney/src/features/user/domain/user/user.dart';
+import 'package:weatherjourney/src/features/user/domain/user_like/user_like.dart';
 
 class RootGenerationLikeController extends StateNotifier<AsyncValue<void>> {
   RootGenerationLikeController({
     required this.rootGenerationFirestoreRepository,
+    required this.userFirestoreRepository,
     required this.appUser,
   }) : super(const AsyncData(null));
-  final AppUser appUser;
+  AppUser appUser;
   final RootGenerationFirestoreRepository rootGenerationFirestoreRepository;
+  final UserFirestoreRepository userFirestoreRepository;
 
   Future<void> likeRootGeneration(
       {required RootGeneration rootGeneration}) async {
     state = const AsyncLoading();
     List<RootGenerationLike> likes = rootGeneration.likes?.toList() ?? [];
+    List<UserLike> userLikes = appUser.likes?.toList() ?? [];
     final bool isLiked = await rootGenerationFirestoreRepository.isAlreadyLiked(
         docId: rootGeneration.id, userId: appUser.id!);
 
     if (isLiked) {
       likes.removeWhere((element) => element.user.id == appUser.id);
+      userLikes.removeWhere(
+          (element) => element.rootGeneration.id == rootGeneration.id);
     } else {
       likes.add(RootGenerationLike(
           user: RootGenerationUser(
@@ -31,10 +39,19 @@ class RootGenerationLikeController extends StateNotifier<AsyncValue<void>> {
             email: appUser.email!,
           ),
           createdAt: Timestamp.now()));
+      userLikes.add(
+          UserLike(rootGeneration: rootGeneration, createdAt: Timestamp.now()));
     }
-    state = await AsyncValue.guard(() =>
-        rootGenerationFirestoreRepository.update(
-            docId: appUser.id!, entity: rootGeneration.copyWith(likes: likes)));
+
+    appUser = appUser.copyWith(likes: userLikes);
+    User user = User.fromAppUser(appUser: appUser);
+
+    state = await AsyncValue.guard(() => Future.wait([
+          rootGenerationFirestoreRepository.update(
+              docId: appUser.id!,
+              entity: rootGeneration.copyWith(likes: likes)),
+          userFirestoreRepository.update(docId: appUser.id!, entity: user)
+        ]));
   }
 }
 
@@ -48,5 +65,6 @@ final rootGenerationLikeControllerProvider =
   return RootGenerationLikeController(
       rootGenerationFirestoreRepository:
           ref.read(rootGenerationFirestoreRepositoryProvider),
+      userFirestoreRepository: ref.read(userFirestoreRepositoryProvider),
       appUser: appUser);
 });

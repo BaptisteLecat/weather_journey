@@ -26,6 +26,7 @@ mixin _$User {
   String? get email => throw _privateConstructorUsedError;
   @JsonKey(name: 'photoURL')
   String? get avatar => throw _privateConstructorUsedError;
+  List<UserLike>? get likes => throw _privateConstructorUsedError;
 
   /// Serializes this User to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,7 +47,8 @@ abstract class $UserCopyWith<$Res> {
       String? lastname,
       String? firstname,
       String? email,
-      @JsonKey(name: 'photoURL') String? avatar});
+      @JsonKey(name: 'photoURL') String? avatar,
+      List<UserLike>? likes});
 }
 
 /// @nodoc
@@ -69,6 +71,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? firstname = freezed,
     Object? email = freezed,
     Object? avatar = freezed,
+    Object? likes = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -91,6 +94,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as String?,
+      likes: freezed == likes
+          ? _value.likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as List<UserLike>?,
     ) as $Val);
   }
 }
@@ -107,7 +114,8 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       String? lastname,
       String? firstname,
       String? email,
-      @JsonKey(name: 'photoURL') String? avatar});
+      @JsonKey(name: 'photoURL') String? avatar,
+      List<UserLike>? likes});
 }
 
 /// @nodoc
@@ -127,6 +135,7 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? firstname = freezed,
     Object? email = freezed,
     Object? avatar = freezed,
+    Object? likes = freezed,
   }) {
     return _then(_$UserImpl(
       id: freezed == id
@@ -149,20 +158,26 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as String?,
+      likes: freezed == likes
+          ? _value._likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as List<UserLike>?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$UserImpl extends _User {
+
+@JsonSerializable(explicitToJson: true)
+class _$UserImpl implements _User {
   const _$UserImpl(
-      {this.id,
-      this.lastname,
-      this.firstname,
-      this.email,
-      @JsonKey(name: 'photoURL') this.avatar})
-      : super._();
+      {required this.id,
+      required this.lastname,
+      required this.firstname,
+      required this.email,
+      @JsonKey(name: 'photoURL') required this.avatar,
+      required final List<UserLike>? likes})
+      : _likes = likes;
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserImplFromJson(json);
@@ -178,10 +193,19 @@ class _$UserImpl extends _User {
   @override
   @JsonKey(name: 'photoURL')
   final String? avatar;
+  final List<UserLike>? _likes;
+  @override
+  List<UserLike>? get likes {
+    final value = _likes;
+    if (value == null) return null;
+    if (_likes is EqualUnmodifiableListView) return _likes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'User(id: $id, lastname: $lastname, firstname: $firstname, email: $email, avatar: $avatar)';
+    return 'User(id: $id, lastname: $lastname, firstname: $firstname, email: $email, avatar: $avatar, likes: $likes)';
   }
 
   @override
@@ -195,13 +219,14 @@ class _$UserImpl extends _User {
             (identical(other.firstname, firstname) ||
                 other.firstname == firstname) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.avatar, avatar) || other.avatar == avatar));
+            (identical(other.avatar, avatar) || other.avatar == avatar) &&
+            const DeepCollectionEquality().equals(other._likes, _likes));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, lastname, firstname, email, avatar);
+  int get hashCode => Object.hash(runtimeType, id, lastname, firstname, email,
+      avatar, const DeepCollectionEquality().hash(_likes));
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.
@@ -219,14 +244,14 @@ class _$UserImpl extends _User {
   }
 }
 
-abstract class _User extends User {
+abstract class _User implements User {
   const factory _User(
-      {final String? id,
-      final String? lastname,
-      final String? firstname,
-      final String? email,
-      @JsonKey(name: 'photoURL') final String? avatar}) = _$UserImpl;
-  const _User._() : super._();
+      {required final String? id,
+      required final String? lastname,
+      required final String? firstname,
+      required final String? email,
+      @JsonKey(name: 'photoURL') required final String? avatar,
+      required final List<UserLike>? likes}) = _$UserImpl;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
@@ -241,6 +266,8 @@ abstract class _User extends User {
   @override
   @JsonKey(name: 'photoURL')
   String? get avatar;
+  @override
+  List<UserLike>? get likes;
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.
