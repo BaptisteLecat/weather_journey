@@ -14,22 +14,28 @@ class RootGenerationLikeController extends StateNotifier<AsyncValue<void>> {
   RootGenerationLikeController({
     required this.rootGenerationFirestoreRepository,
     required this.userFirestoreRepository,
-    required this.appUser,
+    required this.ref,
   }) : super(const AsyncData(null));
-  AppUser appUser;
   final RootGenerationFirestoreRepository rootGenerationFirestoreRepository;
   final UserFirestoreRepository userFirestoreRepository;
+  final Ref ref;
 
   Future<void> likeRootGeneration(
       {required RootGeneration rootGeneration}) async {
     state = const AsyncLoading();
+
+    AppUser? appUser = ref.watch(appUserStreamProvider).value;
+    if (appUser == null) {
+      throw Exception('User does not exist');
+    }
+
     List<RootGenerationLike> likes = rootGeneration.likes?.toList() ?? [];
     List<UserLike> userLikes = appUser.likes?.toList() ?? [];
     final bool isLiked = await rootGenerationFirestoreRepository.isAlreadyLiked(
         docId: rootGeneration.id, userId: appUser.id!);
 
     if (isLiked) {
-      likes.removeWhere((element) => element.user.id == appUser.id);
+      likes.removeWhere((element) => element.user.id == appUser!.id);
       userLikes.removeWhere(
           (element) => element.rootGeneration.id == rootGeneration.id);
     } else {
@@ -46,9 +52,11 @@ class RootGenerationLikeController extends StateNotifier<AsyncValue<void>> {
     appUser = appUser.copyWith(likes: userLikes);
     User user = User.fromAppUser(appUser: appUser);
 
+    //ref.invalidate(appUserStreamProvider);
+
     state = await AsyncValue.guard(() => Future.wait([
           rootGenerationFirestoreRepository.update(
-              docId: appUser.id!,
+              docId: appUser!.id!,
               entity: rootGeneration.copyWith(likes: likes)),
           userFirestoreRepository.update(docId: appUser.id!, entity: user)
         ]));
@@ -58,13 +66,10 @@ class RootGenerationLikeController extends StateNotifier<AsyncValue<void>> {
 final rootGenerationLikeControllerProvider =
     StateNotifierProvider<RootGenerationLikeController, AsyncValue<void>>(
         (ref) {
-  AppUser? appUser = ref.read(appUserStreamProvider).value;
-  if (appUser == null) {
-    throw Exception('AppUser is null');
-  }
   return RootGenerationLikeController(
-      rootGenerationFirestoreRepository:
-          ref.read(rootGenerationFirestoreRepositoryProvider),
-      userFirestoreRepository: ref.read(userFirestoreRepositoryProvider),
-      appUser: appUser);
+    rootGenerationFirestoreRepository:
+        ref.read(rootGenerationFirestoreRepositoryProvider),
+    userFirestoreRepository: ref.read(userFirestoreRepositoryProvider),
+    ref: ref,
+  );
 });

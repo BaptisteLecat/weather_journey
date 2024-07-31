@@ -3,10 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:weatherjourney/src/common_widgets/async_value_widget.dart';
+import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
 import 'package:weatherjourney/src/features/feed/data/firestore/root_generation_firestore_repository.dart';
 import 'package:weatherjourney/src/features/feed/domain/root_generation/root_generation.dart';
 import 'package:weatherjourney/src/features/feed/presentation/controller/root_generation_like_controller.dart';
 import 'package:weatherjourney/src/features/user/data/firestore/user_firestore_repository.dart';
+import 'package:weatherjourney/src/features/user/presentation/controller/user_follow_controller.dart';
 
 class GenerationScreen extends ConsumerWidget {
   final String generationId;
@@ -81,14 +83,12 @@ class GenerationScreen extends ConsumerWidget {
                                         GestureDetector(
                                           onTap: () {
                                             ref
-                                                .read(
+                                                .watch(
                                                     rootGenerationLikeControllerProvider
                                                         .notifier)
                                                 .likeRootGeneration(
                                                     rootGeneration:
                                                         rootGeneration);
-                                            ref.invalidate(
-                                                userfetchOneFutureProvider);
                                           },
                                           child: ConstrainedBox(
                                             constraints: BoxConstraints(
@@ -198,7 +198,7 @@ class GenerationScreen extends ConsumerWidget {
                       child: AsyncValueWidget(
                         skipLoadingOnRefresh: true,
                         value: ref.watch(
-                            userfetchOneFutureProvider(rootGeneration.user.id)),
+                            userfetchOneStreamProvider(rootGeneration.user.id)),
                         data: (user) {
                           print(user);
                           return Row(
@@ -233,7 +233,10 @@ class GenerationScreen extends ConsumerWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "${user?.firstname} ${user?.lastname}",
+                                            (user?.firstname != null &&
+                                                    user?.lastname != null)
+                                                ? "${user?.firstname} ${user?.lastname}"
+                                                : "${user?.userNameFromEmail().substring(0, (user.userNameFromEmail().length <= 12) ? user.userNameFromEmail().length : 12)}",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyLarge!
@@ -250,7 +253,7 @@ class GenerationScreen extends ConsumerWidget {
                                                   Icon(Icons.star,
                                                       color: Colors.yellow),
                                                   Text(
-                                                    '3 221',
+                                                    "${user?.followers?.length ?? "vide"}",
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .bodyMedium!
@@ -294,25 +297,47 @@ class GenerationScreen extends ConsumerWidget {
                                 ),
                               ),
                               const Spacer(),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 18, vertical: 12),
-                                child: Center(
-                                  child: Text(
-                                    "Follow",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
+                              GestureDetector(
+                                onTap: () {
+                                  ref
+                                      .watch(
+                                          userFollowControllerProvider.notifier)
+                                      .followRootGenerationUser(
+                                          rootGenerationUser:
+                                              rootGeneration.user);
+                                },
+                                child: AsyncValueWidget(
+                                    value: ref.watch(appUserStreamProvider),
+                                    data: (appUser) {
+                                      return Container(
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context).primaryColor,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                         ),
-                                  ),
-                                ),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 18, vertical: 12),
+                                        child: Center(
+                                          child: Text(
+                                            appUser?.followings != null &&
+                                                    appUser!.followings!.any(
+                                                        (element) =>
+                                                            element.userId ==
+                                                            rootGeneration
+                                                                .user.id)
+                                                ? "Unfollow"
+                                                : "Follow",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                          ),
+                                        ),
+                                      );
+                                    }),
                               ),
                             ],
                           );

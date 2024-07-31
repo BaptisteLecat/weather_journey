@@ -27,6 +27,8 @@ mixin _$User {
   @JsonKey(name: 'photoURL')
   String? get avatar => throw _privateConstructorUsedError;
   List<UserLike>? get likes => throw _privateConstructorUsedError;
+  List<UserFollow>? get followers => throw _privateConstructorUsedError;
+  List<UserFollow>? get followings => throw _privateConstructorUsedError;
 
   /// Serializes this User to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,7 +50,9 @@ abstract class $UserCopyWith<$Res> {
       String? firstname,
       String? email,
       @JsonKey(name: 'photoURL') String? avatar,
-      List<UserLike>? likes});
+      List<UserLike>? likes,
+      List<UserFollow>? followers,
+      List<UserFollow>? followings});
 }
 
 /// @nodoc
@@ -72,6 +76,8 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? email = freezed,
     Object? avatar = freezed,
     Object? likes = freezed,
+    Object? followers = freezed,
+    Object? followings = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -98,6 +104,14 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
               as List<UserLike>?,
+      followers: freezed == followers
+          ? _value.followers
+          : followers // ignore: cast_nullable_to_non_nullable
+              as List<UserFollow>?,
+      followings: freezed == followings
+          ? _value.followings
+          : followings // ignore: cast_nullable_to_non_nullable
+              as List<UserFollow>?,
     ) as $Val);
   }
 }
@@ -115,7 +129,9 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       String? firstname,
       String? email,
       @JsonKey(name: 'photoURL') String? avatar,
-      List<UserLike>? likes});
+      List<UserLike>? likes,
+      List<UserFollow>? followers,
+      List<UserFollow>? followings});
 }
 
 /// @nodoc
@@ -136,6 +152,8 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? email = freezed,
     Object? avatar = freezed,
     Object? likes = freezed,
+    Object? followers = freezed,
+    Object? followings = freezed,
   }) {
     return _then(_$UserImpl(
       id: freezed == id
@@ -162,6 +180,14 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value._likes
           : likes // ignore: cast_nullable_to_non_nullable
               as List<UserLike>?,
+      followers: freezed == followers
+          ? _value._followers
+          : followers // ignore: cast_nullable_to_non_nullable
+              as List<UserFollow>?,
+      followings: freezed == followings
+          ? _value._followings
+          : followings // ignore: cast_nullable_to_non_nullable
+              as List<UserFollow>?,
     ));
   }
 }
@@ -169,15 +195,20 @@ class __$$UserImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$UserImpl implements _User {
+class _$UserImpl extends _User {
   const _$UserImpl(
       {required this.id,
       required this.lastname,
       required this.firstname,
       required this.email,
       @JsonKey(name: 'photoURL') required this.avatar,
-      required final List<UserLike>? likes})
-      : _likes = likes;
+      required final List<UserLike>? likes,
+      required final List<UserFollow>? followers,
+      required final List<UserFollow>? followings})
+      : _likes = likes,
+        _followers = followers,
+        _followings = followings,
+        super._();
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserImplFromJson(json);
@@ -203,9 +234,29 @@ class _$UserImpl implements _User {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<UserFollow>? _followers;
+  @override
+  List<UserFollow>? get followers {
+    final value = _followers;
+    if (value == null) return null;
+    if (_followers is EqualUnmodifiableListView) return _followers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<UserFollow>? _followings;
+  @override
+  List<UserFollow>? get followings {
+    final value = _followings;
+    if (value == null) return null;
+    if (_followings is EqualUnmodifiableListView) return _followings;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'User(id: $id, lastname: $lastname, firstname: $firstname, email: $email, avatar: $avatar, likes: $likes)';
+    return 'User(id: $id, lastname: $lastname, firstname: $firstname, email: $email, avatar: $avatar, likes: $likes, followers: $followers, followings: $followings)';
   }
 
   @override
@@ -220,13 +271,25 @@ class _$UserImpl implements _User {
                 other.firstname == firstname) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
-            const DeepCollectionEquality().equals(other._likes, _likes));
+            const DeepCollectionEquality().equals(other._likes, _likes) &&
+            const DeepCollectionEquality()
+                .equals(other._followers, _followers) &&
+            const DeepCollectionEquality()
+                .equals(other._followings, _followings));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, lastname, firstname, email,
-      avatar, const DeepCollectionEquality().hash(_likes));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      lastname,
+      firstname,
+      email,
+      avatar,
+      const DeepCollectionEquality().hash(_likes),
+      const DeepCollectionEquality().hash(_followers),
+      const DeepCollectionEquality().hash(_followings));
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.
@@ -244,14 +307,17 @@ class _$UserImpl implements _User {
   }
 }
 
-abstract class _User implements User {
+abstract class _User extends User {
   const factory _User(
       {required final String? id,
       required final String? lastname,
       required final String? firstname,
       required final String? email,
       @JsonKey(name: 'photoURL') required final String? avatar,
-      required final List<UserLike>? likes}) = _$UserImpl;
+      required final List<UserLike>? likes,
+      required final List<UserFollow>? followers,
+      required final List<UserFollow>? followings}) = _$UserImpl;
+  const _User._() : super._();
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
@@ -268,6 +334,10 @@ abstract class _User implements User {
   String? get avatar;
   @override
   List<UserLike>? get likes;
+  @override
+  List<UserFollow>? get followers;
+  @override
+  List<UserFollow>? get followings;
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.

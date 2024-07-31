@@ -66,6 +66,42 @@ class UserFirestoreRepository {
       return entity;
     });
   }
+
+  /// Check if a user is already following another user
+  Future<bool> isFollowing({
+    required String docId,
+    required String userId,
+  }) async {
+    final reference = firestore.collection(ressource).withConverter<User>(
+          fromFirestore: (snapshot, _) => User.fromJson(snapshot.data()!),
+          toFirestore: (user, _) => user.toJson(),
+        );
+    return await reference.doc(docId).get().then((snapshot) {
+      final user = snapshot.data();
+      if (user == null || user.followings == null) {
+        return false;
+      }
+      return user.followings!.any((element) => element.userId == userId);
+    });
+  }
+
+  /// Check if a user is followed by another user
+  Future<bool> isFollowed({
+    required String docId,
+    required String userId,
+  }) async {
+    final reference = firestore.collection(ressource).withConverter<User>(
+          fromFirestore: (snapshot, _) => User.fromJson(snapshot.data()!),
+          toFirestore: (user, _) => user.toJson(),
+        );
+    return await reference.doc(docId).get().then((snapshot) {
+      final user = snapshot.data();
+      if (user == null || user.followers == null) {
+        return false;
+      }
+      return user.followers!.any((element) => element.userId == userId);
+    });
+  }
 }
 
 final userFirestoreRepositoryProvider =
@@ -82,5 +118,13 @@ final userfetchOneFutureProvider = FutureProvider.family<User?, String>(
   (ref, String docId) async {
     final userRepository = ref.watch(userFirestoreRepositoryProvider);
     return userRepository.fetchOne(docId: docId);
+  },
+);
+
+final userfetchOneStreamProvider =
+    StreamProvider.autoDispose.family<User, String>(
+  (ref, String docId) {
+    final userRepository = ref.watch(userFirestoreRepositoryProvider);
+    return userRepository.fetchOneWithStream(docId: docId);
   },
 );

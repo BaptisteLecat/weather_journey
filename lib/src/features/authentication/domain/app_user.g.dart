@@ -25,6 +25,12 @@ _$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
       likes: (json['likes'] as List<dynamic>?)
           ?.map((e) => UserLike.fromJson(e as Map<String, dynamic>))
           .toList(),
+      followers: (json['followers'] as List<dynamic>?)
+          ?.map((e) => UserFollow.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      followings: (json['followings'] as List<dynamic>?)
+          ?.map((e) => UserFollow.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>
@@ -40,4 +46,6 @@ Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>
       'styles': instance.styles,
       'frequencies': instance.frequencies,
       'likes': instance.likes,
+      'followers': instance.followers,
+      'followings': instance.followings,
     };

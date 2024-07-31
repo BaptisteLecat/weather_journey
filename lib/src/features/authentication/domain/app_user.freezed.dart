@@ -35,6 +35,8 @@ mixin _$AppUser {
   List<Style>? get styles => throw _privateConstructorUsedError;
   List<Frequency>? get frequencies => throw _privateConstructorUsedError;
   List<UserLike>? get likes => throw _privateConstructorUsedError;
+  List<UserFollow>? get followers => throw _privateConstructorUsedError;
+  List<UserFollow>? get followings => throw _privateConstructorUsedError;
 
   /// Serializes this AppUser to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -63,7 +65,9 @@ abstract class $AppUserCopyWith<$Res> {
       firebase.User? firebaseAppUser,
       List<Style>? styles,
       List<Frequency>? frequencies,
-      List<UserLike>? likes});
+      List<UserLike>? likes,
+      List<UserFollow>? followers,
+      List<UserFollow>? followings});
 }
 
 /// @nodoc
@@ -93,6 +97,8 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? styles = freezed,
     Object? frequencies = freezed,
     Object? likes = freezed,
+    Object? followers = freezed,
+    Object? followings = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -143,6 +149,14 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
               as List<UserLike>?,
+      followers: freezed == followers
+          ? _value.followers
+          : followers // ignore: cast_nullable_to_non_nullable
+              as List<UserFollow>?,
+      followings: freezed == followings
+          ? _value.followings
+          : followings // ignore: cast_nullable_to_non_nullable
+              as List<UserFollow>?,
     ) as $Val);
   }
 }
@@ -167,7 +181,9 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       firebase.User? firebaseAppUser,
       List<Style>? styles,
       List<Frequency>? frequencies,
-      List<UserLike>? likes});
+      List<UserLike>? likes,
+      List<UserFollow>? followers,
+      List<UserFollow>? followings});
 }
 
 /// @nodoc
@@ -195,6 +211,8 @@ class __$$AppUserImplCopyWithImpl<$Res>
     Object? styles = freezed,
     Object? frequencies = freezed,
     Object? likes = freezed,
+    Object? followers = freezed,
+    Object? followings = freezed,
   }) {
     return _then(_$AppUserImpl(
       id: freezed == id
@@ -245,6 +263,14 @@ class __$$AppUserImplCopyWithImpl<$Res>
           ? _value._likes
           : likes // ignore: cast_nullable_to_non_nullable
               as List<UserLike>?,
+      followers: freezed == followers
+          ? _value._followers
+          : followers // ignore: cast_nullable_to_non_nullable
+              as List<UserFollow>?,
+      followings: freezed == followings
+          ? _value._followings
+          : followings // ignore: cast_nullable_to_non_nullable
+              as List<UserFollow>?,
     ));
   }
 }
@@ -265,10 +291,14 @@ class _$AppUserImpl extends _AppUser {
       this.firebaseAppUser,
       final List<Style>? styles,
       final List<Frequency>? frequencies,
-      final List<UserLike>? likes})
+      final List<UserLike>? likes,
+      final List<UserFollow>? followers,
+      final List<UserFollow>? followings})
       : _styles = styles,
         _frequencies = frequencies,
         _likes = likes,
+        _followers = followers,
+        _followings = followings,
         super._();
 
   factory _$AppUserImpl.fromJson(Map<String, dynamic> json) =>
@@ -325,9 +355,29 @@ class _$AppUserImpl extends _AppUser {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<UserFollow>? _followers;
+  @override
+  List<UserFollow>? get followers {
+    final value = _followers;
+    if (value == null) return null;
+    if (_followers is EqualUnmodifiableListView) return _followers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<UserFollow>? _followings;
+  @override
+  List<UserFollow>? get followings {
+    final value = _followings;
+    if (value == null) return null;
+    if (_followings is EqualUnmodifiableListView) return _followings;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'AppUser(id: $id, lastname: $lastname, firstname: $firstname, email: $email, avatar: $avatar, created: $created, token: $token, hasSeenOnboarding: $hasSeenOnboarding, firebaseAppUser: $firebaseAppUser, styles: $styles, frequencies: $frequencies, likes: $likes)';
+    return 'AppUser(id: $id, lastname: $lastname, firstname: $firstname, email: $email, avatar: $avatar, created: $created, token: $token, hasSeenOnboarding: $hasSeenOnboarding, firebaseAppUser: $firebaseAppUser, styles: $styles, frequencies: $frequencies, likes: $likes, followers: $followers, followings: $followings)';
   }
 
   @override
@@ -351,7 +401,11 @@ class _$AppUserImpl extends _AppUser {
             const DeepCollectionEquality().equals(other._styles, _styles) &&
             const DeepCollectionEquality()
                 .equals(other._frequencies, _frequencies) &&
-            const DeepCollectionEquality().equals(other._likes, _likes));
+            const DeepCollectionEquality().equals(other._likes, _likes) &&
+            const DeepCollectionEquality()
+                .equals(other._followers, _followers) &&
+            const DeepCollectionEquality()
+                .equals(other._followings, _followings));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -369,7 +423,9 @@ class _$AppUserImpl extends _AppUser {
       firebaseAppUser,
       const DeepCollectionEquality().hash(_styles),
       const DeepCollectionEquality().hash(_frequencies),
-      const DeepCollectionEquality().hash(_likes));
+      const DeepCollectionEquality().hash(_likes),
+      const DeepCollectionEquality().hash(_followers),
+      const DeepCollectionEquality().hash(_followings));
 
   /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
@@ -401,7 +457,9 @@ abstract class _AppUser extends AppUser {
       final firebase.User? firebaseAppUser,
       final List<Style>? styles,
       final List<Frequency>? frequencies,
-      final List<UserLike>? likes}) = _$AppUserImpl;
+      final List<UserLike>? likes,
+      final List<UserFollow>? followers,
+      final List<UserFollow>? followings}) = _$AppUserImpl;
   const _AppUser._() : super._();
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$AppUserImpl.fromJson;
@@ -432,6 +490,10 @@ abstract class _AppUser extends AppUser {
   List<Frequency>? get frequencies;
   @override
   List<UserLike>? get likes;
+  @override
+  List<UserFollow>? get followers;
+  @override
+  List<UserFollow>? get followings;
 
   /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
