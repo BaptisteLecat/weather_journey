@@ -5,8 +5,8 @@ part 'generation.g.dart';
 part 'generation.freezed.dart';
 
 @Freezed()
-@JsonSerializable(explicitToJson: true)
 class Generation with _$Generation {
+  @JsonSerializable(explicitToJson: true)
   factory Generation(
       {String? id,
       required int progress,

@@ -6,15 +6,15 @@ part of 'user_id_location_id_parameter.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_UserIdLocationIdParameter _$$_UserIdLocationIdParameterFromJson(
+_$UserIdLocationIdParameterImpl _$$UserIdLocationIdParameterImplFromJson(
         Map<String, dynamic> json) =>
-    _$_UserIdLocationIdParameter(
+    _$UserIdLocationIdParameterImpl(
       userId: json['userId'] as String,
       locationId: json['locationId'] as String,
     );
 
-Map<String, dynamic> _$$_UserIdLocationIdParameterToJson(
-        _$_UserIdLocationIdParameter instance) =>
+Map<String, dynamic> _$$UserIdLocationIdParameterImplToJson(
+        _$UserIdLocationIdParameterImpl instance) =>
     <String, dynamic>{
       'userId': instance.userId,
       'locationId': instance.locationId,

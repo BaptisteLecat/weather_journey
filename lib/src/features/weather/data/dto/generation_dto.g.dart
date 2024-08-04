@@ -6,13 +6,13 @@ part of 'generation_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_GenerationDto _$$_GenerationDtoFromJson(Map<String, dynamic> json) =>
-    _$_GenerationDto(
+_$GenerationDtoImpl _$$GenerationDtoImplFromJson(Map<String, dynamic> json) =>
+    _$GenerationDtoImpl(
       time: json['time'] as String?,
       weather: json['weather'] as String?,
     );
 
-Map<String, dynamic> _$$_GenerationDtoToJson(_$_GenerationDto instance) =>
+Map<String, dynamic> _$$GenerationDtoImplToJson(_$GenerationDtoImpl instance) =>
     <String, dynamic>{
       'time': instance.time,
       'weather': instance.weather,

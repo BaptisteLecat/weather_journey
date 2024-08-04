@@ -6,12 +6,13 @@ part of 'frequency.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Frequency _$$_FrequencyFromJson(Map<String, dynamic> json) => _$_Frequency(
+_$FrequencyImpl _$$FrequencyImplFromJson(Map<String, dynamic> json) =>
+    _$FrequencyImpl(
       id: json['id'] as String?,
       name: json['name'] as String,
     );
 
-Map<String, dynamic> _$$_FrequencyToJson(_$_Frequency instance) =>
+Map<String, dynamic> _$$FrequencyImplToJson(_$FrequencyImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

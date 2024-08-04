@@ -6,11 +6,11 @@ part of 'place.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Place _$$_PlaceFromJson(Map<String, dynamic> json) => _$_Place(
-      placeId: json['place_id'] as int,
+_$PlaceImpl _$$PlaceImplFromJson(Map<String, dynamic> json) => _$PlaceImpl(
+      placeId: (json['place_id'] as num).toInt(),
       licence: json['licence'] as String,
       osmType: json['osm_type'] as String?,
-      osmId: json['osm_id'] as int?,
+      osmId: (json['osm_id'] as num?)?.toInt(),
       boundingBox: (json['boundingbox'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
@@ -31,7 +31,8 @@ _$_Place _$$_PlaceFromJson(Map<String, dynamic> json) => _$_Place(
       ),
     );
 
-Map<String, dynamic> _$$_PlaceToJson(_$_Place instance) => <String, dynamic>{
+Map<String, dynamic> _$$PlaceImplToJson(_$PlaceImpl instance) =>
+    <String, dynamic>{
       'place_id': instance.placeId,
       'licence': instance.licence,
       'osm_type': instance.osmType,

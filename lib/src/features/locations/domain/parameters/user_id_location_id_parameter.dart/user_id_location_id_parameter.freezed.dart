@@ -12,7 +12,7 @@ part of 'user_id_location_id_parameter.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 UserIdLocationIdParameter _$UserIdLocationIdParameterFromJson(
     Map<String, dynamic> json) {
@@ -24,8 +24,12 @@ mixin _$UserIdLocationIdParameter {
   String get userId => throw _privateConstructorUsedError;
   String get locationId => throw _privateConstructorUsedError;
 
+  /// Serializes this UserIdLocationIdParameter to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of UserIdLocationIdParameter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserIdLocationIdParameterCopyWith<UserIdLocationIdParameter> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +54,8 @@ class _$UserIdLocationIdParameterCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserIdLocationIdParameter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -70,34 +76,36 @@ class _$UserIdLocationIdParameterCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_UserIdLocationIdParameterCopyWith<$Res>
+abstract class _$$UserIdLocationIdParameterImplCopyWith<$Res>
     implements $UserIdLocationIdParameterCopyWith<$Res> {
-  factory _$$_UserIdLocationIdParameterCopyWith(
-          _$_UserIdLocationIdParameter value,
-          $Res Function(_$_UserIdLocationIdParameter) then) =
-      __$$_UserIdLocationIdParameterCopyWithImpl<$Res>;
+  factory _$$UserIdLocationIdParameterImplCopyWith(
+          _$UserIdLocationIdParameterImpl value,
+          $Res Function(_$UserIdLocationIdParameterImpl) then) =
+      __$$UserIdLocationIdParameterImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String userId, String locationId});
 }
 
 /// @nodoc
-class __$$_UserIdLocationIdParameterCopyWithImpl<$Res>
+class __$$UserIdLocationIdParameterImplCopyWithImpl<$Res>
     extends _$UserIdLocationIdParameterCopyWithImpl<$Res,
-        _$_UserIdLocationIdParameter>
-    implements _$$_UserIdLocationIdParameterCopyWith<$Res> {
-  __$$_UserIdLocationIdParameterCopyWithImpl(
-      _$_UserIdLocationIdParameter _value,
-      $Res Function(_$_UserIdLocationIdParameter) _then)
+        _$UserIdLocationIdParameterImpl>
+    implements _$$UserIdLocationIdParameterImplCopyWith<$Res> {
+  __$$UserIdLocationIdParameterImplCopyWithImpl(
+      _$UserIdLocationIdParameterImpl _value,
+      $Res Function(_$UserIdLocationIdParameterImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UserIdLocationIdParameter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? userId = null,
     Object? locationId = null,
   }) {
-    return _then(_$_UserIdLocationIdParameter(
+    return _then(_$UserIdLocationIdParameterImpl(
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -113,12 +121,12 @@ class __$$_UserIdLocationIdParameterCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_UserIdLocationIdParameter implements _UserIdLocationIdParameter {
-  const _$_UserIdLocationIdParameter(
+class _$UserIdLocationIdParameterImpl implements _UserIdLocationIdParameter {
+  const _$UserIdLocationIdParameterImpl(
       {required this.userId, required this.locationId});
 
-  factory _$_UserIdLocationIdParameter.fromJson(Map<String, dynamic> json) =>
-      _$$_UserIdLocationIdParameterFromJson(json);
+  factory _$UserIdLocationIdParameterImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserIdLocationIdParameterImplFromJson(json);
 
   @override
   final String userId;
@@ -131,29 +139,31 @@ class _$_UserIdLocationIdParameter implements _UserIdLocationIdParameter {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UserIdLocationIdParameter &&
+            other is _$UserIdLocationIdParameterImpl &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.locationId, locationId) ||
                 other.locationId == locationId));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, userId, locationId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserIdLocationIdParameter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UserIdLocationIdParameterCopyWith<_$_UserIdLocationIdParameter>
-      get copyWith => __$$_UserIdLocationIdParameterCopyWithImpl<
-          _$_UserIdLocationIdParameter>(this, _$identity);
+  _$$UserIdLocationIdParameterImplCopyWith<_$UserIdLocationIdParameterImpl>
+      get copyWith => __$$UserIdLocationIdParameterImplCopyWithImpl<
+          _$UserIdLocationIdParameterImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_UserIdLocationIdParameterToJson(
+    return _$$UserIdLocationIdParameterImplToJson(
       this,
     );
   }
@@ -162,17 +172,20 @@ class _$_UserIdLocationIdParameter implements _UserIdLocationIdParameter {
 abstract class _UserIdLocationIdParameter implements UserIdLocationIdParameter {
   const factory _UserIdLocationIdParameter(
       {required final String userId,
-      required final String locationId}) = _$_UserIdLocationIdParameter;
+      required final String locationId}) = _$UserIdLocationIdParameterImpl;
 
   factory _UserIdLocationIdParameter.fromJson(Map<String, dynamic> json) =
-      _$_UserIdLocationIdParameter.fromJson;
+      _$UserIdLocationIdParameterImpl.fromJson;
 
   @override
   String get userId;
   @override
   String get locationId;
+
+  /// Create a copy of UserIdLocationIdParameter
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_UserIdLocationIdParameterCopyWith<_$_UserIdLocationIdParameter>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UserIdLocationIdParameterImplCopyWith<_$UserIdLocationIdParameterImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

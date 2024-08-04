@@ -5,6 +5,8 @@ import 'package:weatherjourney/src/features/authentication/data/auth_repository.
 import 'package:weatherjourney/src/features/authentication/presentation/app_initialization_screen.dart';
 import 'package:weatherjourney/src/features/authentication/presentation/sign_in_screen.dart';
 import 'package:weatherjourney/src/features/authentication/presentation/sign_up_screen.dart';
+import 'package:weatherjourney/src/features/feed/presentation/feed_screen.dart';
+import 'package:weatherjourney/src/features/feed/presentation/generation_screen.dart';
 import 'package:weatherjourney/src/features/locations/presentation/location_create_screen.dart';
 import 'package:weatherjourney/src/features/locations/presentation/location_generate_screen.dart';
 import 'package:weatherjourney/src/features/locations/presentation/location_screen.dart';
@@ -16,6 +18,8 @@ import 'package:weatherjourney/src/routing/scaffold_with_nested_navigation.dart'
 
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
+final _shellNavigatorHomeKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shellHome');
 final _shellNavigatorWeatherKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellWeather');
 final _shellNavigatorLocationKey =
@@ -29,7 +33,9 @@ enum AppRoute {
   appInitialization(route: "/appInitialization"),
   signIn(route: "/signIn"),
   signUp(route: "/signUp"),
+  home(route: "/"),
   weather(route: "/weather"),
+  generations(route: "/generations"),
   locations(route: "/locations"),
   locationCreate(route: "/create"),
   locationGenerate(route: "/generate"),
@@ -43,7 +49,7 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
   final userStream = ref.watch(
       appUserStreamProvider.select((value) => value.value?.firebaseAppUser));
   return GoRouter(
-    initialLocation: '/weather',
+    initialLocation: '/',
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
     redirect: (context, state) {
@@ -78,6 +84,18 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
           return ScaffoldWithNestedNavigation(navigationShell: navigationShell);
         },
         branches: [
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorHomeKey,
+            routes: [
+              GoRoute(
+                path: AppRoute.home.route,
+                name: AppRoute.home.name,
+                pageBuilder: (context, state) {
+                  return const NoTransitionPage(child: FeedPageScreen());
+                },
+              ),
+            ],
+          ),
           StatefulShellBranch(
             navigatorKey: _shellNavigatorWeatherKey,
             routes: [
@@ -164,6 +182,18 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
           );
         },
       ),
+      GoRoute(
+        path: "${AppRoute.generations.route}/:generationId",
+        name: AppRoute.generations.name,
+        builder: (context, state) {
+          final generationId = state.pathParameters['generationId'];
+          return generationId != null
+              ? GenerationScreen(
+                  generationId: generationId,
+                )
+              : const NotFoundScreen();
+        },
+      )
     ],
     errorBuilder: (context, state) => const NotFoundScreen(),
   );
