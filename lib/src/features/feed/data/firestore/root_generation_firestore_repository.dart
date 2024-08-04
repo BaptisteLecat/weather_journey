@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weatherjourney/src/features/feed/domain/root_generation/root_generation.dart';
+import 'package:weatherjourney/src/features/user/domain/user/user.dart';
 
 class RootGenerationFirestoreRepository {
   static String ressource = 'generations';
@@ -28,6 +29,38 @@ class RootGenerationFirestoreRepository {
               toFirestore: (rootGeneration, _) => rootGeneration.toJson(),
             );
     return await reference.get().then((snapshot) {
+      return snapshot.docs.map((doc) => doc.data()).toList();
+    });
+  }
+
+  Future<List<RootGeneration>> fetchAllMostLiked() async {
+    final reference =
+        firestore.collection(ressource).withConverter<RootGeneration>(
+              fromFirestore: (snapshot, _) =>
+                  RootGeneration.fromJson(snapshot.data()!),
+              toFirestore: (rootGeneration, _) => rootGeneration.toJson(),
+            );
+    return await reference
+        .orderBy('likesCount', descending: true)
+        .get()
+        .then((snapshot) {
+      return snapshot.docs.map((doc) => doc.data()).toList();
+    });
+  }
+
+  Future<List<RootGeneration>> fetchAllFromFollowedUsers(
+      {required List<String> followedUsersIds}) async {
+    print('fetch all from followed users');
+    final reference =
+        firestore.collection(ressource).withConverter<RootGeneration>(
+              fromFirestore: (snapshot, _) =>
+                  RootGeneration.fromJson(snapshot.data()!),
+              toFirestore: (rootGeneration, _) => rootGeneration.toJson(),
+            );
+    return await reference
+        .where('user.id', whereIn: followedUsersIds)
+        .get()
+        .then((snapshot) {
       return snapshot.docs.map((doc) => doc.data()).toList();
     });
   }
@@ -110,6 +143,24 @@ final rootGenerationFetchAllFutureProvider =
   final rootGenerationRepository =
       ref.watch(rootGenerationFirestoreRepositoryProvider);
   return rootGenerationRepository.fetchAll();
+});
+
+final rootGenerationFetchAllMostLikedFutureProvider =
+    FutureProvider.autoDispose((ref) async {
+  final rootGenerationRepository =
+      ref.watch(rootGenerationFirestoreRepositoryProvider);
+  return rootGenerationRepository.fetchAllMostLiked();
+});
+
+final rootGenerationFetchAllFromFollowedUsersFutureProvider =
+    FutureProvider.family((ref, User? user) async {
+  final rootGenerationRepository =
+      ref.watch(rootGenerationFirestoreRepositoryProvider);
+  final followedUsersIds =
+      user?.followings?.map((e) => e.userId).toList() ?? [];
+  if (followedUsersIds.isEmpty) return <RootGeneration>[];
+  return rootGenerationRepository.fetchAllFromFollowedUsers(
+      followedUsersIds: followedUsersIds);
 });
 
 final rootGenerationFetchOneStreamProvider =

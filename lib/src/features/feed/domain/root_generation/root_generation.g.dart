@@ -16,6 +16,7 @@ _$RootGenerationImpl _$$RootGenerationImplFromJson(Map<String, dynamic> json) =>
       likes: (json['likes'] as List<dynamic>?)
           ?.map((e) => RootGenerationLike.fromJson(e as Map<String, dynamic>))
           .toList(),
+      likesCount: (json['likesCount'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$RootGenerationImplToJson(
@@ -26,4 +27,5 @@ Map<String, dynamic> _$$RootGenerationImplToJson(
       'generation': instance.generation.toJson(),
       'user': instance.user.toJson(),
       'likes': instance.likes?.map((e) => e.toJson()).toList(),
+      'likesCount': instance.likesCount,
     };

@@ -25,6 +25,7 @@ mixin _$RootGeneration {
   Generation get generation => throw _privateConstructorUsedError;
   RootGenerationUser get user => throw _privateConstructorUsedError;
   List<RootGenerationLike>? get likes => throw _privateConstructorUsedError;
+  int? get likesCount => throw _privateConstructorUsedError;
 
   /// Serializes this RootGeneration to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,7 +48,8 @@ abstract class $RootGenerationCopyWith<$Res> {
       Location location,
       Generation generation,
       RootGenerationUser user,
-      List<RootGenerationLike>? likes});
+      List<RootGenerationLike>? likes,
+      int? likesCount});
 
   $LocationCopyWith<$Res> get location;
   $GenerationCopyWith<$Res> get generation;
@@ -74,6 +76,7 @@ class _$RootGenerationCopyWithImpl<$Res, $Val extends RootGeneration>
     Object? generation = null,
     Object? user = null,
     Object? likes = freezed,
+    Object? likesCount = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -96,6 +99,10 @@ class _$RootGenerationCopyWithImpl<$Res, $Val extends RootGeneration>
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
               as List<RootGenerationLike>?,
+      likesCount: freezed == likesCount
+          ? _value.likesCount
+          : likesCount // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 
@@ -143,7 +150,8 @@ abstract class _$$RootGenerationImplCopyWith<$Res>
       Location location,
       Generation generation,
       RootGenerationUser user,
-      List<RootGenerationLike>? likes});
+      List<RootGenerationLike>? likes,
+      int? likesCount});
 
   @override
   $LocationCopyWith<$Res> get location;
@@ -171,6 +179,7 @@ class __$$RootGenerationImplCopyWithImpl<$Res>
     Object? generation = null,
     Object? user = null,
     Object? likes = freezed,
+    Object? likesCount = freezed,
   }) {
     return _then(_$RootGenerationImpl(
       id: null == id
@@ -193,6 +202,10 @@ class __$$RootGenerationImplCopyWithImpl<$Res>
           ? _value._likes
           : likes // ignore: cast_nullable_to_non_nullable
               as List<RootGenerationLike>?,
+      likesCount: freezed == likesCount
+          ? _value.likesCount
+          : likesCount // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -206,7 +219,8 @@ class _$RootGenerationImpl implements _RootGeneration {
       required this.location,
       required this.generation,
       required this.user,
-      required final List<RootGenerationLike>? likes})
+      required final List<RootGenerationLike>? likes,
+      required this.likesCount})
       : _likes = likes;
 
   factory _$RootGenerationImpl.fromJson(Map<String, dynamic> json) =>
@@ -231,8 +245,11 @@ class _$RootGenerationImpl implements _RootGeneration {
   }
 
   @override
+  final int? likesCount;
+
+  @override
   String toString() {
-    return 'RootGeneration(id: $id, location: $location, generation: $generation, user: $user, likes: $likes)';
+    return 'RootGeneration(id: $id, location: $location, generation: $generation, user: $user, likes: $likes, likesCount: $likesCount)';
   }
 
   @override
@@ -246,13 +263,15 @@ class _$RootGenerationImpl implements _RootGeneration {
             (identical(other.generation, generation) ||
                 other.generation == generation) &&
             (identical(other.user, user) || other.user == user) &&
-            const DeepCollectionEquality().equals(other._likes, _likes));
+            const DeepCollectionEquality().equals(other._likes, _likes) &&
+            (identical(other.likesCount, likesCount) ||
+                other.likesCount == likesCount));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, location, generation, user,
-      const DeepCollectionEquality().hash(_likes));
+      const DeepCollectionEquality().hash(_likes), likesCount);
 
   /// Create a copy of RootGeneration
   /// with the given fields replaced by the non-null parameter values.
@@ -277,7 +296,8 @@ abstract class _RootGeneration implements RootGeneration {
       required final Location location,
       required final Generation generation,
       required final RootGenerationUser user,
-      required final List<RootGenerationLike>? likes}) = _$RootGenerationImpl;
+      required final List<RootGenerationLike>? likes,
+      required final int? likesCount}) = _$RootGenerationImpl;
 
   factory _RootGeneration.fromJson(Map<String, dynamic> json) =
       _$RootGenerationImpl.fromJson;
@@ -292,6 +312,8 @@ abstract class _RootGeneration implements RootGeneration {
   RootGenerationUser get user;
   @override
   List<RootGenerationLike>? get likes;
+  @override
+  int? get likesCount;
 
   /// Create a copy of RootGeneration
   /// with the given fields replaced by the non-null parameter values.

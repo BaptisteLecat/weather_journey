@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:weatherjourney/src/common_widgets/async_value_widget.dart';
+import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
+import 'package:weatherjourney/src/features/authentication/domain/app_user.dart';
 import 'package:weatherjourney/src/features/feed/data/firestore/root_generation_firestore_repository.dart';
 import 'package:weatherjourney/src/features/feed/domain/root_generation/root_generation.dart';
 import 'package:weatherjourney/src/features/user/data/firestore/user_firestore_repository.dart';
@@ -14,6 +16,8 @@ class FeedPageScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final appUserValue = ref.watch(appUserStreamProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const FeedHeaderWidget(),
@@ -35,26 +39,35 @@ class FeedPageScreen extends ConsumerWidget {
         slivers: [
           SliverList(
             delegate: SliverChildListDelegate([
-              SizedBox(
-                height: 190,
-                child: AsyncValueWidget<List<RootGeneration>>(
-                    value: ref.watch(rootGenerationFetchAllFutureProvider),
-                    data: (data) {
-                      return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: data.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                              margin: EdgeInsets.only(
-                                left: index == 0 ? 16 : 0,
-                              ),
-                              child: WeatherHighlightWidget(
-                                rootGeneration: data[index],
-                              ));
-                        },
-                      );
-                    }),
-              ),
+              AsyncValueWidget<AppUser?>(
+                  value: appUserValue,
+                  data: (appUser) {
+                    return AsyncValueWidget<List<RootGeneration>>(
+                        value: ref.watch(
+                            rootGenerationFetchAllFromFollowedUsersFutureProvider(
+                                User.fromAppUser(appUser: appUser!))),
+                        data: (data) {
+                          if (data.isEmpty) {
+                            return const SizedBox();
+                          }
+                          return SizedBox(
+                            height: 190,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: data.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                    margin: EdgeInsets.only(
+                                      left: index == 0 ? 16 : 0,
+                                    ),
+                                    child: WeatherHighlightWidget(
+                                      rootGeneration: data[index],
+                                    ));
+                              },
+                            ),
+                          );
+                        });
+                  }),
               const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -69,7 +82,8 @@ class FeedPageScreen extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: AsyncValueWidget<List<RootGeneration>>(
-                  value: ref.watch(rootGenerationFetchAllFutureProvider),
+                  value:
+                      ref.watch(rootGenerationFetchAllMostLikedFutureProvider),
                   data: (data) {
                     return ListView.builder(
                       shrinkWrap: true,

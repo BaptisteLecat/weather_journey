@@ -16,6 +16,7 @@ class RootGeneration with _$RootGeneration {
     required Generation generation,
     required RootGenerationUser user,
     required List<RootGenerationLike>? likes,
+    required int? likesCount,
   }) = _RootGeneration;
 
   factory RootGeneration.fromJson(Map<String, Object?> json) =>

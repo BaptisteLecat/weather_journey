@@ -57,7 +57,10 @@ class RootGenerationLikeController extends StateNotifier<AsyncValue<void>> {
     state = await AsyncValue.guard(() => Future.wait([
           rootGenerationFirestoreRepository.update(
               docId: appUser!.id!,
-              entity: rootGeneration.copyWith(likes: likes)),
+              entity: rootGeneration.copyWith(
+                likes: likes,
+                likesCount: likes.length,
+              )),
           userFirestoreRepository.update(docId: appUser.id!, entity: user)
         ]));
   }
