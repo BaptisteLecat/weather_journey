@@ -111,7 +111,7 @@ jobs:
       - name: Generate Firebase options
         run: |
           flutter pub global activate flutterfire_cli
-          flutterfire configure --project=$FIREBASE_PROJECT_ID --android-package-name=$ANDROID_PACKAGE_NAME --platforms=android --yes
+          flutterfire configure --project=$FIREBASE_PROJECT_ID --android-package-name=$ANDROID_PACKAGE_NAME --ios-bundle-id=$IOS_BUNDLE_ID --platforms=android --yes
         shell: bash
         env:
           FIREBASE_PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
@@ -212,7 +212,7 @@ jobs:
       - name: Generate Firebase options
         run: |
           flutter pub global activate flutterfire_cli
-          flutterfire configure --project=$FIREBASE_PROJECT_ID --ios-bundle-id=$IOS_BUNDLE_ID --platforms=ios --yes
+          flutterfire configure --project=$FIREBASE_PROJECT_ID --android-package-name=$ANDROID_PACKAGE_NAME --ios-bundle-id=$IOS_BUNDLE_ID --platforms=ios --yes
         shell: bash
         env:
           FIREBASE_PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
