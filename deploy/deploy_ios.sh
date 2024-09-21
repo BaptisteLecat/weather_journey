@@ -23,4 +23,4 @@ fi
 CURRENT_DIR=$(pwd)
 EXPORT_PLIST=$CURRENT_DIR/export.plist
 
-flutter build ipa --export-options-plist "$EXPORT_PLIST" --release --build-number="$NUMVERSION" --build-name="$NAMEVERSION"
+flutter build ipa --release --build-number="$NUMVERSION" --build-name="$NAMEVERSION"
