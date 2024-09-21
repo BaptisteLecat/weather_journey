@@ -1,11 +1,7 @@
 name: Release BETA Fix Workflow
 
 on:
-  pull_request_target:
-    branches:
-      - main
-    types:
-      - synchronize
+  workflow_dispatch:
 
 jobs:
   create-release-branch:
