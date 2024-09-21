@@ -41,7 +41,11 @@ class RootGenerationFirestoreRepository {
               toFirestore: (rootGeneration, _) => rootGeneration.toJson(),
             );
     return await reference
+        .where("generation.createdAt",
+            isGreaterThan:
+                Timestamp.fromDate(DateTime.now().subtract(Duration(days: 30))))
         .orderBy('likesCount', descending: true)
+        .limit(10)
         .get()
         .then((snapshot) {
       return snapshot.docs.map((doc) => doc.data()).toList();
