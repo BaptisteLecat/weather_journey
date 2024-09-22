@@ -14,6 +14,7 @@ import 'package:weatherjourney/src/features/weather/data/services/weather_servic
 import 'package:weatherjourney/src/features/weather/domain/generation/generation.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weatherjourney/src/routing/app_router.dart';
+import 'package:weatherjourney/src/utils/storage_fetcher.dart';
 
 class LocationCard extends ConsumerWidget {
   final Location location;
@@ -133,7 +134,8 @@ class LocationCard extends ConsumerWidget {
                   value: lastGenerationStreamProvider,
                   data: (lastGeneration) => Stack(
                         children: [
-                          lastGeneration == null
+                          lastGeneration == null ||
+                                  lastGeneration.generatedImage == null
                               ? Container(
                                   decoration: BoxDecoration(
                                     color: Theme.of(context).primaryColor,
@@ -148,29 +150,38 @@ class LocationCard extends ConsumerWidget {
                                         child: ImageFiltered(
                                           imageFilter: ImageFilter.blur(
                                               sigmaX: 2.5, sigmaY: 2.5),
-                                          child: Image.network(
-                                              lastGeneration
-                                                  .generatedImage!.uri,
-                                              fit: BoxFit.fitWidth,
-                                              errorBuilder: (context, error,
-                                                      stackTrace) =>
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12),
-                                                    ),
-                                                  ),
-                                              loadingBuilder:
-                                                  (BuildContext context,
-                                                      Widget child,
-                                                      ImageChunkEvent?
-                                                          loadingProgress) {
-                                                return (loadingProgress == null)
-                                                    ? child
-                                                    : const ShimmerItemWidget();
+                                          child: AsyncValueWidget<String>(
+                                              value: ref.watch(
+                                                  generationImageFutureProvider(
+                                                      lastGeneration.id!)),
+                                              data: (imageUrl) {
+                                                return Image.network(imageUrl,
+                                                    fit: BoxFit.fitWidth,
+                                                    errorBuilder: (context,
+                                                            error,
+                                                            stackTrace) =>
+                                                        Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        12),
+                                                          ),
+                                                        ),
+                                                    loadingBuilder: (BuildContext
+                                                            context,
+                                                        Widget child,
+                                                        ImageChunkEvent?
+                                                            loadingProgress) {
+                                                      return (loadingProgress ==
+                                                              null)
+                                                          ? child
+                                                          : const ShimmerItemWidget();
+                                                    });
                                               }),
                                         ),
                                       ),

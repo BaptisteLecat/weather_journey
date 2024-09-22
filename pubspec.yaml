@@ -37,6 +37,7 @@ dependencies:
   shimmer: ^3.0.0
   firebase_analytics: ^10.7.4
   iconsax_plus: ^1.0.0
+  firebase_storage: ^11.6.5
 
 dev_dependencies:
   flutter_test:

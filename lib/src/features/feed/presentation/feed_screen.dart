@@ -10,6 +10,7 @@ import 'package:weatherjourney/src/features/feed/domain/root_generation/root_gen
 import 'package:weatherjourney/src/features/user/data/firestore/user_firestore_repository.dart';
 import 'package:weatherjourney/src/features/user/domain/user/user.dart';
 import 'package:weatherjourney/src/routing/app_router.dart';
+import 'package:weatherjourney/src/utils/storage_fetcher.dart';
 
 class FeedPageScreen extends ConsumerWidget {
   const FeedPageScreen({super.key});
@@ -84,129 +85,144 @@ class FeedPageScreen extends ConsumerWidget {
                 child: AsyncValueWidget<List<RootGeneration>>(
                   value:
                       ref.watch(rootGenerationFetchAllMostLikedFutureProvider),
-                  data: (data) {
+                  data: (rootGenerations) {
                     return ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: data.length,
+                      itemCount: rootGenerations.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
                             GoRouter.of(context).push(
-                                '${AppRoute.generations.route}/${data[index].id}');
+                                '${AppRoute.generations.route}/${rootGenerations[index].id}');
                           },
                           child: Hero(
-                            tag: data[index].id,
-                            child: Container(
-                              height: 250,
-                              margin: const EdgeInsets.symmetric(vertical: 8),
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                      "${data[index].generation.generatedImage?.uri}"),
-                                  fit: BoxFit.cover,
-                                ),
-                                borderRadius: BorderRadius.circular(36),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(16),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: 42,
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10, vertical: 4),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(22),
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                IconsaxPlusBold.location,
-                                                size: 16,
-                                              ),
-                                              const SizedBox(width: 6),
-                                              Text(
-                                                "${data[index].location.getCityText()}",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall!
-                                                    .copyWith(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                              ),
-                                            ],
-                                          ),
+                            tag: rootGenerations[index].id,
+                            child: AsyncValueWidget<String>(
+                                value: ref.watch(generationImageFutureProvider(
+                                    rootGenerations[index].id)),
+                                data: (imageUrl) {
+                                  return Container(
+                                    height: 250,
+                                    margin:
+                                        const EdgeInsets.symmetric(vertical: 8),
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                          imageUrl,
                                         ),
-                                      ],
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.circular(36),
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Flexible(
-                                          flex: 3,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                data[index].generation.prompt,
-                                                maxLines: 3,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall!
-                                                    .copyWith(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.white,
+                                              Container(
+                                                height: 42,
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10,
+                                                        vertical: 4),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(22),
+                                                ),
+                                                child: Row(
+                                                  children: [
+                                                    Icon(
+                                                      IconsaxPlusBold.location,
+                                                      size: 16,
                                                     ),
-                                              ),
-                                              const SizedBox(height: 6),
-                                              Row(
-                                                children: [
-                                                  Text('Today',
+                                                    const SizedBox(width: 6),
+                                                    Text(
+                                                      "${rootGenerations[index].location.getCityText()}",
                                                       style: Theme.of(context)
                                                           .textTheme
-                                                          .labelMedium!
+                                                          .bodySmall!
                                                           .copyWith(
-                                                              color: Colors
-                                                                  .white)),
-                                                  const SizedBox(width: 6),
-                                                  Icon(
-                                                    IconsaxPlusBold.sun_1,
-                                                    size: 16,
-                                                    color: Colors.white,
-                                                  ),
-                                                  const SizedBox(width: 6),
-                                                  Text('18°C',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .labelMedium!
-                                                          .copyWith(
-                                                              color: Colors
-                                                                  .white)),
-                                                ],
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ],
                                           ),
-                                        ),
-                                        const Spacer(),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Flexible(
+                                                flex: 3,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      rootGenerations[index]
+                                                          .generation
+                                                          .prompt,
+                                                      maxLines: 3,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodySmall!
+                                                          .copyWith(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Colors.white,
+                                                          ),
+                                                    ),
+                                                    const SizedBox(height: 6),
+                                                    Row(
+                                                      children: [
+                                                        Text('Today',
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .labelMedium!
+                                                                .copyWith(
+                                                                    color: Colors
+                                                                        .white)),
+                                                        const SizedBox(
+                                                            width: 6),
+                                                        Icon(
+                                                          IconsaxPlusBold.sun_1,
+                                                          size: 16,
+                                                          color: Colors.white,
+                                                        ),
+                                                        const SizedBox(
+                                                            width: 6),
+                                                        Text('18°C',
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .labelMedium!
+                                                                .copyWith(
+                                                                    color: Colors
+                                                                        .white)),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              const Spacer(),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }),
                           ),
                         );
                       },

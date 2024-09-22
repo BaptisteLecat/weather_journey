@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:weatherjourney/src/common_widgets/async_value_widget.dart';
 import 'package:weatherjourney/src/common_widgets/error_message_widget.dart';
 import 'package:weatherjourney/src/common_widgets/glass_morphism.dart';
 import 'package:weatherjourney/src/constants/app_sizes.dart';
@@ -13,6 +14,7 @@ import 'package:weatherjourney/src/features/weather/presentation/widget/empty_we
 import 'package:weatherjourney/src/features/weather/presentation/widget/generation_loading.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:weatherjourney/src/utils/storage_fetcher.dart';
 
 class WeatherWidget extends ConsumerWidget {
   final int index;
@@ -65,54 +67,68 @@ class WeatherWidget extends ConsumerWidget {
                           child: Stack(
                             fit: StackFit.expand,
                             children: [
-                              Image.network(
-                                generation.generatedImage!.uri,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 24, vertical: 12),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                          "Error loading image try to regenerate it "),
-                                      const SizedBox(height: 20),
-                                      GestureDetector(
-                                        onTap: () {
-                                          ref
-                                              .read(locationControllerProvider
-                                                  .notifier)
-                                              .generate(
-                                                locationId: location.id!,
-                                                weather:
-                                                    weatherForLocation.value!,
-                                              );
-                                        },
-                                        child: Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 24, vertical: 12),
-                                            decoration: BoxDecoration(
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: const Center(
-                                              child: Text(
-                                                'Regenerate',
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            )),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                fit: BoxFit.fill,
-                              ),
+                              AsyncValueWidget<String>(
+                                  value: ref.watch(
+                                      generationImageFutureProvider(
+                                          generation.id!)),
+                                  data: (imageUrl) {
+                                    return Image.network(
+                                      imageUrl,
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 24, vertical: 12),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                                "Error loading image try to regenerate it "),
+                                            const SizedBox(height: 20),
+                                            GestureDetector(
+                                              onTap: () {
+                                                ref
+                                                    .read(
+                                                        locationControllerProvider
+                                                            .notifier)
+                                                    .generate(
+                                                      locationId: location.id!,
+                                                      weather:
+                                                          weatherForLocation
+                                                              .value!,
+                                                    );
+                                              },
+                                              child: Container(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 24,
+                                                      vertical: 12),
+                                                  decoration: BoxDecoration(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  child: const Center(
+                                                    child: Text(
+                                                      'Regenerate',
+                                                      style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  )),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      fit: BoxFit.fill,
+                                    );
+                                  }),
                               Padding(
                                 padding: const EdgeInsets.only(
                                     left: Sizes.p24,

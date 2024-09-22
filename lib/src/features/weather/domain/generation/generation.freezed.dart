@@ -24,6 +24,8 @@ mixin _$Generation {
   int get progress => throw _privateConstructorUsedError;
   String get prompt => throw _privateConstructorUsedError;
   GeneratedImage? get generatedImage => throw _privateConstructorUsedError;
+  @JsonKey(toJson: _createdAtToJson, fromJson: _createdAtFromJson)
+  DateTime? get createdAt => throw _privateConstructorUsedError;
   String? get locationId => throw _privateConstructorUsedError;
 
   /// Serializes this Generation to a JSON map.
@@ -47,6 +49,8 @@ abstract class $GenerationCopyWith<$Res> {
       int progress,
       String prompt,
       GeneratedImage? generatedImage,
+      @JsonKey(toJson: _createdAtToJson, fromJson: _createdAtFromJson)
+      DateTime? createdAt,
       String? locationId});
 
   $GeneratedImageCopyWith<$Res>? get generatedImage;
@@ -71,6 +75,7 @@ class _$GenerationCopyWithImpl<$Res, $Val extends Generation>
     Object? progress = null,
     Object? prompt = null,
     Object? generatedImage = freezed,
+    Object? createdAt = freezed,
     Object? locationId = freezed,
   }) {
     return _then(_value.copyWith(
@@ -90,6 +95,10 @@ class _$GenerationCopyWithImpl<$Res, $Val extends Generation>
           ? _value.generatedImage
           : generatedImage // ignore: cast_nullable_to_non_nullable
               as GeneratedImage?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       locationId: freezed == locationId
           ? _value.locationId
           : locationId // ignore: cast_nullable_to_non_nullable
@@ -125,6 +134,8 @@ abstract class _$$GenerationImplCopyWith<$Res>
       int progress,
       String prompt,
       GeneratedImage? generatedImage,
+      @JsonKey(toJson: _createdAtToJson, fromJson: _createdAtFromJson)
+      DateTime? createdAt,
       String? locationId});
 
   @override
@@ -148,6 +159,7 @@ class __$$GenerationImplCopyWithImpl<$Res>
     Object? progress = null,
     Object? prompt = null,
     Object? generatedImage = freezed,
+    Object? createdAt = freezed,
     Object? locationId = freezed,
   }) {
     return _then(_$GenerationImpl(
@@ -167,6 +179,10 @@ class __$$GenerationImplCopyWithImpl<$Res>
           ? _value.generatedImage
           : generatedImage // ignore: cast_nullable_to_non_nullable
               as GeneratedImage?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       locationId: freezed == locationId
           ? _value.locationId
           : locationId // ignore: cast_nullable_to_non_nullable
@@ -184,6 +200,8 @@ class _$GenerationImpl implements _Generation {
       required this.progress,
       required this.prompt,
       this.generatedImage,
+      @JsonKey(toJson: _createdAtToJson, fromJson: _createdAtFromJson)
+      required this.createdAt,
       this.locationId});
 
   factory _$GenerationImpl.fromJson(Map<String, dynamic> json) =>
@@ -198,11 +216,14 @@ class _$GenerationImpl implements _Generation {
   @override
   final GeneratedImage? generatedImage;
   @override
+  @JsonKey(toJson: _createdAtToJson, fromJson: _createdAtFromJson)
+  final DateTime? createdAt;
+  @override
   final String? locationId;
 
   @override
   String toString() {
-    return 'Generation(id: $id, progress: $progress, prompt: $prompt, generatedImage: $generatedImage, locationId: $locationId)';
+    return 'Generation(id: $id, progress: $progress, prompt: $prompt, generatedImage: $generatedImage, createdAt: $createdAt, locationId: $locationId)';
   }
 
   @override
@@ -216,6 +237,8 @@ class _$GenerationImpl implements _Generation {
             (identical(other.prompt, prompt) || other.prompt == prompt) &&
             (identical(other.generatedImage, generatedImage) ||
                 other.generatedImage == generatedImage) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
             (identical(other.locationId, locationId) ||
                 other.locationId == locationId));
   }
@@ -223,7 +246,7 @@ class _$GenerationImpl implements _Generation {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, progress, prompt, generatedImage, locationId);
+      runtimeType, id, progress, prompt, generatedImage, createdAt, locationId);
 
   /// Create a copy of Generation
   /// with the given fields replaced by the non-null parameter values.
@@ -247,6 +270,8 @@ abstract class _Generation implements Generation {
       required final int progress,
       required final String prompt,
       final GeneratedImage? generatedImage,
+      @JsonKey(toJson: _createdAtToJson, fromJson: _createdAtFromJson)
+      required final DateTime? createdAt,
       final String? locationId}) = _$GenerationImpl;
 
   factory _Generation.fromJson(Map<String, dynamic> json) =
@@ -260,6 +285,9 @@ abstract class _Generation implements Generation {
   String get prompt;
   @override
   GeneratedImage? get generatedImage;
+  @override
+  @JsonKey(toJson: _createdAtToJson, fromJson: _createdAtFromJson)
+  DateTime? get createdAt;
   @override
   String? get locationId;
 

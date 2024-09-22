@@ -15,6 +15,7 @@ _$GenerationImpl _$$GenerationImplFromJson(Map<String, dynamic> json) =>
           ? null
           : GeneratedImage.fromJson(
               json['generatedImage'] as Map<String, dynamic>),
+      createdAt: _createdAtFromJson(json['createdAt'] as Timestamp?),
       locationId: json['locationId'] as String?,
     );
 
@@ -24,5 +25,6 @@ Map<String, dynamic> _$$GenerationImplToJson(_$GenerationImpl instance) =>
       'progress': instance.progress,
       'prompt': instance.prompt,
       'generatedImage': instance.generatedImage?.toJson(),
+      'createdAt': _createdAtToJson(instance.createdAt),
       'locationId': instance.locationId,
     };
