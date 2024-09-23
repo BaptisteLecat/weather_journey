@@ -12,6 +12,7 @@ import 'package:weatherjourney/src/features/locations/presentation/location_gene
 import 'package:weatherjourney/src/features/locations/presentation/location_screen.dart';
 import 'package:weatherjourney/src/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:weatherjourney/src/features/settings/presentation/setting_screen.dart';
+import 'package:weatherjourney/src/features/user/presentation/profile_screen.dart';
 import 'package:weatherjourney/src/features/weather/presentation/weather_screen.dart';
 import 'package:weatherjourney/src/routing/not_found_screen.dart';
 import 'package:weatherjourney/src/routing/scaffold_with_nested_navigation.dart';
@@ -39,6 +40,7 @@ enum AppRoute {
   locations(route: "/locations"),
   locationCreate(route: "/create"),
   locationGenerate(route: "/generate"),
+  profile(route: "/profile"),
   settings(route: "/settings");
 
   const AppRoute({required this.route});
@@ -130,14 +132,22 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
             routes: [
               // Shopping Cart
               GoRoute(
-                path: AppRoute.settings.route,
-                name: AppRoute.settings.name,
-                pageBuilder: (context, state) =>
-                    const NoTransitionPage(child: SettingScreen()),
+                path: AppRoute.profile.route,
+                name: AppRoute.profile.name,
+                pageBuilder: (context, state) {
+                  return NoTransitionPage(
+                      child: ProfileScreen(userId: userStream!.uid));
+                },
               ),
             ],
           ),
         ],
+      ),
+      GoRoute(
+        path: AppRoute.settings.route,
+        name: AppRoute.settings.name,
+        pageBuilder: (context, state) =>
+            const NoTransitionPage(child: SettingScreen()),
       ),
       GoRoute(
         path: AppRoute.onboarding.route,

@@ -232,13 +232,13 @@ class GenerationScreen extends ConsumerWidget {
                                       width: 54,
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: (user?.avatar == null)
+                                        color: (user.avatar == null)
                                             ? Colors.white
                                             : null,
-                                        image: (user?.avatar != null)
+                                        image: (user.avatar != null)
                                             ? DecorationImage(
                                                 image: NetworkImage(
-                                                    "${user?.avatar}"),
+                                                    "${user.avatar}"),
                                                 fit: BoxFit.cover,
                                               )
                                             : null,
@@ -251,10 +251,19 @@ class GenerationScreen extends ConsumerWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            (user?.firstname != null &&
-                                                    user?.lastname != null)
-                                                ? "${user?.firstname} ${user?.lastname}"
-                                                : "${user?.userNameFromEmail().substring(0, (user.userNameFromEmail().length <= 12) ? user.userNameFromEmail().length : 12)}",
+                                            (user.firstname != null &&
+                                                    user.lastname != null)
+                                                ? "${user.firstname} ${user.lastname}"
+                                                : user.userNameFromEmail().substring(
+                                                    0,
+                                                    (user
+                                                                .userNameFromEmail()
+                                                                .length <=
+                                                            12)
+                                                        ? user
+                                                            .userNameFromEmail()
+                                                            .length
+                                                        : 12),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyLarge!
@@ -271,7 +280,7 @@ class GenerationScreen extends ConsumerWidget {
                                                   Icon(Icons.star,
                                                       color: Colors.yellow),
                                                   Text(
-                                                    "${user?.followers?.length ?? "vide"}",
+                                                    "${user.followers?.length ?? "vide"}",
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .bodyMedium!
@@ -292,10 +301,10 @@ class GenerationScreen extends ConsumerWidget {
                                               ),
                                               Row(
                                                 children: [
-                                                  Icon(Icons.favorite,
+                                                  const Icon(Icons.favorite,
                                                       color: Colors.red),
                                                   Text(
-                                                    "${user?.likes?.length ?? 0}",
+                                                    "${user.likes?.length ?? 0}",
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .bodyMedium!

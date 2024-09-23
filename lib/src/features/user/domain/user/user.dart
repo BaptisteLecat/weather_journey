@@ -36,6 +36,12 @@ class User with _$User {
     );
   }
 
+  String get displayName {
+    return (firstname != null && lastname != null)
+        ? "$firstname $lastname"
+        : userNameFromEmail();
+  }
+
   String userNameFromEmail() {
     return email!.split('@').first;
   }
