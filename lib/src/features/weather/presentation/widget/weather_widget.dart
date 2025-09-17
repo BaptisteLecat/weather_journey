@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:weatherjourney/src/common_widgets/async_value_widget.dart';
 import 'package:weatherjourney/src/common_widgets/error_message_widget.dart';
 import 'package:weatherjourney/src/common_widgets/glass_morphism.dart';
@@ -14,6 +15,7 @@ import 'package:weatherjourney/src/features/weather/presentation/widget/empty_we
 import 'package:weatherjourney/src/features/weather/presentation/widget/generation_loading.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:weatherjourney/src/routing/app_router.dart';
 import 'package:weatherjourney/src/utils/storage_fetcher.dart';
 
 class WeatherWidget extends ConsumerWidget {
@@ -131,6 +133,7 @@ class WeatherWidget extends ConsumerWidget {
                                   }),
                               Padding(
                                 padding: const EdgeInsets.only(
+                                    top: Sizes.p48,
                                     left: Sizes.p24,
                                     right: Sizes.p24,
                                     bottom: Sizes.p48),
@@ -185,6 +188,39 @@ class WeatherWidget extends ConsumerWidget {
                                       ),
                                     )),
                                     const Spacer(),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () => GoRouter.of(context)
+                                              .pushNamed(AppRoute
+                                                  .createGeneration.name),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      Sizes.p16),
+                                            ),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: Sizes.p12,
+                                                vertical: Sizes.p8),
+                                            child: Text(
+                                              "Generate Landscape",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleMedium!
+                                                  .copyWith(
+                                                      color: Colors.black),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: Sizes.p16,
+                                    ),
                                     GlassMorphism(
                                       height: 80,
                                       borderRadius:
@@ -285,7 +321,7 @@ class WeatherWidget extends ConsumerWidget {
                                     )
                                   ],
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),

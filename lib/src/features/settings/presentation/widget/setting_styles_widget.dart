@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weatherjourney/src/common_widgets/async_value_widget.dart';
 import 'package:weatherjourney/src/constants/app_sizes.dart';
 import 'package:weatherjourney/src/features/authentication/data/auth_repository.dart';
-import 'package:weatherjourney/src/features/settings/data/firestore/style_firestore_repository.dart';
+import 'package:weatherjourney/src/features/generation/data/firestore/style_firestore_repository.dart';
 import 'package:weatherjourney/src/features/settings/presentation/controller/setting_controller.dart';
 
 class SettingStylesWidget extends ConsumerWidget {

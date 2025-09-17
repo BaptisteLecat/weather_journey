@@ -20,7 +20,7 @@ Style _$StyleFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Style {
-  String? get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
   /// Serializes this Style to a JSON map.
@@ -37,7 +37,7 @@ abstract class $StyleCopyWith<$Res> {
   factory $StyleCopyWith(Style value, $Res Function(Style) then) =
       _$StyleCopyWithImpl<$Res, Style>;
   @useResult
-  $Res call({String? id, String name});
+  $Res call({String id, String name});
 }
 
 /// @nodoc
@@ -55,14 +55,14 @@ class _$StyleCopyWithImpl<$Res, $Val extends Style>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
     Object? name = null,
   }) {
     return _then(_value.copyWith(
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -78,7 +78,7 @@ abstract class _$$StyleImplCopyWith<$Res> implements $StyleCopyWith<$Res> {
       __$$StyleImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? id, String name});
+  $Res call({String id, String name});
 }
 
 /// @nodoc
@@ -94,14 +94,14 @@ class __$$StyleImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
     Object? name = null,
   }) {
     return _then(_$StyleImpl(
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -114,13 +114,13 @@ class __$$StyleImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$StyleImpl implements _Style {
-  const _$StyleImpl({this.id, required this.name});
+  const _$StyleImpl({required this.id, required this.name});
 
   factory _$StyleImpl.fromJson(Map<String, dynamic> json) =>
       _$$StyleImplFromJson(json);
 
   @override
-  final String? id;
+  final String id;
   @override
   final String name;
 
@@ -159,13 +159,13 @@ class _$StyleImpl implements _Style {
 }
 
 abstract class _Style implements Style {
-  const factory _Style({final String? id, required final String name}) =
+  const factory _Style({required final String id, required final String name}) =
       _$StyleImpl;
 
   factory _Style.fromJson(Map<String, dynamic> json) = _$StyleImpl.fromJson;
 
   @override
-  String? get id;
+  String get id;
   @override
   String get name;
 

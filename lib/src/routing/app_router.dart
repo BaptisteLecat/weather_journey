@@ -7,6 +7,7 @@ import 'package:weatherjourney/src/features/authentication/presentation/sign_in_
 import 'package:weatherjourney/src/features/authentication/presentation/sign_up_screen.dart';
 import 'package:weatherjourney/src/features/feed/presentation/feed_screen.dart';
 import 'package:weatherjourney/src/features/feed/presentation/generation_screen.dart';
+import 'package:weatherjourney/src/features/generation/presentation/create_generation_screen.dart';
 import 'package:weatherjourney/src/features/locations/presentation/location_create_screen.dart';
 import 'package:weatherjourney/src/features/locations/presentation/location_generate_screen.dart';
 import 'package:weatherjourney/src/features/locations/presentation/location_screen.dart';
@@ -37,6 +38,7 @@ enum AppRoute {
   home(route: "/"),
   weather(route: "/weather"),
   generations(route: "/generations"),
+  createGeneration(route: "/createGeneration"),
   locations(route: "/locations"),
   locationCreate(route: "/create"),
   locationGenerate(route: "/generate"),
@@ -142,6 +144,12 @@ GoRouter goRouter(ProviderRef<GoRouter> ref) {
             ],
           ),
         ],
+      ),
+      GoRoute(
+        path: AppRoute.createGeneration.route,
+        name: AppRoute.createGeneration.name,
+        pageBuilder: (context, state) =>
+            const NoTransitionPage(child: CreateGenerationScreen()),
       ),
       GoRoute(
         path: AppRoute.settings.route,

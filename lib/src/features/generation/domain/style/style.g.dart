@@ -7,7 +7,7 @@ part of 'style.dart';
 // **************************************************************************
 
 _$StyleImpl _$$StyleImplFromJson(Map<String, dynamic> json) => _$StyleImpl(
-      id: json['id'] as String?,
+      id: json['id'] as String,
       name: json['name'] as String,
     );
 

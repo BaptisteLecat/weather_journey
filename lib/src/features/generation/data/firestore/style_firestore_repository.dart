@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weatherjourney/src/features/settings/domain/style/style.dart';
+import 'package:weatherjourney/src/features/generation/domain/style/style.dart';
 
 class StyleFirestoreRepository {
   static String ressource = 'styles';

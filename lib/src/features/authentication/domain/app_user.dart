@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:weatherjourney/src/features/settings/domain/frequency/frequency.dart';
-import 'package:weatherjourney/src/features/settings/domain/style/style.dart';
+import 'package:weatherjourney/src/features/generation/domain/frequency/frequency.dart';
+import 'package:weatherjourney/src/features/generation/domain/style/style.dart';
 import 'package:weatherjourney/src/features/user/domain/user_follow/user_follow.dart';
 import 'package:weatherjourney/src/features/user/domain/user_like/user_like.dart';
 part 'app_user.freezed.dart';

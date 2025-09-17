@@ -26,3 +26,9 @@ final generationImageFutureProvider =
     rethrow;
   }
 });
+
+final styleImageProvider =
+    FutureProvider.autoDispose.family((ref, String id) async {
+  final storage = ref.watch(firebaseStorageInstanceProvider);
+  return storage.ref("styles").child("$id.png").getDownloadURL();
+});
